@@ -25,9 +25,27 @@ Optional:
 
 ## Step 1: Clone and Install Dependencies
 
+**Option A: Git clone (recommended)**
+
 ```bash
-git clone <repo-url> devnet-studylab
+git clone https://github.com/E-Conners-Lab/DevNet_StudyLab.git devnet-studylab
 cd devnet-studylab
+
+# Install root dependencies
+npm install
+
+# Install web app dependencies
+cd apps/web
+npm install
+cd ../..
+```
+
+**Option B: Download ZIP**
+
+If you don't have Git installed, click the green **Code** button on the GitHub repo page and select **Download ZIP**. Extract the archive and open a terminal in the extracted folder:
+
+```bash
+cd DevNet_StudyLab-main
 
 # Install root dependencies
 npm install

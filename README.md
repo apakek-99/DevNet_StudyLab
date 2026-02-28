@@ -59,6 +59,8 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) and log in with `student@devnet.lab` / `devnet123`.
 
+> **Downloading as ZIP instead of cloning?** Click the green "Code" button on GitHub and select "Download ZIP". After extracting, `cd` into the extracted folder (`DevNet_StudyLab-main`) and continue from `npm install` in step 1.
+
 See [SETUP.md](./SETUP.md) for the full setup guide.
 
 ## Project Structure

@@ -140,6 +140,7 @@ export default function FlashcardsPage() {
     reviewProgress,
     startReview,
     rateCard,
+    nextCard,
     endReview,
     getCardProgress,
   } = useFlashcards();
@@ -175,6 +176,12 @@ export default function FlashcardsPage() {
     [reviewCard, rateCard]
   );
 
+  // ---- Skip handler (advance without rating) ----
+  const handleSkip = useCallback(() => {
+    nextCard();
+    setIsFlipped(false);
+  }, [nextCard]);
+
   // ---- Start review ----
   const handleStartReview = useCallback(() => {
     startReview(domainFilter !== "all" ? domainFilter : undefined);
@@ -200,12 +207,13 @@ export default function FlashcardsPage() {
         if (e.key === "2") { e.preventDefault(); handleRate("hard"); }
         if (e.key === "3") { e.preventDefault(); handleRate("good"); }
         if (e.key === "4") { e.preventDefault(); handleRate("easy"); }
+        if (e.key === "s" || e.key === "S") { e.preventDefault(); handleSkip(); }
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isReviewActive, isReviewComplete, isFlipped, handleFlip, handleRate]);
+  }, [isReviewActive, isReviewComplete, isFlipped, handleFlip, handleRate, handleSkip]);
 
   // ---- Filtered cards for browse mode ----
   const browsableCards = useMemo(() => {
@@ -371,6 +379,7 @@ export default function FlashcardsPage() {
               <span><kbd className="px-1.5 py-0.5 rounded bg-zinc-700 text-zinc-300 font-mono">2</kbd> Hard</span>
               <span><kbd className="px-1.5 py-0.5 rounded bg-zinc-700 text-zinc-300 font-mono">3</kbd> Good</span>
               <span><kbd className="px-1.5 py-0.5 rounded bg-zinc-700 text-zinc-300 font-mono">4</kbd> Easy</span>
+              <span><kbd className="px-1.5 py-0.5 rounded bg-zinc-700 text-zinc-300 font-mono">S</kbd> Skip</span>
             </div>
           </div>
         )}
@@ -505,7 +514,7 @@ export default function FlashcardsPage() {
 
         {/* Rating Buttons */}
         {isFlipped && (
-          <div className="flex flex-col items-center gap-3">
+          <div className="relative z-10 flex flex-col items-center gap-3">
             <p className="text-xs text-zinc-600">How well did you know this?</p>
             <div className="flex items-center gap-2 flex-wrap justify-center">
               {(
@@ -539,6 +548,17 @@ export default function FlashcardsPage() {
                 </Button>
               ))}
             </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-zinc-600 hover:text-zinc-400 text-xs mt-1"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleSkip();
+              }}
+            >
+              Skip <span className="text-[10px] opacity-60 font-mono ml-1">S</span>
+            </Button>
           </div>
         )}
       </div>

@@ -276,23 +276,9 @@ export function useFlashcards() {
       };
 
       const newProgress = { ...progress, [id]: updatedProgress };
+
+      // Enqueue ALL state updates first (these always succeed)
       setProgress(newProgress);
-      saveAllProgress(newProgress);
-
-      // Fire-and-forget: sync to DB via API
-      fetch("/api/flashcards/progress", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          flashcardId: id,
-          quality,
-          currentProgress: p ?? null,
-        }),
-      }).catch(() => {
-        // API unavailable — localStorage is the sole source
-      });
-
-      // Update session stats
       setSessionStats((prev) => {
         const reviewed = prev.cardsReviewed + 1;
         const correct = quality >= 3 ? prev.correctCount + 1 : prev.correctCount;
@@ -313,9 +299,27 @@ export function useFlashcards() {
           nextReviewTime: earliest,
         };
       });
-
-      // Advance to next card
       setReviewIndex((prev) => prev + 1);
+
+      // Side effects (may fail — must not block advancement)
+      try {
+        saveAllProgress(newProgress);
+      } catch {
+        // localStorage may be full or blocked — progress still lives in state
+      }
+
+      // Fire-and-forget: sync to DB via API
+      fetch("/api/flashcards/progress", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          flashcardId: id,
+          quality,
+          currentProgress: p ?? null,
+        }),
+      }).catch(() => {
+        // API unavailable — localStorage is the sole source
+      });
     },
     [progress]
   );

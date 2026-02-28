@@ -88,7 +88,7 @@
       "question": "What are the core principles of Lean software development?",
       "answer": "Lean principles include: eliminate waste, amplify learning, decide as late as possible, deliver as fast as possible, empower the team, build integrity in, and optimize the whole.",
       "explanation": "Lean software development adapts principles from lean manufacturing (Toyota Production System). It focuses on eliminating anything that does not add value to the customer, including unnecessary code, features, documentation, and delays. Key practices include value stream mapping, reducing work-in-progress (WIP), and continuous improvement (kaizen).",
-      "sourceUrl": "https://www.agilealliance.org/glossary/lean-software-development/",
+      "sourceUrl": "https://agilealliance.org/agile101/agile-glossary/",
       "difficulty": "medium",
       "tags": ["lean", "sdlc", "methodology"]
     },

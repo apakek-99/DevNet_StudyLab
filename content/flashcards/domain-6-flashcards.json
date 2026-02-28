@@ -242,6 +242,156 @@
         "longest-prefix",
         "forwarding"
       ]
+    },
+    {
+      "id": "d6-fc-017",
+      "objectiveCode": "6.1",
+      "question": "What is the difference between an access port and a trunk port on a switch?",
+      "answer": "An access port belongs to a single VLAN and carries untagged traffic for end devices (PCs, printers, phones). A trunk port carries traffic for multiple VLANs using 802.1Q tagging, connecting switches to switches, switches to routers, or switches to servers.",
+      "explanation": "Access ports strip VLAN tags when sending to the end device and add the assigned VLAN tag when receiving. Trunk ports add a 4-byte 802.1Q tag with the VLAN ID to each frame. The native VLAN on a trunk is untagged (default VLAN 1). Configuration: 'switchport mode access' + 'switchport access vlan 10' for access ports; 'switchport mode trunk' + 'switchport trunk allowed vlan 10,20,30' for trunks.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/networking/what-is-an-ethernet-switch.html",
+      "difficulty": "medium",
+      "tags": ["vlan", "access-port", "trunk-port", "802.1q"]
+    },
+    {
+      "id": "d6-fc-018",
+      "objectiveCode": "6.1",
+      "question": "How does a switch learn MAC addresses and forward frames?",
+      "answer": "A switch builds a MAC address table by examining the source MAC address of incoming frames and associating it with the receiving port. To forward, it looks up the destination MAC in the table: if found, it sends only to that port (unicast); if not found, it floods the frame to all ports in the VLAN (unknown unicast).",
+      "explanation": "Process: 1) Frame arrives on port 1 with source MAC AA:BB:CC:DD:EE:FF. 2) Switch records 'AA:BB:CC:DD:EE:FF = port 1' in the MAC table. 3) Switch checks destination MAC in the table. 4) If found on port 3, sends only to port 3. If not found, floods to all ports except port 1. MAC table entries age out after a timeout (default 300 seconds on Cisco). Broadcast frames (FF:FF:FF:FF:FF:FF) are always flooded to all ports in the VLAN.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/networking/what-is-an-ethernet-switch.html",
+      "difficulty": "medium",
+      "tags": ["switching", "mac-address", "forwarding", "flooding"]
+    },
+    {
+      "id": "d6-fc-019",
+      "objectiveCode": "6.2",
+      "question": "What are the three private IP address ranges defined in RFC 1918?",
+      "answer": "10.0.0.0/8 (10.0.0.0 - 10.255.255.255), 172.16.0.0/12 (172.16.0.0 - 172.31.255.255), and 192.168.0.0/16 (192.168.0.0 - 192.168.255.255). These addresses are not routable on the public internet and are used for internal networks.",
+      "explanation": "Private addresses were created to conserve the limited IPv4 address space (only 4.3 billion addresses). Organizations use private addresses internally and NAT to translate to public addresses for internet access. 10.0.0.0/8 is the largest block (16 million addresses), commonly used in enterprises. 192.168.0.0/16 is commonly used in home networks and small offices. Any device can use these addresses internally without coordination with IANA.",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc1918",
+      "difficulty": "easy",
+      "tags": ["ip-addressing", "rfc1918", "private-ip", "network"]
+    },
+    {
+      "id": "d6-fc-020",
+      "objectiveCode": "6.2",
+      "question": "Given the IP address 192.168.10.50/26, what is the network address, broadcast address, and how many usable hosts are available?",
+      "answer": "Network address: 192.168.10.0. Broadcast address: 192.168.10.63. Usable hosts: 62 (2^6 - 2 = 62, from 192.168.10.1 to 192.168.10.62). The /26 mask means 26 network bits and 6 host bits.",
+      "explanation": "/26 = 255.255.255.192. The last octet has 6 host bits (2^6 = 64 addresses per subnet). Subnets in the last octet start at 0, 64, 128, 192. Since 50 falls in the 0-63 range, the network is 192.168.10.0/26. The broadcast is the last address in the range: 192.168.10.63. Subtract the network and broadcast addresses to get 62 usable hosts. Subnetting is a core skill for the DevNet exam.",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc4632",
+      "difficulty": "hard",
+      "tags": ["subnetting", "cidr", "ip-addressing", "calculation"]
+    },
+    {
+      "id": "d6-fc-021",
+      "objectiveCode": "6.3",
+      "question": "What is a Layer 3 switch and how does it differ from a router?",
+      "answer": "A Layer 3 switch can perform both Layer 2 switching (MAC-based forwarding) and Layer 3 routing (IP-based forwarding). It differs from a router in that it routes traffic in hardware (ASICs) at wire speed, while traditional routers may use software-based forwarding. L3 switches are used for inter-VLAN routing within a campus network.",
+      "explanation": "L3 switches combine the speed of switching with the intelligence of routing. They are ideal for inter-VLAN routing because traffic stays within the switch rather than going to an external router (router-on-a-stick). L3 switches support routing protocols (OSPF, EIGRP, BGP) and have SVIs (Switch Virtual Interfaces) for each VLAN. Routers are still preferred for WAN connections, complex policy routing, and connections to the internet.",
+      "sourceUrl": "https://www.cisco.com/c/en/us/solutions/small-business/resource-center/networking/network-switch-vs-router.html",
+      "difficulty": "medium",
+      "tags": ["l3-switch", "routing", "switching", "inter-vlan"]
+    },
+    {
+      "id": "d6-fc-022",
+      "objectiveCode": "6.4",
+      "question": "In a network topology diagram, what does a dashed line between two devices typically represent?",
+      "answer": "A dashed line typically represents a logical or virtual connection (e.g., VPN tunnel, VLAN trunk, overlay network) as opposed to a solid line which represents a physical cable connection. In some diagrams, dashed lines may indicate a wireless link or a backup/redundant path.",
+      "explanation": "Topology diagram conventions: solid lines = physical connections (copper, fiber). Dashed lines = logical connections (tunnels, virtual links). Colored lines may distinguish different networks or VLANs. Interface labels (Gi0/0, Eth1/1) identify the physical ports. IP addresses on links show the addressing scheme. Bandwidth labels (1G, 10G) indicate link speed. A cloud shape typically represents the internet or a WAN. Reading these conventions correctly is essential for understanding network architecture.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/networking/what-is-network-topology.html",
+      "difficulty": "easy",
+      "tags": ["topology", "diagram", "conventions", "logical-link"]
+    },
+    {
+      "id": "d6-fc-023",
+      "objectiveCode": "6.5",
+      "question": "How does SDN (Software-Defined Networking) change the relationship between control and data planes?",
+      "answer": "SDN centralizes the control plane into a controller, separating it from the data plane which remains on the network devices. The controller makes forwarding decisions and programs the data plane of switches/routers via APIs (e.g., OpenFlow, NETCONF). This enables centralized management and programmability.",
+      "explanation": "In traditional networking, each device has its own control plane (runs OSPF, BGP, etc.) and data plane. In SDN, the controller has a global view of the network and can make optimal forwarding decisions. Examples: Cisco ACI (APIC controller), Catalyst Center (intent-based), and OpenDaylight (open-source). Benefits: centralized policy, network-wide visibility, programmability via APIs, faster deployment of changes. The data plane still forwards traffic at line rate in hardware.",
+      "sourceUrl": "https://www.cisco.com/c/en/us/solutions/software-defined-networking/overview.html",
+      "difficulty": "medium",
+      "tags": ["sdn", "control-plane", "data-plane", "controller"]
+    },
+    {
+      "id": "d6-fc-024",
+      "objectiveCode": "6.6",
+      "question": "What is ARP (Address Resolution Protocol) and why is it needed?",
+      "answer": "ARP resolves IP addresses to MAC addresses on a local network. When a device knows the destination IP but not the MAC, it broadcasts an ARP request ('Who has 10.0.0.1?'). The device with that IP responds with its MAC address. The result is cached in the ARP table.",
+      "explanation": "ARP is needed because Ethernet frames require both source and destination MAC addresses for Layer 2 forwarding. If a host wants to send to 10.0.0.1 on its local subnet, it needs the MAC address to build the Ethernet frame. ARP operates at Layer 2-3 boundary. ARP cache entries expire (typically 120-300 seconds). Gratuitous ARP announces a device's own IP-MAC mapping. ARP only works within a broadcast domain (VLAN). For remote destinations, ARP resolves the default gateway's MAC.",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc826",
+      "difficulty": "medium",
+      "tags": ["arp", "mac-address", "ip-addressing", "layer2"]
+    },
+    {
+      "id": "d6-fc-025",
+      "objectiveCode": "6.7",
+      "question": "What is the difference between TCP and UDP, and which transport protocol do common services use?",
+      "answer": "TCP (Transmission Control Protocol) is connection-oriented, reliable (guaranteed delivery, in-order), with error checking and retransmission. UDP (User Datagram Protocol) is connectionless, unreliable (no guarantee), faster, and lower overhead. TCP: SSH(22), HTTP(80), HTTPS(443). UDP: DNS(53), DHCP(67/68), SNMP(161), NTP(123), TFTP(69).",
+      "explanation": "TCP uses a three-way handshake (SYN, SYN-ACK, ACK) to establish connections and sequence numbers for ordered delivery. UDP has no connection setup, making it faster for real-time applications. VoIP and video streaming prefer UDP because retransmitting lost packets would cause more delay than skipping them. Some protocols use both: DNS uses UDP for queries (fast) and TCP for zone transfers (reliable). NETCONF uses TCP (via SSH) for reliable configuration transport.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Glossary/TCP",
+      "difficulty": "medium",
+      "tags": ["tcp", "udp", "transport", "ports"]
+    },
+    {
+      "id": "d6-fc-026",
+      "objectiveCode": "6.8",
+      "question": "How do you troubleshoot an application connectivity issue caused by a proxy server?",
+      "answer": "1) Check if the application is configured to use the proxy (HTTP_PROXY, HTTPS_PROXY environment variables). 2) Verify the proxy server is reachable. 3) Check proxy authentication credentials. 4) Look for proxy errors in response headers. 5) Test direct connectivity bypassing the proxy (NO_PROXY setting).",
+      "explanation": "Proxies can cause issues when: the app does not know about the proxy, proxy credentials are wrong, the proxy blocks certain URLs or content types, or SSL inspection by the proxy causes certificate errors. In Python requests: proxies={'http': 'http://proxy:8080', 'https': 'http://proxy:8080'}. Environment variables HTTP_PROXY and HTTPS_PROXY configure system-wide proxy settings. Corporate proxies often require authentication and may intercept HTTPS traffic with their own certificates.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Proxy_servers_and_tunneling",
+      "difficulty": "medium",
+      "tags": ["proxy", "troubleshooting", "connectivity", "http"]
+    },
+    {
+      "id": "d6-fc-027",
+      "objectiveCode": "6.8",
+      "question": "What is a VPN (Virtual Private Network) and how can it affect application connectivity?",
+      "answer": "A VPN creates an encrypted tunnel between two points over a public network (internet), providing secure remote access to private networks. VPNs can affect connectivity by: changing the client's IP address and DNS settings, introducing split-tunnel vs full-tunnel routing decisions, and potentially blocking access to local resources.",
+      "explanation": "Full-tunnel VPN routes ALL traffic through the VPN (more secure but slower). Split-tunnel routes only corporate traffic through VPN, allowing direct internet access (better performance). VPN issues: DNS resolution may change (using corporate DNS), applications may not reach internet services through the VPN, and firewall rules at the VPN endpoint may block certain traffic. Common VPN types: IPsec (site-to-site), SSL/TLS VPN (remote access like Cisco AnyConnect).",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/security/what-is-vpn.html",
+      "difficulty": "medium",
+      "tags": ["vpn", "troubleshooting", "connectivity", "security"]
+    },
+    {
+      "id": "d6-fc-028",
+      "objectiveCode": "6.9",
+      "question": "How does latency affect REST API performance and what strategies mitigate it?",
+      "answer": "High latency increases API response times, compounds with sequential API calls (each call adds latency), and can cause timeouts. Mitigation: use bulk/batch API endpoints, make parallel requests, cache responses locally, use connection pooling (requests.Session()), and choose API endpoints geographically close to your application.",
+      "explanation": "If latency is 200ms and you make 10 sequential API calls, total wait time is at least 2 seconds. With parallel requests, it is just 200ms. requests.Session() reuses TCP connections (HTTP keep-alive), avoiding the overhead of new connection setup for each request. CDNs and edge APIs reduce latency by serving from nearby locations. HTTP/2 supports multiplexing (multiple requests over one connection). For Cisco APIs, use the always-on sandbox closest to your location.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/cloud-networking/what-is-low-latency.html",
+      "difficulty": "hard",
+      "tags": ["latency", "api-performance", "optimization", "network-constraints"]
+    },
+    {
+      "id": "d6-fc-029",
+      "objectiveCode": "6.3",
+      "question": "What is a wireless access point (AP) and how does it connect to the wired network?",
+      "answer": "A wireless access point provides Wi-Fi connectivity, bridging wireless clients to the wired LAN. It connects to a switch via an Ethernet cable, often receiving power over the same cable (PoE). In enterprise networks, APs are managed by a wireless LAN controller (WLC) which handles roaming, security policies, and RF management.",
+      "explanation": "Standalone APs (autonomous mode) are configured individually. Lightweight APs (CAPWAP) register with a WLC that manages all APs centrally. Meraki APs are cloud-managed via the Meraki Dashboard. Multiple SSIDs can map to different VLANs (e.g., corporate SSID on VLAN 10, guest SSID on VLAN 99). The WLC is programmable via APIs, enabling automation of SSID management, client monitoring, and RF optimization.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/networking/what-is-an-ethernet-switch.html",
+      "difficulty": "easy",
+      "tags": ["wireless", "access-point", "wlc", "network-devices"]
+    },
+    {
+      "id": "d6-fc-030",
+      "objectiveCode": "6.4",
+      "question": "What is a DMZ (Demilitarized Zone) in a network topology?",
+      "answer": "A DMZ is a network segment between the external (internet-facing) and internal firewalls that hosts public-facing services (web servers, email servers, API gateways). It allows external access to specific services while protecting the internal network from direct internet exposure.",
+      "explanation": "In a topology diagram, the DMZ appears between two firewalls: the outer firewall allows specific traffic from the internet to the DMZ, and the inner firewall restricts traffic from the DMZ to the internal network. If a DMZ server is compromised, the attacker is still blocked from reaching internal resources by the inner firewall. Common DMZ services: web servers, reverse proxies, DNS servers, VPN concentrators, and API gateways.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/networking/what-is-network-topology.html",
+      "difficulty": "medium",
+      "tags": ["dmz", "topology", "firewall", "security-zones"]
+    },
+    {
+      "id": "d6-fc-031",
+      "objectiveCode": "6.9",
+      "question": "What is QoS (Quality of Service) and how does it help network-dependent applications?",
+      "answer": "QoS is a set of techniques to manage bandwidth, latency, jitter, and packet loss on a network by prioritizing certain traffic types. It ensures critical applications (VoIP, video, API traffic) get the bandwidth and low latency they need, even when the network is congested.",
+      "explanation": "QoS mechanisms: classification (identify traffic type using DSCP markings, ACLs, or NBAR), queuing (priority queues for high-priority traffic), policing (drop traffic exceeding a rate), and shaping (buffer and smooth traffic to a rate). DSCP (Differentiated Services Code Point) marks packets with priority levels. Example: voice traffic marked as EF (Expedited Forwarding) gets priority queuing. Without QoS, a large file transfer could starve a VoIP call of bandwidth, causing audio drops.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/cloud-networking/what-is-low-latency.html",
+      "difficulty": "hard",
+      "tags": ["qos", "bandwidth", "latency", "traffic-management"]
     }
   ]
 }

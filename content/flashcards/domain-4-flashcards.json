@@ -241,6 +241,206 @@
         "networking",
         "security"
       ]
+    },
+    {
+      "id": "d4-fc-017",
+      "objectiveCode": "4.1",
+      "question": "What is Cisco IOx and how does it enable edge computing?",
+      "answer": "Cisco IOx is an application hosting platform that runs on Cisco network devices (routers, switches, access points). It enables edge computing by allowing you to deploy Docker containers or virtual machines directly on network infrastructure, processing data locally without sending it to the cloud.",
+      "explanation": "IOx combines IOS (network OS) with Linux, providing a Linux environment on the network device. Use cases: local data filtering for IoT sensors, real-time analytics at branch sites, and protocol translation at the edge. IOx apps are managed via Cisco IoT Operations Dashboard or Local Manager. This eliminates the need for separate edge servers by using existing network hardware for compute workloads.",
+      "sourceUrl": "https://developer.cisco.com/docs/iox/",
+      "difficulty": "medium",
+      "tags": ["iox", "edge-computing", "cisco", "iot"]
+    },
+    {
+      "id": "d4-fc-018",
+      "objectiveCode": "4.2",
+      "question": "What are IaaS, PaaS, and SaaS cloud service models?",
+      "answer": "IaaS (Infrastructure as a Service): Provider manages hardware, networking, storage; you manage OS and apps (e.g., AWS EC2). PaaS (Platform as a Service): Provider also manages OS and runtime; you manage apps and data (e.g., Heroku, Google App Engine). SaaS (Software as a Service): Provider manages everything; you just use the application (e.g., Webex, Salesforce).",
+      "explanation": "IaaS gives maximum control but more management burden. PaaS simplifies deployment (just push code). SaaS requires no infrastructure management. The shared responsibility model defines who secures what: in IaaS, you secure the OS and apps; in SaaS, the provider handles nearly all security. Cloud-native applications are designed to take advantage of PaaS features like auto-scaling, managed databases, and serverless functions.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/computing/what-is-hybrid-cloud.html",
+      "difficulty": "easy",
+      "tags": ["cloud", "iaas", "paas", "saas"]
+    },
+    {
+      "id": "d4-fc-019",
+      "objectiveCode": "4.3",
+      "question": "What is a hypervisor and what are Type 1 vs Type 2 hypervisors?",
+      "answer": "A hypervisor is software that creates and manages virtual machines. Type 1 (bare-metal) runs directly on hardware with no host OS (e.g., VMware ESXi, Microsoft Hyper-V). Type 2 (hosted) runs on top of a host OS (e.g., VirtualBox, VMware Workstation).",
+      "explanation": "Type 1 hypervisors are used in data centers and production environments for better performance and security. Type 2 hypervisors are used on developer workstations for local testing. Each VM has its own full OS, kernel, and allocated resources (CPU, RAM, disk). VMs are isolated from each other; a crash in one VM does not affect others. VMs are portable as images (OVA/OVF) but are larger and slower to start than containers.",
+      "sourceUrl": "https://docs.docker.com/get-started/overview/",
+      "difficulty": "medium",
+      "tags": ["hypervisor", "vm", "virtualization", "type1", "type2"]
+    },
+    {
+      "id": "d4-fc-020",
+      "objectiveCode": "4.3",
+      "question": "What are the key advantages of containers over VMs for microservices?",
+      "answer": "1) Lightweight: Share host OS kernel, no guest OS overhead. 2) Fast startup: Seconds vs minutes for VMs. 3) Portable: Same container runs identically on any Docker host. 4) Efficient: Higher density (more containers per host than VMs). 5) Consistent environments: Eliminates 'works on my machine' problems.",
+      "explanation": "Containers package the application, dependencies, and runtime into a single image. Docker images are layered and cached, making builds and transfers efficient. Container orchestrators like Kubernetes manage scaling, health checks, and load balancing across containers. Limitations: containers share the host kernel (Linux containers need a Linux host), provide weaker isolation than VMs, and are not ideal for applications requiring different OS types.",
+      "sourceUrl": "https://docs.docker.com/get-started/overview/",
+      "difficulty": "medium",
+      "tags": ["containers", "microservices", "docker", "comparison"]
+    },
+    {
+      "id": "d4-fc-021",
+      "objectiveCode": "4.4",
+      "question": "What is the difference between Continuous Integration, Continuous Delivery, and Continuous Deployment?",
+      "answer": "Continuous Integration (CI): Automatically build and test code on every commit. Continuous Delivery: CI + automated deployment to staging, but manual approval for production. Continuous Deployment: CI + fully automated deployment to production with no manual gates.",
+      "explanation": "CI catches integration issues early by merging code frequently and running automated tests. Continuous Delivery ensures code is always in a deployable state. Continuous Deployment goes further by automatically releasing every change that passes all tests. Most organizations use Continuous Delivery (not Deployment) for production to maintain a human approval step. The pipeline: commit > build > unit tests > integration tests > staging deploy > (approval) > production deploy.",
+      "sourceUrl": "https://www.cisco.com/c/en/us/solutions/data-center/data-center-networking/what-is-ci-cd.html",
+      "difficulty": "medium",
+      "tags": ["cicd", "continuous-integration", "continuous-delivery", "devops"]
+    },
+    {
+      "id": "d4-fc-022",
+      "objectiveCode": "4.5",
+      "question": "What are setUp() and tearDown() methods in Python unittest?",
+      "answer": "setUp() runs before each test method to set up test fixtures (create objects, establish connections, prepare test data). tearDown() runs after each test method to clean up resources (close connections, delete temp files). setUpClass() and tearDownClass() run once per test class.",
+      "explanation": "Example: class TestAPI(unittest.TestCase): def setUp(self): self.session = requests.Session(); self.base_url = 'https://api.example.com'. def tearDown(self): self.session.close(). def test_get_devices(self): response = self.session.get(f'{self.base_url}/devices'); self.assertEqual(response.status_code, 200). setUp/tearDown ensure each test starts with a clean state, making tests independent and repeatable.",
+      "sourceUrl": "https://docs.python.org/3/library/unittest.html#organizing-test-code",
+      "difficulty": "medium",
+      "tags": ["python", "unittest", "setup", "teardown"]
+    },
+    {
+      "id": "d4-fc-023",
+      "objectiveCode": "4.5",
+      "question": "How does pytest differ from unittest for Python testing?",
+      "answer": "pytest uses plain assert statements (assert x == 5) instead of special methods (self.assertEqual). It auto-discovers test files (test_*.py) and functions (test_*). pytest supports fixtures via decorators, parameterized tests, and has a rich plugin ecosystem.",
+      "explanation": "pytest advantages: simpler syntax (no class needed, just functions), better error messages showing actual vs expected values, fixtures with @pytest.fixture for setup/teardown, @pytest.mark.parametrize for testing multiple inputs, and plugins for coverage, parallel execution, and mocking. Both frameworks can run each other's tests. pytest is the de facto standard for new Python projects, while unittest is built into the standard library.",
+      "sourceUrl": "https://docs.python.org/3/library/unittest.html",
+      "difficulty": "medium",
+      "tags": ["python", "pytest", "unittest", "testing"]
+    },
+    {
+      "id": "d4-fc-024",
+      "objectiveCode": "4.6",
+      "question": "What is the difference between CMD and ENTRYPOINT in a Dockerfile?",
+      "answer": "CMD sets the default command that can be overridden at runtime (docker run myimage /bin/sh overrides CMD). ENTRYPOINT sets the main executable that cannot be easily overridden; CMD arguments are appended to ENTRYPOINT. Use ENTRYPOINT for the main process and CMD for default arguments.",
+      "explanation": "Example: ENTRYPOINT [\"python\", \"app.py\"] with CMD [\"--port\", \"8080\"] means running the container executes 'python app.py --port 8080'. Running 'docker run myimage --port 9090' overrides only CMD, executing 'python app.py --port 9090'. Both have shell form (CMD python app.py) and exec form (CMD [\"python\", \"app.py\"]). Exec form is preferred as it runs the process directly without a shell wrapper, enabling proper signal handling.",
+      "sourceUrl": "https://docs.docker.com/reference/dockerfile/#cmd",
+      "difficulty": "hard",
+      "tags": ["docker", "dockerfile", "cmd", "entrypoint"]
+    },
+    {
+      "id": "d4-fc-025",
+      "objectiveCode": "4.6",
+      "question": "What is a multi-stage Docker build and why is it useful?",
+      "answer": "Multi-stage builds use multiple FROM statements in one Dockerfile. Early stages compile/build the application with full build tools. The final stage copies only the built artifacts into a minimal runtime image. This produces smaller, more secure production images.",
+      "explanation": "Example: FROM python:3.11 AS builder / RUN pip install --target=/deps -r requirements.txt / FROM python:3.11-slim / COPY --from=builder /deps /deps / COPY app.py . / CMD [\"python\", \"app.py\"]. The builder stage has all build tools; the final image only contains the runtime and dependencies. This reduces image size significantly (e.g., 900MB to 150MB) and removes build tools that could be security risks in production.",
+      "sourceUrl": "https://docs.docker.com/build/building/multi-stage/",
+      "difficulty": "hard",
+      "tags": ["docker", "dockerfile", "multi-stage", "optimization"]
+    },
+    {
+      "id": "d4-fc-026",
+      "objectiveCode": "4.7",
+      "question": "What is Docker Compose and when would you use it?",
+      "answer": "Docker Compose defines and runs multi-container applications using a YAML file (docker-compose.yml). Use it when your application needs multiple services (e.g., web app + database + cache). Run all services with 'docker compose up'.",
+      "explanation": "Example docker-compose.yml: services: web: build: . ports: ['8080:80'] depends_on: [db]; db: image: postgres:15 environment: POSTGRES_PASSWORD: secret. Docker Compose handles networking (services can reach each other by name), volume mounting, environment variables, and startup order. Use 'docker compose up -d' for detached mode, 'docker compose down' to stop and remove, 'docker compose logs' to view output.",
+      "sourceUrl": "https://docs.docker.com/compose/",
+      "difficulty": "medium",
+      "tags": ["docker", "docker-compose", "multi-container", "local-dev"]
+    },
+    {
+      "id": "d4-fc-027",
+      "objectiveCode": "4.7",
+      "question": "What is a Docker volume and why is it important?",
+      "answer": "A Docker volume is a persistent storage mechanism that exists outside the container's filesystem. Volumes survive container deletion, can be shared between containers, and are the preferred way to persist data (e.g., database files) in Docker.",
+      "explanation": "Without volumes, all data inside a container is lost when the container is removed. Mount types: named volumes (docker volume create mydata, -v mydata:/app/data), bind mounts (-v /host/path:/container/path for development), and tmpfs (in-memory, temporary). Named volumes are managed by Docker and are the most portable. Bind mounts are useful during development to sync code changes without rebuilding the image.",
+      "sourceUrl": "https://docs.docker.com/engine/storage/volumes/",
+      "difficulty": "medium",
+      "tags": ["docker", "volumes", "persistence", "storage"]
+    },
+    {
+      "id": "d4-fc-028",
+      "objectiveCode": "4.8",
+      "question": "What is data handling best practice for sensitive information like PII (Personally Identifiable Information)?",
+      "answer": "1) Collect only necessary data (data minimization). 2) Encrypt sensitive data at rest and in transit. 3) Implement access controls (role-based). 4) Log access to sensitive data for audit. 5) Define data retention policies and delete data when no longer needed. 6) Mask or tokenize sensitive data in logs and non-production environments.",
+      "explanation": "PII includes names, emails, SSNs, IP addresses, and biometric data. Regulations like GDPR and CCPA mandate specific data handling requirements. Never log sensitive data in plain text. Use field-level encryption for highly sensitive data. Implement data classification (public, internal, confidential, restricted) to apply appropriate controls. Tokenization replaces sensitive data with non-sensitive placeholders while maintaining referential integrity.",
+      "sourceUrl": "https://cheatsheetseries.owasp.org/cheatsheets/User_Privacy_Protection_Cheat_Sheet.html",
+      "difficulty": "medium",
+      "tags": ["security", "data-handling", "pii", "encryption"]
+    },
+    {
+      "id": "d4-fc-029",
+      "objectiveCode": "4.9",
+      "question": "What are common load balancing algorithms?",
+      "answer": "Round Robin: Distributes requests sequentially across servers. Least Connections: Sends to the server with fewest active connections. IP Hash: Routes based on client IP (session persistence). Weighted: Assigns proportional traffic based on server capacity.",
+      "explanation": "Round Robin is simplest but does not account for server load. Least Connections is better for varying request durations. IP Hash ensures a client always reaches the same server (useful for session state). Health checks detect failed servers and remove them from the pool. Layer 4 load balancers route based on IP/port (TCP/UDP). Layer 7 load balancers inspect HTTP content and can route based on URL path, headers, or cookies.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Proxy_servers_and_tunneling",
+      "difficulty": "medium",
+      "tags": ["load-balancer", "algorithms", "high-availability", "deployment"]
+    },
+    {
+      "id": "d4-fc-030",
+      "objectiveCode": "4.10",
+      "question": "What is Broken Authentication and how does it appear in the OWASP Top 10?",
+      "answer": "Broken Authentication occurs when authentication mechanisms are improperly implemented, allowing attackers to compromise passwords, tokens, or session IDs. Examples: weak passwords allowed, no brute-force protection, session tokens in URLs, no multi-factor authentication.",
+      "explanation": "Prevention: enforce strong password policies, implement account lockout after failed attempts, use multi-factor authentication (MFA), regenerate session IDs after login, set proper session timeouts, never expose session tokens in URLs, use secure cookie flags (HttpOnly, Secure, SameSite). Credential stuffing (using leaked password databases) is a common attack. Rate limiting login attempts and using CAPTCHA help prevent automated attacks.",
+      "sourceUrl": "https://owasp.org/www-project-top-ten/",
+      "difficulty": "medium",
+      "tags": ["owasp", "authentication", "security", "session"]
+    },
+    {
+      "id": "d4-fc-031",
+      "objectiveCode": "4.11",
+      "question": "How do Bash pipes and redirection work?",
+      "answer": "Pipe (|) sends the stdout of one command as stdin to another: ls -l | grep '.py'. Redirect output: > overwrites a file, >> appends. Redirect input: < reads from a file. Redirect stderr: 2> error.log. Redirect both: &> all.log.",
+      "explanation": "Pipes chain commands: cat access.log | grep '404' | wc -l (count 404 errors). Common patterns: command | sort | uniq -c (count unique occurrences), command | head -20 (first 20 lines), command | tail -f (follow log output). Redirection: echo 'data' > file.txt (overwrite), echo 'more' >> file.txt (append). Here documents: cat << EOF ... EOF for multi-line input. /dev/null discards output: command > /dev/null 2>&1.",
+      "sourceUrl": "https://www.gnu.org/software/bash/manual/bash.html#Redirections",
+      "difficulty": "medium",
+      "tags": ["bash", "pipes", "redirection", "cli"]
+    },
+    {
+      "id": "d4-fc-032",
+      "objectiveCode": "4.11",
+      "question": "How do you use environment variables in Bash and why are they important for application configuration?",
+      "answer": "Set: export API_KEY='abc123'. Read: echo $API_KEY. In scripts: use $API_KEY or ${API_KEY}. View all: env or printenv. Environment variables configure applications without hardcoding values, keeping secrets out of source code.",
+      "explanation": "The 12-Factor App methodology recommends storing config in environment variables. Common variables: PATH, HOME, USER, SHELL. For applications: DATABASE_URL, API_KEY, DEBUG=true. Set permanently in ~/.bashrc or ~/.bash_profile. In Docker: ENV directive in Dockerfile or -e flag in docker run. In CI/CD: set as pipeline secrets. Use .env files with tools like python-dotenv for local development, but never commit .env files to Git.",
+      "sourceUrl": "https://www.gnu.org/software/bash/manual/bash.html#Environment",
+      "difficulty": "easy",
+      "tags": ["bash", "environment-variables", "configuration", "12-factor"]
+    },
+    {
+      "id": "d4-fc-033",
+      "objectiveCode": "4.12",
+      "question": "What is the 'shift-left' principle in DevOps?",
+      "answer": "Shift-left means moving testing, security, and quality checks earlier in the development lifecycle (to the left on a timeline). Instead of finding bugs in production, catch them during development through automated testing, code reviews, static analysis, and security scanning in CI.",
+      "explanation": "Traditional approach: develop > deploy > find bugs in production (expensive to fix). Shift-left: develop with linting > commit triggers unit tests > PR triggers integration tests and security scans > deploy to staging with automated validation. Shift-left security (DevSecOps) integrates security tools like SAST (static analysis), DAST (dynamic testing), and dependency scanning into the CI pipeline. Bugs found earlier are 10-100x cheaper to fix.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/computing/what-is-devops.html",
+      "difficulty": "easy",
+      "tags": ["devops", "shift-left", "testing", "devsecops"]
+    },
+    {
+      "id": "d4-fc-034",
+      "objectiveCode": "4.4",
+      "question": "What is a GitHub Actions workflow and how does it relate to CI/CD?",
+      "answer": "GitHub Actions is a CI/CD platform built into GitHub. Workflows are defined in YAML files (.github/workflows/) and triggered by events (push, pull_request, schedule). Each workflow has jobs that run on runners, with steps that execute commands or use pre-built actions.",
+      "explanation": "Example workflow: on push to main, run unit tests. Structure: name > on (trigger) > jobs > steps. Steps use 'uses' for pre-built actions (actions/checkout@v4, actions/setup-python@v5) or 'run' for shell commands. Jobs run in parallel by default; use 'needs' for sequential execution. Secrets are stored in repository settings and accessed as ${{ secrets.API_KEY }}. GitHub-hosted runners provide Linux, macOS, and Windows environments.",
+      "sourceUrl": "https://docs.github.com/en/actions/writing-workflows/quickstart",
+      "difficulty": "medium",
+      "tags": ["github-actions", "cicd", "automation", "yaml"]
+    },
+    {
+      "id": "d4-fc-035",
+      "objectiveCode": "4.8",
+      "question": "What is TLS (Transport Layer Security) and how does the TLS handshake work?",
+      "answer": "TLS encrypts data in transit between client and server (HTTPS = HTTP + TLS). The handshake: 1) Client sends supported cipher suites. 2) Server selects a cipher and sends its certificate. 3) Client verifies the certificate. 4) Both sides derive session keys. 5) Encrypted communication begins.",
+      "explanation": "TLS replaced SSL (SSL 3.0 is deprecated). TLS 1.2 and 1.3 are current standards. The certificate contains the server's public key and is signed by a Certificate Authority (CA). The client checks that the certificate is valid, not expired, and issued for the correct domain. TLS 1.3 simplified the handshake to one round trip (faster). In Python requests, verify=True (default) enforces certificate verification. Self-signed certificates fail verification unless explicitly trusted.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/Security/Transport_Layer_Security",
+      "difficulty": "hard",
+      "tags": ["tls", "ssl", "encryption", "https", "security"]
+    },
+    {
+      "id": "d4-fc-036",
+      "objectiveCode": "4.2",
+      "question": "What is serverless computing and how does it differ from containers?",
+      "answer": "Serverless (e.g., AWS Lambda, Azure Functions) runs code in response to events without managing any infrastructure. The provider handles scaling, patching, and availability. Unlike containers, you deploy individual functions, pay only for execution time, and have no idle costs.",
+      "explanation": "Serverless advantages: zero infrastructure management, automatic scaling to zero when idle, pay-per-invocation pricing. Limitations: cold start latency, execution time limits (typically 15 minutes), limited runtime customization, and vendor lock-in. Containers offer more control over the runtime environment and are better for long-running processes. Serverless is ideal for event-driven workloads like API backends, file processing, and webhook handlers.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/computing/what-is-hybrid-cloud.html",
+      "difficulty": "medium",
+      "tags": ["serverless", "cloud", "functions", "deployment-models"]
     }
   ]
 }

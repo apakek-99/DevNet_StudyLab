@@ -161,6 +161,176 @@
       "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type",
       "difficulty": "easy",
       "tags": ["http", "headers", "content-type", "mime"]
+    },
+    {
+      "id": "d2-fc-017",
+      "objectiveCode": "2.1",
+      "question": "What is the difference between PUT and PATCH HTTP methods?",
+      "answer": "PUT replaces the entire resource with the provided data. PATCH applies a partial update, modifying only the specified fields. If you PUT without including a field, it may be deleted; PATCH only changes what you send.",
+      "explanation": "Example: A device resource has name, ip, and location. PUT /devices/1 with {name: 'R1', ip: '10.0.0.1'} would remove the location field. PATCH /devices/1 with {ip: '10.0.0.2'} only updates the IP, leaving name and location unchanged. PUT is idempotent. PATCH is also considered idempotent in practice. Use PUT when you have the complete resource; use PATCH for targeted field updates.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH",
+      "difficulty": "medium",
+      "tags": ["rest", "http-methods", "put", "patch"]
+    },
+    {
+      "id": "d2-fc-018",
+      "objectiveCode": "2.1",
+      "question": "What makes a REST API 'RESTful'? What are the key constraints?",
+      "answer": "REST constraints: 1) Client-Server separation. 2) Stateless (each request contains all needed info). 3) Cacheable responses. 4) Uniform Interface (resource-based URIs, standard HTTP methods). 5) Layered System. 6) (Optional) Code on Demand.",
+      "explanation": "Statelessness means the server does not store session state between requests; each request must include authentication and context. Uniform Interface means resources are identified by URIs (e.g., /api/v1/devices/123), manipulated via standard HTTP methods, and represented in standard formats (JSON/XML). HATEOAS (Hypermedia As The Engine Of Application State) is the most mature REST level, where responses include links to related actions.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Glossary/REST",
+      "difficulty": "medium",
+      "tags": ["rest", "constraints", "stateless", "api-design"]
+    },
+    {
+      "id": "d2-fc-019",
+      "objectiveCode": "2.2",
+      "question": "How do you secure a webhook endpoint from spoofed requests?",
+      "answer": "Verify webhook authenticity using HMAC signatures: the sender includes a hash of the payload signed with a shared secret in a header. The receiver recomputes the hash and compares it. Also use HTTPS for the callback URL and optionally validate the source IP.",
+      "explanation": "Webex webhooks include an X-Spark-Signature header containing an HMAC-SHA1 hash of the request body using your webhook secret. To verify: compute hmac.new(secret, body, hashlib.sha1).hexdigest() and compare with the header value. Without verification, an attacker could send fake webhook events to your endpoint. Additional security: use a unique, hard-to-guess callback URL path and validate the event data format.",
+      "sourceUrl": "https://developer.webex.com/docs/api/guides/webhooks#receiving-a-webhook",
+      "difficulty": "hard",
+      "tags": ["webhooks", "security", "hmac", "authentication"]
+    },
+    {
+      "id": "d2-fc-020",
+      "objectiveCode": "2.3",
+      "question": "What is API pagination and what are the two main approaches?",
+      "answer": "Pagination splits large result sets into smaller pages. Offset-based: uses ?offset=20&limit=10 to skip/limit results. Cursor-based: uses an opaque cursor token from the previous response to fetch the next page, which is more efficient for large datasets.",
+      "explanation": "Offset-based is simple but can miss or duplicate items if data changes between requests. Cursor-based pagination is stateless and consistent, commonly returning a 'next' URL or cursor token. Meraki API uses Link headers for pagination. Catalyst Center uses offset/limit. Always check if there are more pages: look for a 'next' link, hasMore flag, or compare returned count vs total. Never assume all data comes in one response.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link",
+      "difficulty": "medium",
+      "tags": ["pagination", "api-constraints", "offset", "cursor"]
+    },
+    {
+      "id": "d2-fc-021",
+      "objectiveCode": "2.3",
+      "question": "What is API rate limiting and how should you handle HTTP 429 responses?",
+      "answer": "Rate limiting restricts how many API requests you can make per time period. HTTP 429 Too Many Requests means you have exceeded the limit. Handle it by: reading the Retry-After header, implementing exponential backoff, and designing your code to stay within limits.",
+      "explanation": "Meraki allows 10 requests/second per org. Webex allows varies by API. Catalyst Center has per-endpoint limits. Best practices: cache responses to avoid redundant calls, use bulk endpoints when available, implement a request queue with rate control, and respect the X-RateLimit-Remaining header to preemptively slow down before hitting the limit. Libraries like the Meraki SDK handle retry logic automatically.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+      "difficulty": "medium",
+      "tags": ["rate-limiting", "api-constraints", "429", "retry"]
+    },
+    {
+      "id": "d2-fc-022",
+      "objectiveCode": "2.4",
+      "question": "What do HTTP status codes 200, 201, and 204 indicate?",
+      "answer": "200 OK: Request succeeded, response body contains the result. 201 Created: A new resource was successfully created (typically from POST), response often includes a Location header. 204 No Content: Request succeeded but there is no response body (common for DELETE and PUT).",
+      "explanation": "200 is the standard success response for GET requests. 201 is returned when POST successfully creates a resource; the Location header points to the new resource URL. 204 is used when the operation succeeds but there is nothing to return (e.g., DELETE /users/123 returns 204 with an empty body). Using specific 2xx codes instead of always returning 200 makes APIs more informative and follows REST best practices.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201",
+      "difficulty": "easy",
+      "tags": ["http", "status-codes", "success", "2xx"]
+    },
+    {
+      "id": "d2-fc-023",
+      "objectiveCode": "2.5",
+      "question": "You receive HTTP 400 Bad Request when calling an API. What are common causes and how do you troubleshoot?",
+      "answer": "400 means the server cannot process the request due to client error. Common causes: malformed JSON body, missing required fields, invalid data types, or incorrect query parameters. Troubleshoot by reading the response body for error details, validating your JSON, and comparing against the API documentation.",
+      "explanation": "Troubleshooting steps: 1) Read the error message in the response body (many APIs return specific field-level errors). 2) Validate your JSON with a linter (trailing commas and single quotes are invalid). 3) Check required fields against API docs. 4) Verify data types (string vs integer). 5) Check for URL encoding issues in query parameters. 6) Use tools like Postman to test the same request manually.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+      "difficulty": "easy",
+      "tags": ["http", "status-codes", "troubleshooting", "400"]
+    },
+    {
+      "id": "d2-fc-024",
+      "objectiveCode": "2.5",
+      "question": "Your API call returns HTTP 404 Not Found. What should you check?",
+      "answer": "Check: 1) The URL path is correct (typos, case sensitivity). 2) The resource ID exists on the server. 3) The API version in the URL is correct. 4) The API base URL matches the documentation. 5) URL path parameters are properly substituted (not still showing {id} placeholder).",
+      "explanation": "404 means the server cannot find the requested resource. Common mistakes: using /api/v1 instead of /api/v2, forgetting to URL-encode special characters, using the wrong resource ID, or the resource was deleted. Some APIs return 404 instead of 403 for security reasons (to avoid revealing that a resource exists). Always verify the exact endpoint path against current API documentation.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
+      "difficulty": "easy",
+      "tags": ["http", "status-codes", "troubleshooting", "404"]
+    },
+    {
+      "id": "d2-fc-025",
+      "objectiveCode": "2.6",
+      "question": "What are the three main parts of an HTTP request?",
+      "answer": "1) Request Line: HTTP method, URL path, and HTTP version (e.g., 'GET /api/v1/devices HTTP/1.1'). 2) Headers: Key-value metadata (Host, Authorization, Content-Type, Accept). 3) Body: Data sent with POST/PUT/PATCH requests (e.g., JSON payload).",
+      "explanation": "GET and DELETE requests typically have no body. POST, PUT, and PATCH include a body. The Host header is required in HTTP/1.1 and specifies the target server. The Accept header tells the server what response format the client wants (e.g., application/json). Query parameters are part of the URL (?key=value&key2=value2), not the body. Understanding request structure is essential for debugging API calls with tools like curl or Wireshark.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages#http_requests",
+      "difficulty": "easy",
+      "tags": ["http", "request", "headers", "body"]
+    },
+    {
+      "id": "d2-fc-026",
+      "objectiveCode": "2.7",
+      "question": "How does OAuth 2.0 work at a high level for API authentication?",
+      "answer": "OAuth 2.0 allows a third-party app to access resources on behalf of a user without exposing the user's credentials. The flow: 1) App redirects user to authorization server. 2) User grants permission. 3) App receives an authorization code. 4) App exchanges the code for an access token. 5) App uses the token to call the API.",
+      "explanation": "OAuth 2.0 separates the roles of resource owner (user), client (app), authorization server (issues tokens), and resource server (API). The access token is short-lived; a refresh token can obtain new access tokens without re-prompting the user. Grant types include Authorization Code (web apps), Client Credentials (server-to-server), and Implicit (deprecated). Webex integrations use OAuth 2.0 for user-authorized access.",
+      "sourceUrl": "https://developer.webex.com/docs/integrations",
+      "difficulty": "hard",
+      "tags": ["oauth", "authentication", "authorization", "tokens"]
+    },
+    {
+      "id": "d2-fc-027",
+      "objectiveCode": "2.8",
+      "question": "What is a REST API resource and how are resources identified?",
+      "answer": "A resource is any named entity the API exposes (device, user, network, interface). Resources are identified by URIs: /api/v1/devices (collection), /api/v1/devices/123 (specific resource). Collections use plural nouns; actions use HTTP methods, not verbs in URLs.",
+      "explanation": "Good REST design: GET /networks (list all), POST /networks (create), GET /networks/abc (get one), PUT /networks/abc (replace), DELETE /networks/abc (remove). Bad design: POST /getNetworks, POST /deleteNetwork. Nested resources show relationships: GET /networks/abc/devices lists devices in network abc. Query parameters filter collections: GET /devices?model=C9300&status=online.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Glossary/REST",
+      "difficulty": "medium",
+      "tags": ["rest", "resources", "uri", "api-design"]
+    },
+    {
+      "id": "d2-fc-028",
+      "objectiveCode": "2.9",
+      "question": "How do you handle errors in a Python requests script using try/except and raise_for_status()?",
+      "answer": "Use response.raise_for_status() to raise an HTTPError exception for 4xx/5xx responses. Wrap API calls in try/except to catch requests.exceptions.HTTPError, requests.exceptions.ConnectionError, and requests.exceptions.Timeout.",
+      "explanation": "Pattern: try: response = requests.get(url, timeout=30); response.raise_for_status(); data = response.json() except requests.exceptions.HTTPError as e: print(f'HTTP error: {e}') except requests.exceptions.ConnectionError: print('Cannot connect') except requests.exceptions.Timeout: print('Request timed out'). Always set a timeout to prevent hanging. Without raise_for_status(), a 404 response would not raise an exception and your code would try to parse an error page as JSON.",
+      "sourceUrl": "https://docs.python-requests.org/en/latest/user/quickstart/#errors-and-exceptions",
+      "difficulty": "medium",
+      "tags": ["python", "requests", "error-handling", "exceptions"]
+    },
+    {
+      "id": "d2-fc-029",
+      "objectiveCode": "2.9",
+      "question": "How do you pass query parameters in a Python requests GET call?",
+      "answer": "Use the params= argument: requests.get(url, params={'status': 'active', 'limit': 10}). The requests library automatically URL-encodes the parameters and appends them to the URL as ?status=active&limit=10.",
+      "explanation": "Using params= is preferred over manually building the URL string because it handles URL encoding of special characters automatically. For example, a space becomes %20 and & in a value is properly escaped. You can also pass a list for repeated parameters: params={'tag': ['router', 'switch']} becomes ?tag=router&tag=switch. This is commonly used with Cisco APIs for filtering device lists or specifying pagination offsets.",
+      "sourceUrl": "https://docs.python-requests.org/en/latest/user/quickstart/#passing-parameters-in-urls",
+      "difficulty": "easy",
+      "tags": ["python", "requests", "query-parameters", "url-encoding"]
+    },
+    {
+      "id": "d2-fc-030",
+      "objectiveCode": "2.2",
+      "question": "What information does a webhook registration typically require?",
+      "answer": "A webhook registration typically requires: 1) Target URL (your callback endpoint). 2) Event type(s) to subscribe to (e.g., 'messages:created'). 3) A secret key for signature verification. Optionally: filters, expiration time, and a name.",
+      "explanation": "Webex webhook creation: POST /v1/webhooks with {targetUrl: 'https://myapp.com/webhook', resource: 'messages', event: 'created', secret: 'mySecret'}. Meraki uses alert settings to configure webhook URLs for network events. The callback URL must be publicly accessible (HTTPS). During development, tools like ngrok can expose a local server to the internet for webhook testing.",
+      "sourceUrl": "https://developer.webex.com/docs/api/v1/webhooks/create-a-webhook",
+      "difficulty": "medium",
+      "tags": ["webhooks", "registration", "event-driven", "webex"]
+    },
+    {
+      "id": "d2-fc-031",
+      "objectiveCode": "2.9",
+      "question": "How do you disable SSL certificate verification in Python requests and when would you do this?",
+      "answer": "Pass verify=False to the request: requests.get(url, verify=False). This is used in lab/development environments with self-signed certificates (e.g., Catalyst Center sandbox, IOS XE RESTCONF). Never disable verification in production.",
+      "explanation": "Self-signed certificates on lab devices cause requests.exceptions.SSLError. Setting verify=False bypasses certificate validation. To suppress the InsecureRequestWarning: import urllib3; urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning). In production, use proper CA-signed certificates or specify a custom CA bundle: verify='/path/to/ca-bundle.crt'. Disabling SSL verification makes the connection vulnerable to man-in-the-middle attacks.",
+      "sourceUrl": "https://docs.python-requests.org/en/latest/user/advanced/#ssl-cert-verification",
+      "difficulty": "medium",
+      "tags": ["python", "requests", "ssl", "certificates", "security"]
+    },
+    {
+      "id": "d2-fc-032",
+      "objectiveCode": "2.6",
+      "question": "What are common HTTP response headers used by REST APIs and what do they mean?",
+      "answer": "X-RateLimit-Remaining: Requests remaining before rate limit. Retry-After: Seconds to wait after 429/503. Location: URL of newly created resource (with 201). ETag: Version identifier for caching. Set-Cookie: Sets a browser cookie for session management.",
+      "explanation": "Cache-Control directs caching behavior (max-age, no-cache, no-store). Access-Control-Allow-Origin enables CORS (Cross-Origin Resource Sharing) for browser-based API calls. X-Request-Id provides a unique ID for request tracing across distributed systems. Pagination headers like Link: <url>; rel=\"next\" indicate the next page of results. Understanding response headers is essential for building robust API clients.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers",
+      "difficulty": "medium",
+      "tags": ["http", "headers", "rate-limiting", "caching"]
+    },
+    {
+      "id": "d2-fc-033",
+      "objectiveCode": "2.4",
+      "question": "What does HTTP 301 Moved Permanently mean and how does it differ from 302 Found?",
+      "answer": "301 indicates the resource has permanently moved to a new URL (provided in the Location header). Clients should update bookmarks. 302 indicates a temporary redirect; the client should continue using the original URL for future requests.",
+      "explanation": "301 redirects are cached by browsers and used when APIs change their URL structure permanently. 302 is used for temporary situations like maintenance or A/B testing. 307 Temporary Redirect is similar to 302 but guarantees the HTTP method is preserved (302 may change POST to GET in some browsers). 308 Permanent Redirect preserves the method like 307 but is permanent like 301. The requests library follows redirects automatically by default.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/301",
+      "difficulty": "medium",
+      "tags": ["http", "status-codes", "redirect", "3xx"]
     }
   ]
 }

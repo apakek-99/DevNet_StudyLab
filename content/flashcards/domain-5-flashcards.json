@@ -242,6 +242,206 @@
         "resource-modules",
         "idempotent"
       ]
+    },
+    {
+      "id": "d5-fc-017",
+      "objectiveCode": "5.1",
+      "question": "What are the three categories of YANG models used on Cisco devices?",
+      "answer": "1) IETF models: Vendor-neutral standards (e.g., ietf-interfaces, ietf-ip). 2) OpenConfig models: Multi-vendor models from the OpenConfig consortium (e.g., openconfig-interfaces). 3) Cisco native models: Cisco-specific models with full feature coverage (e.g., Cisco-IOS-XE-native).",
+      "explanation": "IETF models provide the broadest interoperability but may not cover vendor-specific features. OpenConfig models are driven by network operators for common use cases. Cisco native models expose all device features but are platform-specific. Best practice: use IETF/OpenConfig for multi-vendor automation and Cisco native when you need vendor-specific features. List available models via NETCONF capabilities exchange or RESTCONF: GET /restconf/data/ietf-yang-library:modules-state.",
+      "sourceUrl": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/prog/configuration/1717/b_1717_programmability_cg/m_1717_prog_yang_netconf.html",
+      "difficulty": "hard",
+      "tags": ["yang", "ietf", "openconfig", "cisco-native"]
+    },
+    {
+      "id": "d5-fc-018",
+      "objectiveCode": "5.2",
+      "question": "What are the advantages and disadvantages of controller-level management?",
+      "answer": "Advantages: Simplified management of large networks, network-wide policy enforcement, abstraction of device complexity, single API for multi-device operations. Disadvantages: Single point of failure if controller is down, added complexity/cost, may not expose all device-level features, learning curve for the controller API.",
+      "explanation": "Controller-level management is ideal for large-scale networks where managing devices individually is impractical. Example: Catalyst Center can push a VLAN change to 100 switches in one API call. However, if the controller is unavailable, you may need fallback to device-level access. Controllers also add latency between the API call and the device change. Many organizations use a hybrid approach: controller for day-to-day operations, device-level for troubleshooting and edge cases.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/networking/what-is-a-network-controller.html",
+      "difficulty": "medium",
+      "tags": ["controller", "management", "advantages", "trade-offs"]
+    },
+    {
+      "id": "d5-fc-019",
+      "objectiveCode": "5.3",
+      "question": "What is pyATS Genie and how does it parse CLI output into structured data?",
+      "answer": "Genie is a pyATS library that provides parsers for 500+ CLI 'show' commands across Cisco platforms. It converts unstructured CLI text output into structured Python dictionaries. Example: device.parse('show ip interface brief') returns a dict with interface names, IPs, and statuses.",
+      "explanation": "Without Genie, you would need to write regex patterns to extract data from CLI output (fragile and platform-specific). Genie parsers handle variations in output formatting across IOS versions. Use case: parsed = device.parse('show interfaces'); parsed['GigabitEthernet1']['counters']['in_pkts'] gives you the packet count as an integer. Genie also provides 'learn' features that collect the full operational state of a feature (e.g., genie.libs.ops for OSPF, BGP, interfaces).",
+      "sourceUrl": "https://developer.cisco.com/docs/pyats/",
+      "difficulty": "medium",
+      "tags": ["pyats", "genie", "parsing", "cli"]
+    },
+    {
+      "id": "d5-fc-020",
+      "objectiveCode": "5.4",
+      "question": "What is NetDevOps and how does it differ from traditional DevOps?",
+      "answer": "NetDevOps applies DevOps practices (version control, CI/CD, IaC, automated testing) to network infrastructure management. Unlike traditional DevOps which focuses on application code, NetDevOps treats network configurations as code and uses network-specific testing tools (pyATS, CML).",
+      "explanation": "NetDevOps pipeline: network config stored in Git > commit triggers CI > linting and YANG validation > deploy to virtual lab (CML) > automated testing (pyATS verifies routing, connectivity) > peer review > deploy to production network with rollback capability. Key differences from app DevOps: network changes affect production traffic immediately, rollback is critical, testing must validate end-to-end connectivity, and changes often span multiple devices that must be coordinated.",
+      "sourceUrl": "https://developer.cisco.com/docs/network-automation-delivery-model/cicd/",
+      "difficulty": "medium",
+      "tags": ["netdevops", "cicd", "network-automation", "pipeline"]
+    },
+    {
+      "id": "d5-fc-021",
+      "objectiveCode": "5.5",
+      "question": "What is configuration drift and how does IaC prevent it?",
+      "answer": "Configuration drift occurs when a device's actual configuration diverges from the intended state, typically from manual changes made outside the automation system. IaC prevents drift by defining the desired state in version-controlled code, detecting deviations through automated checks, and re-applying the correct configuration.",
+      "explanation": "Example: An engineer manually adds a static route via CLI that is not in the IaC source. The next automated deployment may overwrite it, or it may persist as an undocumented change. Prevention: use tools like Ansible with check mode (--check --diff) to detect drift, implement NETCONF locking to prevent manual changes, run periodic compliance checks, and enforce a policy that all changes go through the IaC pipeline. Terraform's 'plan' command shows drift before applying.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/computing/what-is-iac.html",
+      "difficulty": "medium",
+      "tags": ["iac", "configuration-drift", "compliance", "automation"]
+    },
+    {
+      "id": "d5-fc-022",
+      "objectiveCode": "5.6",
+      "question": "What is a Terraform provider and what is the Terraform workflow?",
+      "answer": "A provider is a plugin that lets Terraform manage a specific platform (AWS, Azure, Cisco ACI, Meraki). The workflow: 1) Write HCL config files. 2) 'terraform init' downloads providers. 3) 'terraform plan' shows what will change. 4) 'terraform apply' makes the changes. 5) 'terraform destroy' removes resources.",
+      "explanation": "Terraform tracks the current state in a state file (terraform.tfstate). The plan compares desired state (config) with actual state (state file) to determine what actions to take (create, modify, delete). Cisco providers include: CiscoDevNet/aci for ACI, CiscoDevNet/meraki for Meraki, and CiscoDevNet/intersight. Terraform is declarative: you describe what you want, not how to get there. State can be stored remotely (S3, Terraform Cloud) for team collaboration.",
+      "sourceUrl": "https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs",
+      "difficulty": "medium",
+      "tags": ["terraform", "provider", "hcl", "workflow"]
+    },
+    {
+      "id": "d5-fc-023",
+      "objectiveCode": "5.7",
+      "question": "A Python script calls GET /api/v1/organizations/{orgId}/networks then iterates over networks calling GET /api/v1/networks/{netId}/devices. What Meraki workflow is being automated?",
+      "answer": "The script automates a comprehensive network inventory: it first retrieves all networks in an organization, then collects device details for each network. This produces a complete inventory of all devices across all sites in the Meraki organization.",
+      "explanation": "This is a common pattern in Meraki automation: traverse the hierarchy (org > networks > devices) to build a complete picture. The script likely builds a report or database of all devices with their network assignments, models, serial numbers, and firmware versions. Variations include filtering by network tags, checking firmware compliance, or exporting to CSV. The Meraki SDK simplifies this: dashboard.organizations.getOrganizationDevices(orgId) gets all devices in one call.",
+      "sourceUrl": "https://developer.cisco.com/meraki/api-v1/get-organization-devices/",
+      "difficulty": "medium",
+      "tags": ["meraki", "python", "workflow", "inventory"]
+    },
+    {
+      "id": "d5-fc-024",
+      "objectiveCode": "5.7",
+      "question": "A Python script POSTs to /api/node/mo/uni/tn-Production.json on an ACI APIC with JSON containing fvTenant, fvAP, and fvAEPg objects. What workflow is being automated?",
+      "answer": "The script automates ACI tenant provisioning: creating a Tenant ('Production'), an Application Profile (fvAP), and Endpoint Groups (fvAEPg) within that tenant. This sets up the logical network segmentation for an application in the ACI fabric.",
+      "explanation": "ACI uses a policy model: Tenants contain Application Profiles, which contain EPGs (Endpoint Groups). EPGs group endpoints with similar policy requirements. Contracts between EPGs define what traffic is allowed. The script is automating the creation of this logical structure. The URL /api/node/mo/uni/tn-Production.json targets the managed object for tenant 'Production' in the MIT (Management Information Tree). This is a common Day 1 provisioning workflow.",
+      "sourceUrl": "https://developer.cisco.com/docs/aci/",
+      "difficulty": "hard",
+      "tags": ["aci", "python", "workflow", "tenant"]
+    },
+    {
+      "id": "d5-fc-025",
+      "objectiveCode": "5.8",
+      "question": "An Ansible playbook uses 'ansible.builtin.copy', 'ansible.builtin.template', and 'ansible.builtin.service' with 'notify' and 'handlers'. What workflow does this automate?",
+      "answer": "The playbook automates application configuration deployment: copy/template deploy config files to target servers, and handlers restart the service only when configuration files actually change. The notify/handler pattern ensures services are restarted only when needed.",
+      "explanation": "The template module uses Jinja2 templates to generate config files with variables (e.g., database host, port). copy deploys static files. When a task with 'notify: restart nginx' changes a file, the handler 'restart nginx' runs at the end of the play. If the file did not change, the handler is not triggered. This is idempotent and efficient: the service only restarts when its configuration actually changes, avoiding unnecessary downtime.",
+      "sourceUrl": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_handlers.html",
+      "difficulty": "hard",
+      "tags": ["ansible", "playbook", "handlers", "configuration"]
+    },
+    {
+      "id": "d5-fc-026",
+      "objectiveCode": "5.9",
+      "question": "What workflow does this bash script automate: #!/bin/bash; for user in $(cat users.txt); do useradd -m $user && echo \"$user:TempPass123!\" | chpasswd && chage -d 0 $user; done",
+      "answer": "The script automates bulk user creation: it reads usernames from a file, creates each user account with a home directory, sets a temporary password, and forces a password change on first login (chage -d 0).",
+      "explanation": "Breaking it down: 'for user in $(cat users.txt)' loops through each line. 'useradd -m' creates the user with a home directory. 'echo user:pass | chpasswd' sets the password via pipe. 'chage -d 0' expires the password immediately, forcing the user to change it at first login. The && ensures each step succeeds before the next. This is a common sysadmin task for onboarding multiple users, often part of server provisioning automation.",
+      "sourceUrl": "https://www.gnu.org/software/bash/manual/bash.html",
+      "difficulty": "medium",
+      "tags": ["bash", "workflow", "user-management", "scripting"]
+    },
+    {
+      "id": "d5-fc-027",
+      "objectiveCode": "5.10",
+      "question": "How do you interpret a NETCONF RPC reply that contains <rpc-error> elements?",
+      "answer": "An <rpc-error> in the NETCONF response indicates the operation failed. Key elements: <error-type> (protocol, application, transport), <error-tag> (specific error like 'data-missing' or 'access-denied'), <error-severity> (error or warning), and <error-message> (human-readable description).",
+      "explanation": "Example: <rpc-error><error-type>application</error-type><error-tag>invalid-value</error-tag><error-severity>error</error-severity><error-message>Invalid interface name</error-message></rpc-error>. Common error-tags: 'data-missing' (referenced data does not exist), 'invalid-value' (value outside allowed range), 'access-denied' (insufficient privileges), 'lock-denied' (another session holds the lock). A successful NETCONF reply contains <ok/> instead of <rpc-error>.",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc6241#section-4.3",
+      "difficulty": "hard",
+      "tags": ["netconf", "rpc-error", "troubleshooting", "xml"]
+    },
+    {
+      "id": "d5-fc-028",
+      "objectiveCode": "5.11",
+      "question": "What do the YANG keywords 'augment', 'grouping', and 'uses' mean?",
+      "answer": "augment: Extends an existing YANG model with additional nodes (e.g., adding vendor-specific fields to an IETF model). grouping: Defines a reusable set of nodes (like a template). uses: References a grouping to include its nodes at that point in the model.",
+      "explanation": "Augment example: Cisco augments ietf-interfaces to add IOS-XE-specific leaves like 'Cisco-IOS-XE-native:ip' under the interface. Grouping/uses example: grouping address-info { leaf ip { type string; } leaf mask { type string; } }. Then 'uses address-info;' in multiple containers to reuse that structure. This is similar to composition in programming. Augment allows extending models without modifying the original, supporting multi-vendor interoperability.",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc7950#section-7.17",
+      "difficulty": "hard",
+      "tags": ["yang", "augment", "grouping", "data-model"]
+    },
+    {
+      "id": "d5-fc-029",
+      "objectiveCode": "5.12",
+      "question": "What does it mean when a unified diff shows only '+' lines with no '-' lines in a hunk?",
+      "answer": "Only '+' lines with no '-' lines means new content was added without removing or modifying any existing lines. This is a pure addition (e.g., a new function, a new configuration block, or new imports).",
+      "explanation": "Example: @@ -10,3 +10,6 @@ shows the section grew from 3 to 6 lines of context. Three new lines were inserted. Conversely, only '-' lines with no '+' means content was deleted. A mix of '-' and '+' indicates modifications. In code reviews, pure additions are generally lower risk than modifications since they don't change existing behavior. However, additions still need review for correctness and to ensure they don't duplicate existing code.",
+      "sourceUrl": "https://www.gnu.org/software/diffutils/manual/html_node/Unified-Format.html",
+      "difficulty": "easy",
+      "tags": ["diff", "unified-diff", "code-review", "additions"]
+    },
+    {
+      "id": "d5-fc-030",
+      "objectiveCode": "5.13",
+      "question": "What is a pull request (PR) and how does it fit into the code review process?",
+      "answer": "A pull request is a request to merge changes from one branch into another (typically feature branch into main). It provides a structured code review process: reviewers can see the diff, leave comments on specific lines, request changes, approve, and finally merge the code.",
+      "explanation": "PR workflow: 1) Developer creates a feature branch and commits changes. 2) Push branch to remote and open a PR. 3) CI pipeline runs automated checks (tests, linting). 4) Reviewers examine the diff, leave feedback. 5) Developer addresses feedback with additional commits. 6) After approval, the PR is merged (merge commit, squash, or rebase). PRs create a permanent record of what changed, why, and who approved it. Branch protection rules can require PR reviews before merging.",
+      "sourceUrl": "https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests",
+      "difficulty": "easy",
+      "tags": ["pull-request", "code-review", "git", "collaboration"]
+    },
+    {
+      "id": "d5-fc-031",
+      "objectiveCode": "5.14",
+      "question": "In a sequence diagram, what do the 'alt' and 'loop' fragments represent?",
+      "answer": "alt (alternative): Represents conditional logic (if/else). Different branches execute based on a condition. loop: Represents a repeated interaction (while/for loop). The fragment shows a guard condition and the interactions repeat while the condition is true.",
+      "explanation": "Example: alt [device reachable] shows a successful API call flow, [else] shows error handling. loop [for each device in inventory] shows iterating over devices, making an API call for each. Other fragments: opt (optional, if without else), par (parallel execution), break (exit the enclosing loop). These fragments are essential for documenting complex API workflows like polling for task completion (loop until status=complete) or handling authentication failures (alt for 401 vs 200).",
+      "sourceUrl": "https://www.uml-diagrams.org/sequence-diagrams.html",
+      "difficulty": "medium",
+      "tags": ["sequence-diagram", "uml", "alt", "loop"]
+    },
+    {
+      "id": "d5-fc-032",
+      "objectiveCode": "5.7",
+      "question": "A Python script calls GET /restconf/data/Cisco-IOS-XE-native:native/interface on an IOS XE device, parses the JSON response, and writes the results to a CSV file. What workflow is being automated?",
+      "answer": "The script automates interface inventory collection from an IOS XE device using RESTCONF. It retrieves all interface configurations via the Cisco native YANG model, then exports the data (interface names, IPs, statuses) to a CSV report.",
+      "explanation": "The Cisco-IOS-XE-native:native/interface path returns all interface types (GigabitEthernet, Loopback, Vlan, etc.) with their full configuration. The script likely extracts fields like interface name, IP address, subnet mask, description, and shutdown status. Writing to CSV enables reporting, comparison across devices, or import into inventory management tools. This is a common network documentation/audit automation workflow.",
+      "sourceUrl": "https://developer.cisco.com/docs/ios-xe/",
+      "difficulty": "medium",
+      "tags": ["restconf", "python", "workflow", "ios-xe"]
+    },
+    {
+      "id": "d5-fc-033",
+      "objectiveCode": "5.8",
+      "question": "An Ansible playbook uses 'cisco.ios.ios_config' with 'lines' and 'parents' parameters. What is it automating?",
+      "answer": "The playbook is automating Cisco IOS device configuration by pushing specific CLI commands. The 'parents' parameter specifies the configuration context (e.g., 'interface GigabitEthernet0/1') and 'lines' contains the commands to apply within that context (e.g., 'ip address 10.0.0.1 255.255.255.0').",
+      "explanation": "Example: cisco.ios.ios_config: lines: ['ip address 10.0.0.1 255.255.255.0', 'no shutdown'] parents: ['interface GigabitEthernet0/1']. The module checks if the config already exists before applying (idempotent). It connects via SSH and applies changes to the running config. Other useful parameters: 'before' (commands to run before), 'after' (commands to run after), 'save_when: modified' (save to startup config if changed). This is simpler but less structured than using Resource Modules.",
+      "sourceUrl": "https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_config_module.html",
+      "difficulty": "medium",
+      "tags": ["ansible", "ios", "configuration", "workflow"]
+    },
+    {
+      "id": "d5-fc-034",
+      "objectiveCode": "5.9",
+      "question": "What workflow does this bash script automate: #!/bin/bash; apt-get update && apt-get install -y nginx; cp /tmp/nginx.conf /etc/nginx/nginx.conf; systemctl enable nginx && systemctl restart nginx; ufw allow 80/tcp && ufw allow 443/tcp",
+      "answer": "The script automates web server setup: updates package lists, installs Nginx, deploys a custom configuration file, enables and starts the Nginx service, and configures the firewall to allow HTTP (80) and HTTPS (443) traffic.",
+      "explanation": "Breaking it down: apt-get update refreshes available packages. apt-get install -y installs without prompting. cp deploys the pre-configured nginx.conf. systemctl enable sets Nginx to start on boot. systemctl restart applies the new config. ufw (Uncomplicated Firewall) opens the required ports. This is a complete web server provisioning script commonly used in cloud VM initialization (user-data scripts) or as part of a larger deployment automation.",
+      "sourceUrl": "https://www.gnu.org/software/bash/manual/bash.html",
+      "difficulty": "easy",
+      "tags": ["bash", "workflow", "web-server", "provisioning"]
+    },
+    {
+      "id": "d5-fc-035",
+      "objectiveCode": "5.6",
+      "question": "What is an Ansible inventory and what are the two main formats?",
+      "answer": "An Ansible inventory defines the hosts and groups that Ansible manages. INI format: simple text file with [group_name] headers and hostnames. YAML format: hierarchical structure with 'all:', 'children:', and 'hosts:' keys. Both support host variables and group variables.",
+      "explanation": "INI example: [routers]\\nR1 ansible_host=10.0.0.1\\nR2 ansible_host=10.0.0.2\\n[routers:vars]\\nansible_network_os=cisco.ios.ios. YAML example: all: children: routers: hosts: R1: ansible_host: 10.0.0.1. Dynamic inventories can pull hosts from external sources (Catalyst Center, cloud APIs, CMDB) using inventory plugins. Key variables: ansible_host (IP), ansible_user, ansible_password, ansible_connection (network_cli, netconf), ansible_network_os (cisco.ios.ios, cisco.nxos.nxos).",
+      "sourceUrl": "https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html",
+      "difficulty": "medium",
+      "tags": ["ansible", "inventory", "hosts", "groups"]
+    },
+    {
+      "id": "d5-fc-036",
+      "objectiveCode": "5.3",
+      "question": "How does pyATS connect to network devices and what connection methods does it support?",
+      "answer": "pyATS uses the Unicon library for device connections. It supports SSH (CLI), NETCONF, RESTCONF, and SNMP. Devices are defined in a testbed YAML file with hostname, IP, credentials, OS type, and connection method. Connect with: device.connect().",
+      "explanation": "Testbed YAML example: devices: R1: os: iosxe; connections: cli: {protocol: ssh, ip: 10.0.0.1}; credentials: default: {username: admin, password: Cisco123}. After loading: from pyats.topology import loader; testbed = loader.load('testbed.yaml'); device = testbed.devices['R1']; device.connect(). Unicon handles platform-specific login prompts, enable mode, and command execution. pyATS supports parallel connections to multiple devices for efficient testing.",
+      "sourceUrl": "https://developer.cisco.com/docs/pyats/",
+      "difficulty": "medium",
+      "tags": ["pyats", "unicon", "testbed", "connections"]
     }
   ]
 }

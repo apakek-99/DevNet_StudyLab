@@ -171,6 +171,136 @@
       "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc6241",
       "difficulty": "medium",
       "tags": ["xml", "netconf", "data-formats", "network-automation"]
+    },
+    {
+      "id": "d1-fc-018",
+      "objectiveCode": "1.1",
+      "question": "What are the valid data types in JSON?",
+      "answer": "JSON supports six data types: string (double-quoted), number (integer or float), boolean (true/false), null, object ({}), and array ([]). Unlike YAML, JSON has no date or binary type.",
+      "explanation": "JSON strings must use double quotes (single quotes are invalid). Numbers can be integers or decimals but not NaN or Infinity. Booleans are lowercase true/false. null represents an empty value. Objects are unordered key-value pairs; keys must be strings. Arrays are ordered lists of any type. JSON does not support comments, which is a common pain point when using it for configuration files.",
+      "sourceUrl": "https://www.json.org/json-en.html",
+      "difficulty": "easy",
+      "tags": ["json", "data-formats", "data-types"]
+    },
+    {
+      "id": "d1-fc-019",
+      "objectiveCode": "1.1",
+      "question": "How do you represent a list (array) and a multi-line string in YAML?",
+      "answer": "Lists use a dash-space prefix for each item (- item). Multi-line strings use | (literal block, preserves newlines) or > (folded block, joins lines with spaces).",
+      "explanation": "YAML list example: fruits:\\n- apple\\n- banana. Inline list: [apple, banana]. The | scalar keeps line breaks exactly as written, useful for scripts or pre-formatted text. The > scalar folds newlines into spaces, useful for long paragraphs. You can also append - to strip trailing newlines (|-, >-) or + to keep them (|+, >+). YAML also supports inline maps: {key: value, key2: value2}.",
+      "sourceUrl": "https://yaml.org/spec/1.2.2/#chapter-8-block-style-productions",
+      "difficulty": "medium",
+      "tags": ["yaml", "data-formats", "syntax", "multi-line"]
+    },
+    {
+      "id": "d1-fc-020",
+      "objectiveCode": "1.2",
+      "question": "How do JSON data types map to Python data types when parsed with json.loads()?",
+      "answer": "JSON object → Python dict, JSON array → list, JSON string → str, JSON number (int) → int, JSON number (float) → float, JSON true/false → True/False, JSON null → None.",
+      "explanation": "This mapping is automatic and bidirectional. json.dumps() reverses it: Python dict → JSON object, tuple/list → JSON array, None → null, True/False → true/false. Python-specific types like set, datetime, and bytes are NOT JSON-serializable by default. To handle them, you can pass a custom encoder: json.dumps(data, default=str) or subclass json.JSONEncoder.",
+      "sourceUrl": "https://docs.python.org/3/library/json.html#json-to-py-table",
+      "difficulty": "medium",
+      "tags": ["python", "json", "parsing", "type-mapping"]
+    },
+    {
+      "id": "d1-fc-021",
+      "objectiveCode": "1.3",
+      "question": "What is the difference between a unit test, integration test, and end-to-end test?",
+      "answer": "Unit test: Tests a single function or method in isolation, using mocks for dependencies. Integration test: Tests how multiple components work together (e.g., API + database). End-to-end test: Tests the full application workflow from the user's perspective.",
+      "explanation": "The testing pyramid suggests many unit tests (fast, cheap), fewer integration tests, and even fewer E2E tests (slow, expensive). Unit tests verify individual logic. Integration tests catch interface mismatches between components. E2E tests validate real user scenarios but are brittle and slow. In network automation, a unit test might mock API responses, while an integration test calls a real sandbox device.",
+      "sourceUrl": "https://docs.python.org/3/library/unittest.html",
+      "difficulty": "medium",
+      "tags": ["testing", "unit-test", "integration-test", "e2e"]
+    },
+    {
+      "id": "d1-fc-022",
+      "objectiveCode": "1.3",
+      "question": "What is mocking in TDD and why is it important?",
+      "answer": "Mocking replaces real dependencies (APIs, databases, network devices) with fake objects that simulate their behavior. This allows unit tests to run fast, without network access, and with predictable results.",
+      "explanation": "Python's unittest.mock module provides Mock and MagicMock classes, plus the @patch decorator. Example: @patch('requests.get') replaces requests.get with a mock during the test. You can set return values: mock_get.return_value.json.return_value = {'id': 1}. Mocking is essential for testing code that calls external APIs, as it eliminates flaky tests caused by network issues and avoids consuming API rate limits.",
+      "sourceUrl": "https://docs.python.org/3/library/unittest.mock.html",
+      "difficulty": "hard",
+      "tags": ["tdd", "mocking", "testing", "unittest"]
+    },
+    {
+      "id": "d1-fc-023",
+      "objectiveCode": "1.4",
+      "question": "What are the key roles and ceremonies in Scrum (an Agile framework)?",
+      "answer": "Roles: Product Owner (defines priorities), Scrum Master (facilitates process), Development Team (builds the product). Ceremonies: Sprint Planning, Daily Standup, Sprint Review (demo), Sprint Retrospective. Work is organized in time-boxed sprints (typically 2 weeks).",
+      "explanation": "The Product Owner manages the product backlog (prioritized list of features). The Scrum Master removes blockers and ensures the team follows Scrum practices. The Development Team is self-organizing and cross-functional. Sprint Planning selects backlog items for the sprint. Daily standups are 15-minute status syncs. Sprint Review demonstrates completed work to stakeholders. Retrospective identifies process improvements.",
+      "sourceUrl": "https://www.agilealliance.org/glossary/scrum/",
+      "difficulty": "medium",
+      "tags": ["agile", "scrum", "methodology", "ceremonies"]
+    },
+    {
+      "id": "d1-fc-024",
+      "objectiveCode": "1.5",
+      "question": "What is the difference between a Python function, method, class, and module?",
+      "answer": "Function: A reusable block of code defined with 'def'. Method: A function defined inside a class, operating on instance data. Class: A blueprint for creating objects with attributes and methods. Module: A Python file (.py) that groups related functions, classes, and variables for import.",
+      "explanation": "Functions promote DRY (Don't Repeat Yourself) by encapsulating reusable logic. Methods have access to instance state via 'self'. Classes enable OOP principles: encapsulation (bundling data + methods), inheritance (extending classes), and polymorphism (same interface, different behavior). Modules enable namespacing: import mymodule or from mymodule import my_function. Packages are directories of modules with an __init__.py file.",
+      "sourceUrl": "https://docs.python.org/3/tutorial/classes.html",
+      "difficulty": "easy",
+      "tags": ["python", "functions", "classes", "modules", "oop"]
+    },
+    {
+      "id": "d1-fc-025",
+      "objectiveCode": "1.6",
+      "question": "How does the MVC pattern apply to a network automation web dashboard?",
+      "answer": "Model: Stores device inventory, configurations, and state data (e.g., from Catalyst Center API). View: Renders the web UI showing device health, topology maps, and alerts. Controller: Handles user actions (e.g., clicking 'Deploy Config'), calls APIs, updates the Model, and refreshes the View.",
+      "explanation": "In a Flask/Django network dashboard: the Model layer might use SQLAlchemy to store device records and call Cisco APIs to sync data. The View uses HTML templates (Jinja2) to display dashboards. The Controller (Flask routes) handles HTTP requests like POST /deploy which triggers a configuration push via RESTCONF. MVC keeps API interaction logic separate from presentation, making it easy to swap the UI or change the backend data source.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Glossary/MVC",
+      "difficulty": "hard",
+      "tags": ["mvc", "design-patterns", "network-automation", "web-dashboard"]
+    },
+    {
+      "id": "d1-fc-026",
+      "objectiveCode": "1.6",
+      "question": "How does the Observer pattern relate to webhooks in network automation?",
+      "answer": "Webhooks implement the Observer pattern: the network platform (Subject) notifies registered webhook URLs (Observers) when events occur. The observers do not need to poll for changes; they are automatically notified.",
+      "explanation": "Example: Register a webhook with Webex Teams to be notified when a new message is posted. Webex (Subject) maintains a list of webhook URLs (Observers). When a message event occurs, Webex sends an HTTP POST to each registered URL. Similarly, Meraki alerts use webhooks to notify monitoring systems of network events. This decouples the event producer from consumers and is more efficient than polling.",
+      "sourceUrl": "https://refactoring.guru/design-patterns/observer",
+      "difficulty": "medium",
+      "tags": ["observer", "design-patterns", "webhooks", "network-automation"]
+    },
+    {
+      "id": "d1-fc-027",
+      "objectiveCode": "1.7",
+      "question": "What is a Git repository and what is the difference between local and remote repositories?",
+      "answer": "A Git repository is a directory tracked by Git containing the complete history of all files. A local repository exists on your machine. A remote repository (e.g., on GitHub) is hosted on a server for collaboration. They sync via git push, git pull, and git fetch.",
+      "explanation": "Git is a distributed version control system, meaning every clone is a full copy of the repository with complete history. The .git directory stores all version control data. Remotes are named references to remote repos (default: 'origin'). You can have multiple remotes. 'git remote -v' lists configured remotes. This distributed model means you can work offline and commit locally, then push when connected.",
+      "sourceUrl": "https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes",
+      "difficulty": "easy",
+      "tags": ["git", "version-control", "repository", "remote"]
+    },
+    {
+      "id": "d1-fc-028",
+      "objectiveCode": "1.8",
+      "question": "What is a Git branch and how do you create and switch branches?",
+      "answer": "A branch is an independent line of development. Create with 'git branch feature-name' or 'git checkout -b feature-name' (creates and switches). Switch with 'git checkout branch-name' or 'git switch branch-name'. List branches with 'git branch'.",
+      "explanation": "Branches allow parallel development without affecting the main codebase. The default branch is usually 'main' or 'master'. Feature branches isolate new work until it is ready to merge. Git branches are lightweight pointers to commits, making them fast to create. A common workflow: create a feature branch, make commits, push to remote, open a pull request for review, then merge into main.",
+      "sourceUrl": "https://git-scm.com/docs/git-branch",
+      "difficulty": "easy",
+      "tags": ["git", "branch", "workflow", "feature-branch"]
+    },
+    {
+      "id": "d1-fc-029",
+      "objectiveCode": "1.8",
+      "question": "What do 'git add' and 'git commit' do, and what is the staging area?",
+      "answer": "git add moves changes to the staging area (index), which is a preparation area for the next commit. git commit saves all staged changes as a new snapshot in the repository history with a message describing what changed.",
+      "explanation": "Git has three areas: working directory (your files), staging area (what will be committed), and repository (.git history). 'git add file.py' stages a specific file. 'git add .' stages all changes. 'git commit -m \"message\"' creates a commit from staged changes. The staging area lets you selectively commit parts of your changes. 'git status' shows which files are staged, unstaged, or untracked.",
+      "sourceUrl": "https://git-scm.com/docs/git-add",
+      "difficulty": "easy",
+      "tags": ["git", "add", "commit", "staging"]
+    },
+    {
+      "id": "d1-fc-030",
+      "objectiveCode": "1.5",
+      "question": "What is inheritance in Python and how does it promote code reuse?",
+      "answer": "Inheritance allows a child class to inherit attributes and methods from a parent class. The child can override methods or add new ones. This promotes code reuse because shared behavior is defined once in the parent and automatically available to all children.",
+      "explanation": "Example: class NetworkDevice: (parent) has connect() and get_hostname(). class CiscoRouter(NetworkDevice): inherits those methods and adds get_routing_table(). class JuniperRouter(NetworkDevice): inherits the same base methods but overrides connect() for Juniper-specific logic. Use super().__init__() to call the parent's constructor. Python also supports multiple inheritance: class Hybrid(CiscoRouter, Firewall).",
+      "sourceUrl": "https://docs.python.org/3/tutorial/classes.html#inheritance",
+      "difficulty": "medium",
+      "tags": ["python", "inheritance", "oop", "code-reuse"]
     }
   ]
 }

@@ -161,6 +161,176 @@
       "sourceUrl": "https://developer.cisco.com/meraki/api-v1/python/",
       "difficulty": "medium",
       "tags": ["meraki", "sdk", "python", "automation"]
+    },
+    {
+      "id": "d3-fc-017",
+      "objectiveCode": "3.1",
+      "question": "How do you use the Cisco Catalyst Center Python SDK (dnacentersdk) to get a list of devices?",
+      "answer": "Install with pip install dnacentersdk. Create a client: from dnacentersdk import api; dnac = api.DNACenterAPI(base_url='https://sandboxdnac.cisco.com', username='devnetuser', password='Cisco123!'). Get devices: devices = dnac.devices.get_device_list(). The SDK handles token auth automatically.",
+      "explanation": "The dnacentersdk wraps all Catalyst Center Intent API endpoints. It automatically obtains and refreshes the authentication token. Methods map to API endpoints: dnac.devices.get_device_list() calls GET /dna/intent/api/v1/network-device. The SDK returns native Python objects with attribute access (device.hostname, device.managementIpAddress). It also supports custom headers, timeouts, and SSL verification settings.",
+      "sourceUrl": "https://developer.cisco.com/docs/dna-center/sdk/",
+      "difficulty": "medium",
+      "tags": ["catalyst-center", "sdk", "python", "dnacentersdk"]
+    },
+    {
+      "id": "d3-fc-018",
+      "objectiveCode": "3.2",
+      "question": "What is the Meraki organization hierarchy and how does it affect API calls?",
+      "answer": "Meraki uses a three-level hierarchy: Organization > Network > Device. Most API calls require a networkId or organizationId in the URL path. You must first list organizations, then networks within an org, before accessing device-specific endpoints.",
+      "explanation": "An Organization is the top-level entity (a company or division). Networks represent sites or functional groupings within an org (e.g., 'Branch-NYC'). Devices belong to networks. API patterns: GET /organizations (list orgs), GET /organizations/{orgId}/networks (list networks in org), GET /networks/{networkId}/devices (list devices in network). SSIDs, VLANs, and firewall rules are configured at the network level.",
+      "sourceUrl": "https://developer.cisco.com/meraki/api-v1/",
+      "difficulty": "medium",
+      "tags": ["meraki", "hierarchy", "organization", "network"]
+    },
+    {
+      "id": "d3-fc-019",
+      "objectiveCode": "3.2",
+      "question": "How does authentication work for the ACI APIC REST API?",
+      "answer": "POST credentials to /api/aaaLogin.json with body {aaaUser: {attributes: {name: 'admin', pwd: 'password'}}}. The response includes a token in the APIC-cookie. Include this cookie in subsequent requests for authentication.",
+      "explanation": "ACI APIC authentication returns a token valid for a configurable timeout (default 300 seconds). The token is sent as a cookie named APIC-cookie. Unlike Catalyst Center which uses Bearer tokens, ACI uses cookies. The APIC REST API URL structure follows the MIT (Management Information Tree): /api/node/mo/uni/tn-{tenant}.json for managed objects, /api/node/class/{className}.json for class-based queries.",
+      "sourceUrl": "https://developer.cisco.com/docs/aci/",
+      "difficulty": "hard",
+      "tags": ["aci", "apic", "authentication", "api"]
+    },
+    {
+      "id": "d3-fc-020",
+      "objectiveCode": "3.3",
+      "question": "How does Intersight API authentication differ from other Cisco platforms?",
+      "answer": "Intersight uses API key + secret key authentication with HTTP signature. Each request is signed using the secret key, and the API key ID is included in the Authorization header. This is different from the token-based auth used by Catalyst Center and cookie-based auth used by ACI.",
+      "explanation": "Intersight signs each request using the private key associated with your API key. The signature covers the HTTP method, path, headers, and body digest. The Intersight Python SDK handles signing automatically. This approach is more secure than static tokens because each request has a unique signature. API keys are generated in the Intersight GUI and can be scoped to specific roles. The Intersight SDK (pip install intersight) simplifies authentication.",
+      "sourceUrl": "https://developer.cisco.com/docs/intersight/",
+      "difficulty": "hard",
+      "tags": ["intersight", "authentication", "api-key", "signing"]
+    },
+    {
+      "id": "d3-fc-021",
+      "objectiveCode": "3.4",
+      "question": "What is the difference between a Webex bot and a Webex integration?",
+      "answer": "A bot is an automated user with its own identity that can be added to rooms to respond to messages and commands. An integration acts on behalf of an existing user using OAuth 2.0, accessing the user's resources with their permissions.",
+      "explanation": "Bots have their own email (mybot@webex.bot) and Bearer token. They only see messages where they are directly mentioned (@bot) or in 1:1 rooms. Integrations use OAuth 2.0 authorization code flow and access resources as the authorizing user. Use a bot for: automated alerts, ChatOps, helpdesk. Use an integration for: managing a user's rooms, reading their messages, or performing actions on their behalf.",
+      "sourceUrl": "https://developer.webex.com/docs/bots",
+      "difficulty": "medium",
+      "tags": ["webex", "bots", "integrations", "oauth"]
+    },
+    {
+      "id": "d3-fc-022",
+      "objectiveCode": "3.5",
+      "question": "What is Cisco ISE ERS API and what can it manage?",
+      "answer": "ISE ERS (External RESTful Services) API is a REST API for managing ISE policy objects: internal users, guest accounts, endpoint groups, network devices, authorization profiles, and identity groups. It uses Basic Authentication and supports JSON and XML.",
+      "explanation": "ERS API must be enabled in ISE: Administration > System > Settings > ERS Settings. Base URL: https://<ise>:9060/ers/config/. Common endpoints: /internaluser (manage internal users), /guestuser (guest accounts), /endpointgroup (endpoint identity groups), /networkdevice (RADIUS clients). ERS is for CRUD operations on policy objects. For monitoring data and session info, use the ISE MnT (Monitoring and Troubleshooting) API.",
+      "sourceUrl": "https://developer.cisco.com/docs/identity-services-engine/latest/",
+      "difficulty": "hard",
+      "tags": ["ise", "ers", "security", "network-access"]
+    },
+    {
+      "id": "d3-fc-023",
+      "objectiveCode": "3.5",
+      "question": "What is Cisco Secure Firewall (Firepower) and what APIs does it expose?",
+      "answer": "Cisco Secure Firewall (formerly Firepower) provides next-generation firewall capabilities. It exposes the FMC (Firewall Management Center) REST API for managing security policies, access rules, NAT policies, and intrusion policies. FDM (Firewall Device Manager) API is available for single-device management.",
+      "explanation": "FMC API uses token-based authentication: POST /api/fmc_platform/v1/auth/generatetoken with Basic Auth. The FMC manages multiple firewall sensors centrally. Key API resources: /api/fmc_config/v1/domain/{domainUUID}/policy/accesspolicies for access control policies, and /object/networkaddresses for network objects. FDM API is available on devices managed locally (without FMC) and provides a simpler interface for single-device management.",
+      "sourceUrl": "https://developer.cisco.com/docs/secure-firewall/",
+      "difficulty": "hard",
+      "tags": ["firepower", "secure-firewall", "fmc", "security"]
+    },
+    {
+      "id": "d3-fc-024",
+      "objectiveCode": "3.6",
+      "question": "What device-level APIs does NX-OS support?",
+      "answer": "NX-OS supports NX-API REST (HTTP-based, returns JSON/XML), NX-API CLI (sends CLI commands via HTTP POST and returns structured output), NETCONF, RESTCONF, and gNMI. NX-API must be enabled with 'feature nxapi' on the device.",
+      "explanation": "NX-API CLI wraps CLI commands in HTTP requests: POST to /ins with body {ins_api: {type: 'cli_show', chunk: '0', sid: '1', input: 'show version', output_format: 'json'}}. This returns structured JSON output instead of raw CLI text, making it easier to parse programmatically. NX-API REST provides a more traditional REST interface. NX-OS also supports on-box Python via the 'python' command and Bash via 'run bash'.",
+      "sourceUrl": "https://developer.cisco.com/docs/cisco-nexus-3000-and-9000-series-nx-api-rest-sdk-user-guide-and-api-reference-release-9-2x/",
+      "difficulty": "medium",
+      "tags": ["nx-os", "nxapi", "nexus", "device-apis"]
+    },
+    {
+      "id": "d3-fc-025",
+      "objectiveCode": "3.7",
+      "question": "What is DevNet Code Exchange and how does it differ from Learning Labs?",
+      "answer": "Code Exchange is a repository of community-shared code, sample projects, and automation scripts for Cisco platforms. Learning Labs are structured, step-by-step guided tutorials that teach specific technologies. Code Exchange provides ready-to-use code; Learning Labs provide guided instruction.",
+      "explanation": "Code Exchange (developer.cisco.com/codeexchange) hosts GitHub repositories tagged with Cisco technologies, including sample apps, SDKs, and integrations. Each project is categorized by platform and technology. Learning Labs (developer.cisco.com/learning) are interactive tutorials organized into learning tracks (e.g., 'Network Programmability Basics'). DevNet also offers certification study materials, Sandbox environments, and community forums for support.",
+      "sourceUrl": "https://developer.cisco.com/codeexchange/",
+      "difficulty": "easy",
+      "tags": ["devnet", "code-exchange", "learning-labs", "resources"]
+    },
+    {
+      "id": "d3-fc-026",
+      "objectiveCode": "3.8",
+      "question": "How do you enable NETCONF and RESTCONF on a Cisco IOS XE device?",
+      "answer": "NETCONF: 'netconf-yang' in global config (listens on port 830 over SSH). RESTCONF: 'restconf' in global config plus 'ip http secure-server' for HTTPS (port 443). Both require AAA authentication to be configured.",
+      "explanation": "IOS XE configuration: conf t > netconf-yang > restconf > ip http secure-server > ip http authentication local > username admin privilege 15 secret Cisco123. Verify NETCONF: 'show netconf-yang sessions'. Verify RESTCONF: browse to https://device/restconf/data/. NETCONF uses SSH subsystem, so SSH must be enabled. Both protocols use the same YANG models on the device. Use 'show platform software yang-management process' to verify services are running.",
+      "sourceUrl": "https://developer.cisco.com/docs/ios-xe/",
+      "difficulty": "medium",
+      "tags": ["netconf", "restconf", "ios-xe", "configuration"]
+    },
+    {
+      "id": "d3-fc-027",
+      "objectiveCode": "3.9",
+      "question": "How do you obtain a list of network devices from Catalyst Center using Python?",
+      "answer": "Authenticate with POST /dna/system/api/v1/auth/token (Basic Auth) to get a token. Then GET /dna/intent/api/v1/network-device with 'X-Auth-Token: <token>' header. The response contains a list of devices with hostname, IP, platform, and software version.",
+      "explanation": "Python example: token_response = requests.post(f'{base_url}/dna/system/api/v1/auth/token', auth=('user','pass'), verify=False); token = token_response.json()['Token']; devices = requests.get(f'{base_url}/dna/intent/api/v1/network-device', headers={'X-Auth-Token': token}, verify=False).json()['response']. Each device object includes: hostname, managementIpAddress, platformId, softwareVersion, role, and reachabilityStatus.",
+      "sourceUrl": "https://developer.cisco.com/docs/dna-center/getting-started/",
+      "difficulty": "medium",
+      "tags": ["catalyst-center", "python", "devices", "api"]
+    },
+    {
+      "id": "d3-fc-028",
+      "objectiveCode": "3.9",
+      "question": "How do you obtain a list of clients seen on a Meraki network?",
+      "answer": "Send GET /api/v1/networks/{networkId}/clients with the API key header. Optional query parameter: timespan (in seconds) to specify the lookback period. Returns a list of clients with MAC address, IP, description, and usage data.",
+      "explanation": "Example: GET /api/v1/networks/L_12345/clients?timespan=86400 returns clients seen in the last 24 hours. Each client object includes: id, mac, ip, description (hostname), vlan, switchport, usage (sent/received bytes), and status. You can also get clients for a specific device: GET /api/v1/devices/{serial}/clients. This endpoint is paginated; check for a Link header with rel=next for additional pages.",
+      "sourceUrl": "https://developer.cisco.com/meraki/api-v1/get-network-clients/",
+      "difficulty": "medium",
+      "tags": ["meraki", "clients", "monitoring", "api"]
+    },
+    {
+      "id": "d3-fc-029",
+      "objectiveCode": "3.9",
+      "question": "How do you create a Webex room and add a member using the API?",
+      "answer": "Create room: POST /v1/rooms with {\"title\": \"My Room\"}. Add member: POST /v1/memberships with {\"roomId\": \"<roomId>\", \"personEmail\": \"user@example.com\"}. Both require Authorization: Bearer <token> header.",
+      "explanation": "Room creation returns the room object including its id. Use this id to add memberships, post messages, and configure webhooks. To list existing rooms: GET /v1/rooms. To add a member by person ID instead of email: use personId field. Room types: 'group' (multi-person space) and 'direct' (1:1, created automatically when messaging someone). Moderators can be set with isModerator: true in the membership.",
+      "sourceUrl": "https://developer.webex.com/docs/api/v1/rooms/create-a-room",
+      "difficulty": "medium",
+      "tags": ["webex", "rooms", "memberships", "api"]
+    },
+    {
+      "id": "d3-fc-030",
+      "objectiveCode": "3.2",
+      "question": "What are the four components of the Cisco SD-WAN architecture?",
+      "answer": "1) vManage: Centralized management and monitoring dashboard. 2) vSmart: Control plane controller that distributes policies and routing info. 3) vBond: Orchestration plane that authenticates and onboards devices. 4) vEdge/cEdge: Data plane routers at branch sites that forward user traffic.",
+      "explanation": "vManage provides the REST API and GUI for configuration, monitoring, and troubleshooting. vSmart controllers establish OMP (Overlay Management Protocol) sessions with edge routers to distribute routes and policies. vBond is the first point of contact for new devices joining the fabric. cEdge devices run IOS XE (replacing legacy vEdge). The separation of planes allows centralized policy control with distributed data forwarding.",
+      "sourceUrl": "https://developer.cisco.com/docs/sdwan/",
+      "difficulty": "medium",
+      "tags": ["sd-wan", "architecture", "vmanage", "vsmart"]
+    },
+    {
+      "id": "d3-fc-031",
+      "objectiveCode": "3.4",
+      "question": "What are Webex Devices and how can they be controlled programmatically?",
+      "answer": "Webex Devices (Room Kits, Boards, Desk series) can be controlled via xAPI, accessible through the Webex cloud API or locally via HTTP/SSH. You can make calls, adjust settings, display content, and read sensor data (people count, ambient noise) programmatically.",
+      "explanation": "The xAPI provides commands (xCommand), configurations (xConfiguration), status (xStatus), and events (xEvent). Cloud API: POST /v1/xapi/command/{commandName} with deviceId. Local access: SSH to the device or use HTTP POST to /putxml. Macros (JavaScript) can run on-device for local automation. Use cases: auto-dial into meetings, digital signage, room booking, occupancy monitoring with the people count sensor.",
+      "sourceUrl": "https://developer.webex.com/docs/api/v1/xapi",
+      "difficulty": "hard",
+      "tags": ["webex", "devices", "xapi", "collaboration"]
+    },
+    {
+      "id": "d3-fc-032",
+      "objectiveCode": "3.5",
+      "question": "What is Cisco Secure Malware Analytics (formerly Threat Grid) and what does its API provide?",
+      "answer": "Secure Malware Analytics is a cloud-based sandboxing platform that analyzes suspicious files and URLs for malware behavior. Its API allows you to submit samples for analysis, retrieve analysis reports, search threat intelligence, and query behavioral indicators.",
+      "explanation": "Key API operations: POST /api/v2/samples to submit a file for analysis, GET /api/v2/samples/{id}/analysis to retrieve results, GET /api/v2/search/submissions to search by hash, filename, or other criteria. Analysis results include behavioral indicators, network activity, file system changes, and a threat score. Integration with Cisco Secure Endpoint allows automatic submission of suspicious files for deeper analysis.",
+      "sourceUrl": "https://developer.cisco.com/docs/threat-grid/",
+      "difficulty": "hard",
+      "tags": ["threat-grid", "malware-analytics", "sandboxing", "security"]
+    },
+    {
+      "id": "d3-fc-033",
+      "objectiveCode": "3.7",
+      "question": "When should you use a DevNet Sandbox vs. Cisco Modeling Labs (CML) for testing?",
+      "answer": "Use DevNet Sandbox for quick API testing against pre-configured environments with no setup required. Use CML when you need custom topologies, specific software versions, or complex multi-device scenarios that are not available as sandboxes.",
+      "explanation": "DevNet Sandbox is free, instant access (Always-On) or reservable. Best for: learning APIs, testing simple scripts, exploring platforms. Limitations: shared environments may be read-only, limited customization. CML requires a license and local/remote installation but provides full control: custom topologies, multiple device types, specific IOS versions, and persistent labs. CML is better for: studying for certifications, testing complex automation workflows, and simulating production environments.",
+      "sourceUrl": "https://developer.cisco.com/site/sandbox/",
+      "difficulty": "easy",
+      "tags": ["devnet", "sandbox", "cml", "testing"]
     }
   ]
 }

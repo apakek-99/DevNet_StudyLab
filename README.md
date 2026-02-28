@@ -6,7 +6,8 @@ A full-stack study platform for the **Cisco DevNet Associate (200-901)** certifi
 
 - **Study Hub** -- Track progress across all 6 exam domains with 61 objectives and completion checkboxes
 - **Flashcards** -- SM-2 spaced repetition algorithm with 97 cards across all domains, synced to the database when authenticated
-- **Practice Exams** -- 40-question practice exams and focused domain quizzes with scoring and attempt history
+- **Practice Exams** -- 2 full 40-question practice exams and focused domain quizzes with scoring and attempt history
+- **Study Guides** -- In-depth study guides for all 6 exam domains with objective-level progress tracking
 - **Hands-on Labs** -- Python, REST API, Git, Docker, Bash, Ansible, and NETCONF labs with a code execution engine
 - **AI Tutor** -- Claude-powered conversational tutor with domain-specific system prompts
 - **Progress Persistence** -- All study progress saved to PostgreSQL (flashcards, exams, labs, objectives)

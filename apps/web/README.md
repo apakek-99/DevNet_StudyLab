@@ -17,13 +17,14 @@ The Next.js frontend and API backend for DevNet StudyLab.
 src/
   app/
     api/              API route handlers
+      auth/           Auth.js NextAuth handlers
       chat/           AI Tutor streaming endpoint
       dashboard/      Dashboard stats aggregation
       exams/          Practice exam CRUD + grading
       flashcards/     Flashcard listing + SM-2 progress
       labs/           Lab listing + execution
       study/          Study guide + objective progress
-      auth/           Auth.js NextAuth handlers
+      tutor/          Tutor conversation CRUD + message persistence
     dashboard/        Dashboard pages (sidebar layout)
       flashcards/     Spaced repetition flashcard system
       labs/           Hands-on lab catalog + workspace

@@ -310,14 +310,14 @@ Each of the 61 objectives should have:
 
 | Domain | Objectives | Flashcards | Questions | Labs |
 |--------|-----------|------------|-----------|------|
-| 1. Software Dev | 8 | 17 | -- | 2 (python-data-parsing, git-basics) |
-| 2. APIs | 9 | 16 | -- | 1 (rest-api-client) |
-| 3. Cisco Platforms | 9 | 16 | -- | 1 (netconf-basics) |
-| 4. Deployment | 12 | 16 | -- | 1 (docker-basics) |
-| 5. Infrastructure | 14 | 16 | -- | 2 (ansible-network, bash-scripting) |
-| 6. Networking | 9 | 16 | -- | 0 |
+| 1. Software Dev | 8 | 30 | -- | 2 (python-data-parsing, git-basics) |
+| 2. APIs | 9 | 33 | -- | 1 (rest-api-client) |
+| 3. Cisco Platforms | 9 | 33 | -- | 1 (netconf-basics) |
+| 4. Deployment | 12 | 36 | -- | 1 (docker-basics) |
+| 5. Infrastructure | 14 | 36 | -- | 2 (ansible-network, bash-scripting) |
+| 6. Networking | 9 | 31 | -- | 0 |
 
-**Note:** The 97 flashcards represent the initial content seed. Full content population to meet per-objective targets is part of the content development roadmap.
+**Note:** The 199 flashcards cover all 61 objectives with 3-5 cards per objective. Full content population to meet per-objective targets (10-15 per objective) is part of the content development roadmap.
 
 ---
 

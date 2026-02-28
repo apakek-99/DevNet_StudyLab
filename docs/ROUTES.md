@@ -132,12 +132,12 @@ The dashboard layout (`dashboard/layout.tsx`) wraps all dashboard pages with:
 
 | Data | Source | Description |
 |------|--------|-------------|
-| Domain progress | Local state (future: `study_progress` table) | Percentage per domain |
+| Domain progress | `GET /api/dashboard/stats` (DB) | Percentage per domain |
 | Domain weights | Hardcoded (matches exam blueprint) | 15-20% per domain |
-| Objectives stats | Local state (future: `objectives` + `study_progress`) | Completed vs total |
-| Flashcards due | Local state (future: `flashcard_progress`) | Cards needing review |
-| Lab completion | Local state (future: `lab_attempts`) | Labs done vs total |
-| Recent activity | Local state (future: event log) | Last actions with timestamps |
+| Objectives stats | `GET /api/dashboard/stats` (DB) | Completed vs total |
+| Flashcards due | `GET /api/dashboard/stats` (DB) | Cards needing review |
+| Lab completion | `GET /api/dashboard/stats` (DB) | Labs done vs total |
+| Recent activity | `GET /api/dashboard/stats` (DB) | Last actions with timestamps |
 
 ### Interactive Features
 - Domain cards link to the study page
@@ -168,9 +168,9 @@ Comprehensive study tracker organized by exam domain. Students can expand each d
 
 | Data | Source | Description |
 |------|--------|-------------|
-| Study domains (6) | Local state (future: `domains` table) | Domain metadata |
-| Objectives per domain | Local state (future: `objectives` table) | All 61 exam objectives |
-| Completion state | Local `Set<string>` (future: `study_progress` table) | Which objectives are done |
+| Study domains (6) | `GET /api/study/progress` (DB with file fallback) | Domain metadata |
+| Objectives per domain | `GET /api/study/progress` (DB with file fallback) | All 61 exam objectives |
+| Completion state | `GET/POST /api/study/progress` (DB) | Which objectives are done |
 | Lab slugs | Hardcoded per objective | Links objectives to related labs |
 
 ### Interactive Features
@@ -234,8 +234,8 @@ Catalog of all hands-on coding labs. Students can filter by technology category,
 
 | Data | Source | Description |
 |------|--------|-------------|
-| Lab definitions (7) | Local state (future: `labs` table) | Lab metadata and content |
-| Lab status | Local state (future: `lab_attempts` table) | not_started, in_progress, completed |
+| Lab definitions (7) | `GET /api/labs` (DB with file fallback) | Lab metadata and content |
+| Lab status | `GET /api/labs/attempts` (DB) | not_started, in_progress, completed |
 | Categories | Hardcoded enum | All, Python, API, Git, Docker, Bash, Ansible, NETCONF |
 
 ### Interactive Features
@@ -275,7 +275,7 @@ Interactive lab environment with a split-view layout: instructions on the left, 
 | Instructions panel (60%) | Markdown-rendered instructions with code blocks |
 | Hints tab | Progressive hint reveal system |
 | Learning objectives box | Emerald-styled objectives list |
-| Code editor (40%) | Textarea with line numbers, tab support |
+| Code editor (40%) | CodeMirror 6 with Python syntax highlighting, oneDark theme, bracket matching, and autocompletion |
 | Editor toolbar | Copy code, reset to starter code |
 | Action buttons | Run Code, Reset, Show Solution |
 | Output terminal | Execution output with pass/fail indicator and timing |
@@ -324,7 +324,7 @@ Practice exam system with two modes: full 40-question exams and focused domain q
 
 | Data | Source | Description |
 |------|--------|-------------|
-| Past attempts | Local state (future: `practice_attempts` table) | Score, questions, time, date, pass/fail |
+| Past attempts | `GET /api/exams/attempts` (DB) | Score, questions, time, date, pass/fail |
 | Statistics | Computed from attempts | Average, best, pass rate |
 | Domain options | Hardcoded (6 domains) | For quiz selector and filter |
 
@@ -406,9 +406,9 @@ Spaced repetition flashcard system implementing the SM-2 algorithm. Students rev
 
 | Data | Source | Description |
 |------|--------|-------------|
-| Flashcards (6 samples) | Local state (future: `flashcards` table) | Question/answer pairs |
-| Card difficulty state | Local state (future: `flashcard_progress` table) | new, learning, review, mastered |
-| SM-2 parameters | Future: `flashcard_progress` table | ease, interval, repetitions, next_review |
+| Flashcards (199) | `GET /api/flashcards` (DB with file fallback) | Question/answer pairs |
+| Card difficulty state | `GET /api/flashcards/progress` (DB) | new, learning, review, mastered |
+| SM-2 parameters | `GET/POST /api/flashcards/progress` (DB) | ease, interval, repetitions, next_review |
 | Domain filter | User selection | Filters card library |
 
 ### Interactive Features
@@ -471,8 +471,8 @@ Conversational AI tutor powered by Claude (claude-sonnet-4-20250514). Students c
 
 | Data | Source | Description |
 |------|--------|-------------|
-| Conversations | Local state (future: `tutor_conversations` table) | Conversation history |
-| Messages | `useChat` hook + local state (future: `tutor_messages` table) | Chat messages |
+| Conversations | `GET /api/tutor/conversations` (DB) | Conversation history |
+| Messages | `useChat` hook + `GET/POST /api/tutor/conversations/{id}/messages` (DB) | Chat messages |
 | Domain selection | Local state | Current focus domain |
 | Quick prompts | Hardcoded (6 prompts) | Starter suggestions |
 
@@ -557,5 +557,8 @@ User settings page for managing profile information, study preferences, and acco
 | `/api/labs/attempts` | GET | `app/api/labs/attempts/route.ts` | Lab completion status |
 | `/api/study/{slug}` | GET | `app/api/study/[slug]/route.ts` | Get study guide |
 | `/api/study/progress` | GET/POST | `app/api/study/progress/route.ts` | Objective completions |
+| `/api/tutor/conversations` | GET/POST | `app/api/tutor/conversations/route.ts` | List/create tutor conversations |
+| `/api/tutor/conversations/{id}` | GET/PATCH/DELETE | `app/api/tutor/conversations/[id]/route.ts` | Get/update/delete conversation |
+| `/api/tutor/conversations/{id}/messages` | POST | `app/api/tutor/conversations/[id]/messages/route.ts` | Save message |
 
 See [API_REFERENCE.md](./API_REFERENCE.md) for complete API documentation.

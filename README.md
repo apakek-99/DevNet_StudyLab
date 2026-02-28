@@ -9,7 +9,7 @@ A full-stack study platform for the **Cisco DevNet Associate (200-901)** certifi
 - **Practice Exams** -- 2 full 40-question practice exams and focused domain quizzes with scoring and attempt history
 - **Study Guides** -- In-depth study guides for all 6 exam domains with objective-level progress tracking
 - **Hands-on Labs** -- 7 labs (Python, REST API, Git, Docker, Bash, Ansible, NETCONF) with a CodeMirror editor featuring syntax highlighting, bracket matching, and autocompletion
-- **AI Tutor** -- Claude-powered conversational tutor with domain-specific system prompts
+- **AI Tutor** -- Claude-powered conversational tutor with domain-specific system prompts and persistent conversation history
 - **Progress Persistence** -- All study progress saved to PostgreSQL (flashcards, exams, labs, objectives)
 - **Authentication** -- Auth.js v5 with credentials provider and JWT sessions
 

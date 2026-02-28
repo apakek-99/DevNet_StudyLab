@@ -208,7 +208,25 @@ The Next.js server handles web-facing API routes:
 
 | Route | Method | Purpose |
 |-------|--------|---------|
+| `/api/auth/[...nextauth]` | GET/POST | Auth.js authentication handlers |
 | `/api/chat` | POST | AI Tutor -- streams Claude responses via ReadableStream |
+| `/api/dashboard/stats` | GET | Aggregated dashboard statistics |
+| `/api/exams` | GET | List practice exams |
+| `/api/exams/{examId}` | GET | Get exam with questions (answers stripped) |
+| `/api/exams/{examId}/grade` | POST | Grade exam submission, persist attempt |
+| `/api/exams/attempts` | GET | Past exam attempts |
+| `/api/flashcards` | GET | List all flashcards |
+| `/api/flashcards/progress` | GET/POST | SM-2 flashcard progress sync |
+| `/api/labs` | GET | List labs |
+| `/api/labs/{slug}` | GET | Get lab details |
+| `/api/labs/{slug}/run` | POST | Execute lab code |
+| `/api/labs/{slug}/solution` | GET | Get lab solution |
+| `/api/labs/attempts` | GET | Lab completion status |
+| `/api/study/{slug}` | GET | Get study guide |
+| `/api/study/progress` | GET/POST | Objective completion tracking |
+| `/api/tutor/conversations` | GET/POST | List/create tutor conversations |
+| `/api/tutor/conversations/{id}` | GET/PATCH/DELETE | Get/update/delete a conversation |
+| `/api/tutor/conversations/{id}/messages` | POST | Save a message to a conversation |
 
 The chat route:
 1. Validates the API key from environment variables
@@ -317,7 +335,7 @@ The `docker/docker-compose.yml` defines six services:
 - **Auth.js v5** manages sessions with secure HTTP-only cookies
 - OAuth providers supported via the `accounts` table (GitHub, Google, etc.)
 - Credential-based login with bcrypt-hashed passwords (`hashed_password` column)
-- Sessions stored in PostgreSQL with automatic expiration
+- Sessions use JWT strategy stored in secure HTTP-only cookies (not database sessions)
 
 ### API Key Management
 - Anthropic API key stored in environment variables (`TUTOR_ANTHROPIC_KEY` -- named to avoid conflicts with the Claude Code CLI environment)
@@ -349,7 +367,7 @@ The `docker/docker-compose.yml` defines six services:
 
 ## Design Decisions Log
 
-### 1. Why Next.js 15+ App Router
+### 1. Why Next.js 16 App Router
 
 **Decision:** Use Next.js with the App Router instead of Pages Router or a separate SPA framework.
 

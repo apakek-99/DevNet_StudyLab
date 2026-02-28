@@ -63,9 +63,9 @@ Transfer-Encoding: chunked
 | 400 | `{"error": "Messages array is required and must not be empty."}` | Missing or empty messages array |
 | 400 | `{"error": "Each message must have a role and content."}` | Malformed message object |
 | 400 | `{"error": "Message role must be 'user' or 'assistant'."}` | Invalid role value |
-| 401 | `{"error": "TUTOR_ANTHROPIC_KEY is not configured on the server."}` | Missing API key in environment |
-| 429 | `{"error": "..."}` | Anthropic rate limit exceeded |
-| 500 | `{"error": "Internal server error"}` | Unhandled exception |
+| 200 | Streaming text explaining the key is not configured | Missing or invalid API key (rendered as a chat message) |
+| 200 | Streaming text asking user to wait | Anthropic rate limit exceeded (rendered as a chat message) |
+| 200 | Streaming text with error details | Anthropic API or server error (rendered as a chat message) |
 
 ---
 
@@ -98,14 +98,14 @@ List all flashcards, optionally filtered by domain.
       "tags": ["rest", "api"]
     }
   ],
-  "total": 97,
+  "total": 199,
   "byDomain": {
-    "software-dev": 17,
-    "apis": 16,
-    "cisco-platforms": 16,
-    "deployment-security": 16,
-    "infrastructure-automation": 16,
-    "network-fundamentals": 16
+    "software-dev": 30,
+    "apis": 33,
+    "cisco-platforms": 33,
+    "deployment-security": 36,
+    "infrastructure-automation": 36,
+    "network-fundamentals": 31
   }
 }
 ```
@@ -198,11 +198,10 @@ List available practice exams, optionally filtered by domain.
 {
   "exams": [
     {
-      "id": "practice-1",
+      "id": "sample-exam-1",
       "title": "DevNet Associate Practice Exam 1",
-      "questionCount": 63,
-      "timeLimit": 120,
-      "passingScore": 70
+      "questionCount": 40,
+      "timeLimit": 60
     }
   ]
 }
@@ -220,7 +219,7 @@ Get a specific exam with questions (answers stripped for the client).
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `examId` | `string` | Exam identifier (e.g., `practice-1`) |
+| `examId` | `string` | Exam identifier (e.g., `sample-exam-1`) |
 
 **Response:** `200 OK`
 
@@ -274,8 +273,8 @@ Grade a submitted exam and optionally persist the attempt.
 ```json
 {
   "score": 78,
-  "totalQuestions": 63,
-  "correctCount": 49,
+  "totalQuestions": 40,
+  "correctCount": 31,
   "passed": true,
   "timeTaken": 3600,
   "questions": [...],
@@ -299,7 +298,7 @@ Retrieve past exam attempts for the authenticated user.
     {
       "id": "att-001",
       "score": 78,
-      "totalQuestions": 63,
+      "totalQuestions": 40,
       "domainFilter": null,
       "timeTakenSeconds": 3600,
       "createdAt": "2026-02-27T10:00:00Z"
@@ -516,6 +515,165 @@ Auth.js authentication handler. Supports credentials-based login.
 **Authentication:** None
 
 See [Auth.js documentation](https://authjs.dev/) for the full NextAuth REST API.
+
+---
+
+### GET /api/tutor/conversations
+
+List all tutor conversations for the authenticated user, ordered by most recent.
+
+**Authentication:** Session (returns empty array when unauthenticated)
+
+**Response:** `200 OK`
+
+```json
+{
+  "conversations": [
+    {
+      "id": "a1b2c3d4-5678-90ab-cdef-1234567890ab",
+      "title": "Explain REST API authentication methods",
+      "domainId": 2,
+      "createdAt": "2026-02-27T10:00:00.000Z",
+      "updatedAt": "2026-02-27T10:05:00.000Z"
+    }
+  ]
+}
+```
+
+---
+
+### POST /api/tutor/conversations
+
+Create a new tutor conversation.
+
+**Authentication:** Session (returns `{ id: null }` when unauthenticated)
+
+**Request Body:**
+
+```json
+{
+  "title": "Help me understand Docker containers",
+  "domainId": 4
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `title` | `string` | Yes | Conversation title (typically the first message) |
+| `domainId` | `number \| null` | No | Domain ID (1-6) or null for all domains |
+
+**Response:** `200 OK`
+
+```json
+{ "id": "a1b2c3d4-5678-90ab-cdef-1234567890ab" }
+```
+
+---
+
+### GET /api/tutor/conversations/{id}
+
+Get a single conversation with all its messages.
+
+**Authentication:** Session
+
+**Path Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `id` | `string` | Conversation UUID |
+
+**Response:** `200 OK`
+
+```json
+{
+  "conversation": {
+    "id": "a1b2c3d4-5678-90ab-cdef-1234567890ab",
+    "title": "Help me understand Docker containers",
+    "domainId": 4,
+    "createdAt": "2026-02-27T10:00:00.000Z",
+    "updatedAt": "2026-02-27T10:05:00.000Z",
+    "messages": [
+      { "id": 1, "role": "user", "content": "Help me understand Docker containers", "createdAt": "2026-02-27T10:00:00.000Z" },
+      { "id": 2, "role": "assistant", "content": "Docker containers are lightweight...", "createdAt": "2026-02-27T10:00:05.000Z" }
+    ]
+  }
+}
+```
+
+**Error Responses:**
+
+| Status | Body | Condition |
+|--------|------|-----------|
+| 404 | `{"error": "Conversation not found"}` | Invalid ID or not owned by user |
+
+---
+
+### PATCH /api/tutor/conversations/{id}
+
+Update a conversation's title.
+
+**Authentication:** Session
+
+**Request Body:**
+
+```json
+{ "title": "Updated conversation title" }
+```
+
+**Response:** `200 OK`
+
+```json
+{ "success": true }
+```
+
+---
+
+### DELETE /api/tutor/conversations/{id}
+
+Delete a conversation and all its messages.
+
+**Authentication:** Session
+
+**Response:** `200 OK`
+
+```json
+{ "success": true }
+```
+
+---
+
+### POST /api/tutor/conversations/{id}/messages
+
+Save a message to a conversation.
+
+**Authentication:** Session
+
+**Request Body:**
+
+```json
+{
+  "role": "user",
+  "content": "What is the difference between Docker and VMs?"
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `role` | `string` | Yes | `"user"` or `"assistant"` |
+| `content` | `string` | Yes | Message text |
+
+**Response:** `200 OK`
+
+```json
+{ "id": 3 }
+```
+
+**Error Responses:**
+
+| Status | Body | Condition |
+|--------|------|-----------|
+| 400 | `{"error": "role and content are required"}` | Missing fields |
+| 400 | `{"error": "role must be 'user' or 'assistant'"}` | Invalid role |
 
 ---
 

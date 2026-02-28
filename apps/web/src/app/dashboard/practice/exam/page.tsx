@@ -249,17 +249,18 @@ function MultipleSelectInput({
           const letter = OPTION_LETTERS[i];
           const isSelected = value.includes(letter);
           return (
-            <button
+            <div
               key={letter}
-              type="button"
-              onClick={() => toggle(letter)}
-              disabled={disabled}
+              role="button"
+              tabIndex={disabled ? -1 : 0}
+              onClick={() => !disabled && toggle(letter)}
+              onKeyDown={(e) => { if (!disabled && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); toggle(letter); } }}
               className={cn(
-                "flex items-center gap-3 rounded-lg border p-4 text-left transition-colors",
+                "flex items-center gap-3 rounded-lg border p-4 text-left transition-colors cursor-pointer",
                 isSelected
                   ? "border-emerald-500/50 bg-emerald-500/5"
                   : "border-zinc-700 bg-zinc-800/30 hover:bg-zinc-800/60",
-                disabled && "cursor-default opacity-70"
+                disabled && "cursor-default opacity-70 pointer-events-none"
               )}
             >
               <Checkbox
@@ -271,7 +272,7 @@ function MultipleSelectInput({
                 {letter}.
               </span>
               <span className="text-sm text-zinc-200">{opt}</span>
-            </button>
+            </div>
           );
         })}
       </div>

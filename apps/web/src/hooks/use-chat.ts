@@ -17,8 +17,9 @@ interface UseChatReturn {
   messages: ChatMessage[];
   isLoading: boolean;
   error: string | null;
-  sendMessage: (content: string) => Promise<void>;
+  sendMessage: (content: string) => Promise<string | null>;
   clearMessages: () => void;
+  restoreMessages: (msgs: ChatMessage[]) => void;
 }
 
 function generateId(): string {
@@ -32,8 +33,8 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
   const abortControllerRef = useRef<AbortController | null>(null);
 
   const sendMessage = useCallback(
-    async (content: string) => {
-      if (!content.trim() || isLoading) return;
+    async (content: string): Promise<string | null> => {
+      if (!content.trim() || isLoading) return null;
 
       setError(null);
 
@@ -117,9 +118,11 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
             )
           );
         }
+
+        return accumulated;
       } catch (err) {
         if (err instanceof Error && err.name === "AbortError") {
-          return;
+          return null;
         }
 
         const errorMessage =
@@ -130,6 +133,7 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
         setMessages((prev) =>
           prev.filter((m) => m.id !== assistantMessage.id)
         );
+        return null;
       } finally {
         setIsLoading(false);
         abortControllerRef.current = null;
@@ -147,5 +151,11 @@ export function useChat(options: UseChatOptions = {}): UseChatReturn {
     setIsLoading(false);
   }, []);
 
-  return { messages, isLoading, error, sendMessage, clearMessages };
+  const restoreMessages = useCallback((msgs: ChatMessage[]) => {
+    setMessages(msgs);
+    setError(null);
+    setIsLoading(false);
+  }, []);
+
+  return { messages, isLoading, error, sendMessage, clearMessages, restoreMessages };
 }

@@ -42,3 +42,15 @@ export {
   type ExamAttemptRecord,
   type LabAttemptRecord,
 } from "./progress";
+
+export {
+  getTutorConversations,
+  getTutorConversation,
+  createTutorConversation,
+  updateTutorConversation,
+  deleteTutorConversation,
+  saveTutorMessage,
+  type TutorConversationRecord,
+  type TutorMessageRecord,
+  type TutorConversationWithMessages,
+} from "./tutor";

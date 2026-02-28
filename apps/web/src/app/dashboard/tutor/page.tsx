@@ -93,11 +93,23 @@ interface Conversation {
   timestamp: Date;
 }
 
-// ---------- Helper ----------
+// ---------- Helpers ----------
 
 function getDomainBySlug(slug: string | null): Domain | undefined {
   if (!slug) return undefined;
   return domains.find((d) => d.slug === slug);
+}
+
+function domainSlugToId(slug: string | null): number | null {
+  if (!slug) return null;
+  const d = domains.find((dm) => dm.slug === slug);
+  return d ? d.number : null;
+}
+
+function domainIdToSlug(id: number | null): string | null {
+  if (id == null) return null;
+  const d = domains.find((dm) => dm.number === id);
+  return d ? d.slug : null;
 }
 
 function generateConversationTitle(messages: ChatMessageType[]): string {
@@ -105,6 +117,61 @@ function generateConversationTitle(messages: ChatMessageType[]): string {
   if (!firstUserMsg) return "New Conversation";
   const text = firstUserMsg.content;
   return text.length > 50 ? text.slice(0, 50) + "..." : text;
+}
+
+// ---------- Persistence helpers (fire-and-forget) ----------
+
+async function apiCreateConversation(
+  title: string,
+  domainSlug: string | null,
+): Promise<string | null> {
+  try {
+    const res = await fetch("/api/tutor/conversations", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title, domainId: domainSlugToId(domainSlug) }),
+    });
+    const data = await res.json();
+    return data.id ?? null;
+  } catch {
+    return null;
+  }
+}
+
+async function apiSaveMessage(
+  conversationId: string,
+  role: "user" | "assistant",
+  content: string,
+): Promise<void> {
+  try {
+    await fetch(`/api/tutor/conversations/${conversationId}/messages`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ role, content }),
+    });
+  } catch {
+    // silent
+  }
+}
+
+async function apiDeleteConversation(id: string): Promise<void> {
+  try {
+    await fetch(`/api/tutor/conversations/${id}`, { method: "DELETE" });
+  } catch {
+    // silent
+  }
+}
+
+async function apiUpdateTitle(id: string, title: string): Promise<void> {
+  try {
+    await fetch(`/api/tutor/conversations/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title }),
+    });
+  } catch {
+    // silent
+  }
 }
 
 // ---------- Page component ----------
@@ -118,7 +185,7 @@ export default function TutorPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Chat hook
-  const { messages, isLoading, error, sendMessage, clearMessages } = useChat({
+  const { messages, isLoading, error, sendMessage, clearMessages, restoreMessages } = useChat({
     domain: selectedDomain || undefined,
   });
 
@@ -127,6 +194,36 @@ export default function TutorPage() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+
+  // Track the conversation ID that a pending message-save should target.
+  // This avoids race conditions when conversation creation is async.
+  const pendingConvIdRef = useRef<string | null>(null);
+
+  // Load conversations from DB on mount
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/tutor/conversations");
+        if (!res.ok) return;
+        const data = await res.json();
+        if (cancelled) return;
+        const loaded: Conversation[] = (data.conversations ?? []).map(
+          (c: { id: string; title: string | null; domainId: number | null; updatedAt: string }) => ({
+            id: c.id,
+            title: c.title ?? "Untitled",
+            domain: domainIdToSlug(c.domainId),
+            messages: [] as ChatMessageType[],
+            timestamp: new Date(c.updatedAt),
+          }),
+        );
+        setConversations(loaded);
+      } catch {
+        // DB not available — that's fine, start with empty
+      }
+    })();
+    return () => { cancelled = true; };
+  }, []);
 
   // Auto-resize textarea
   useEffect(() => {
@@ -148,6 +245,7 @@ export default function TutorPage() {
   // hook's message state which is the source of truth.
   useEffect(() => {
     if (activeConversationId && messages.length > 0) {
+      const title = generateConversationTitle(messages);
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setConversations((prev) =>
         prev.map((c) =>
@@ -155,7 +253,7 @@ export default function TutorPage() {
             ? {
                 ...c,
                 messages,
-                title: generateConversationTitle(messages),
+                title,
                 domain: selectedDomain,
                 timestamp: new Date(),
               }
@@ -170,23 +268,56 @@ export default function TutorPage() {
     const trimmed = input.trim();
     if (!trimmed || isLoading) return;
 
+    let convId = activeConversationId;
+    const title = trimmed.length > 50 ? trimmed.slice(0, 50) + "..." : trimmed;
+
     // If no active conversation, create one
-    if (!activeConversationId) {
-      const newId = `conv-${Date.now()}`;
+    if (!convId) {
+      // Create in DB (async) — use a temporary local ID while waiting
+      const tempId = `temp-${Date.now()}`;
       const newConv: Conversation = {
-        id: newId,
-        title: trimmed.length > 50 ? trimmed.slice(0, 50) + "..." : trimmed,
+        id: tempId,
+        title,
         domain: selectedDomain,
         messages: [],
         timestamp: new Date(),
       };
       setConversations((prev) => [newConv, ...prev]);
-      setActiveConversationId(newId);
+      setActiveConversationId(tempId);
+      convId = tempId;
+
+      // Create in DB and replace temp ID with real UUID
+      apiCreateConversation(title, selectedDomain).then((dbId) => {
+        if (dbId) {
+          pendingConvIdRef.current = dbId;
+          setConversations((prev) =>
+            prev.map((c) => (c.id === tempId ? { ...c, id: dbId } : c))
+          );
+          setActiveConversationId((prev) => (prev === tempId ? dbId : prev));
+        }
+      });
     }
 
     setInput("");
-    await sendMessage(trimmed);
-  }, [input, isLoading, activeConversationId, selectedDomain, sendMessage]);
+
+    const isFirstMessage = messages.length === 0;
+    const assistantContent = await sendMessage(trimmed);
+
+    // After sendMessage completes, persist messages to DB.
+    // The real DB conversation ID might have arrived by now via pendingConvIdRef.
+    const realConvId = pendingConvIdRef.current || convId;
+    if (realConvId && !realConvId.startsWith("temp-")) {
+      apiSaveMessage(realConvId, "user", trimmed);
+      if (assistantContent) {
+        apiSaveMessage(realConvId, "assistant", assistantContent);
+      }
+      if (isFirstMessage) {
+        apiUpdateTitle(realConvId, title);
+      }
+    }
+
+    pendingConvIdRef.current = null;
+  }, [input, isLoading, activeConversationId, selectedDomain, sendMessage, messages.length]);
 
   // Handle keyboard
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -204,17 +335,47 @@ export default function TutorPage() {
     setSidebarOpen(false);
   }, [clearMessages]);
 
-  // Switch conversation
+  // Switch conversation — load messages from DB
   const handleSelectConversation = useCallback(
-    (conv: Conversation) => {
-      clearMessages();
+    async (conv: Conversation) => {
+      setSidebarOpen(false);
       setActiveConversationId(conv.id);
       setSelectedDomain(conv.domain);
-      // Restore messages by re-sending them to the hook would be complex;
-      // instead, we store them and display from conversation state
-      setSidebarOpen(false);
+
+      // If we already have messages cached locally, restore them
+      if (conv.messages.length > 0) {
+        restoreMessages(conv.messages);
+        return;
+      }
+
+      // Otherwise fetch from DB
+      try {
+        const res = await fetch(`/api/tutor/conversations/${conv.id}`);
+        if (!res.ok) {
+          clearMessages();
+          return;
+        }
+        const data = await res.json();
+        const dbMessages: ChatMessageType[] = (data.conversation?.messages ?? []).map(
+          (m: { id: number; role: "user" | "assistant"; content: string; createdAt: string }) => ({
+            id: String(m.id),
+            role: m.role,
+            content: m.content,
+            timestamp: new Date(m.createdAt),
+          }),
+        );
+
+        // Cache in local state
+        setConversations((prev) =>
+          prev.map((c) => (c.id === conv.id ? { ...c, messages: dbMessages } : c))
+        );
+
+        restoreMessages(dbMessages);
+      } catch {
+        clearMessages();
+      }
     },
-    [clearMessages]
+    [clearMessages, restoreMessages]
   );
 
   // Delete conversation
@@ -225,6 +386,10 @@ export default function TutorPage() {
       if (activeConversationId === id) {
         clearMessages();
         setActiveConversationId(null);
+      }
+      // Delete from DB (fire-and-forget)
+      if (!id.startsWith("temp-")) {
+        apiDeleteConversation(id);
       }
     },
     [activeConversationId, clearMessages]

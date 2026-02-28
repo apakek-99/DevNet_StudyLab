@@ -1,0 +1,211 @@
+{
+  "domain": 3,
+  "slug": "cisco-platforms",
+  "name": "Cisco Platforms and Development",
+  "weight": 15,
+  "overview": "This domain tests your knowledge of the Cisco product portfolio from a developer's perspective. You need to understand the programmability capabilities of Cisco network, compute, collaboration, and security platforms, including their APIs and SDKs. You will also learn about model-driven programmability with YANG, RESTCONF, and NETCONF, and how to leverage DevNet resources for development.",
+  "keyTopics": [
+    {
+      "objectiveCode": "3.1",
+      "title": "Construct a Python script that uses a Cisco SDK given SDK documentation",
+      "summary": "Cisco provides SDKs for many platforms that abstract away raw API calls into convenient Python methods. Understanding how to read SDK documentation and use these libraries accelerates development of automation solutions.",
+      "keyPoints": [
+        "SDKs provide higher-level abstractions over REST APIs, handling authentication, pagination, and error handling automatically",
+        "The Meraki Python SDK (meraki) provides Dashboard API access with built-in rate limit handling and logging",
+        "The Webex Python SDK (webexteamssdk) simplifies interaction with Webex messaging, rooms, and people",
+        "SDK documentation typically includes installation instructions, authentication setup, and code examples for common operations",
+        "SDKs handle JSON serialization/deserialization automatically, returning native Python objects"
+      ],
+      "examTips": [
+        "Be able to read SDK documentation and identify the correct method to call for a given task",
+        "Know the most popular Cisco SDKs: meraki, webexteamssdk, dnacentersdk, and cobra (ACI)",
+        "Understand that SDKs abstract REST API calls but the underlying HTTP operations are the same"
+      ],
+      "resources": [
+        { "title": "Cisco Meraki Python SDK", "url": "https://github.com/meraki/dashboard-api-python" },
+        { "title": "Cisco DevNet SDK Documentation", "url": "https://developer.cisco.com/docs/" }
+      ]
+    },
+    {
+      "objectiveCode": "3.2",
+      "title": "Describe the capabilities of Cisco network management platforms and APIs",
+      "summary": "Cisco offers several network management platforms, each with unique APIs for automating network operations. Understanding the capabilities and use cases of Meraki, Catalyst Center, ACI, SD-WAN, and NSO is essential.",
+      "keyPoints": [
+        "Meraki Dashboard API provides cloud-managed network automation with a RESTful API for managing wireless, switching, and security appliances",
+        "Cisco Catalyst Center (formerly DNA Center) offers intent-based networking with APIs for device discovery, provisioning, assurance, and policy management",
+        "ACI (Application Centric Infrastructure) uses a REST API with a policy-based model for data center network automation through APIC",
+        "Cisco Catalyst SD-WAN (formerly Viptela) provides APIs for managing software-defined WAN overlays, policies, and device templates",
+        "NSO (Network Services Orchestrator) is a multi-vendor network automation platform that uses YANG models and NETCONF/RESTCONF for device management"
+      ],
+      "examTips": [
+        "Know which platform is cloud-managed (Meraki) versus on-premises (Catalyst Center, ACI)",
+        "Remember that ACI uses APIC as its controller and has a unique object model with tenants, bridge domains, and EPGs",
+        "NSO is the only platform on this list that supports multi-vendor network automation"
+      ],
+      "resources": [
+        { "title": "Cisco Meraki API Documentation", "url": "https://developer.cisco.com/meraki/" },
+        { "title": "Cisco Catalyst Center API Guide", "url": "https://developer.cisco.com/docs/dna-center/" }
+      ]
+    },
+    {
+      "objectiveCode": "3.3",
+      "title": "Describe the capabilities of Cisco compute management platforms and APIs",
+      "summary": "Cisco compute platforms manage server hardware in data centers. UCS Manager and Intersight provide APIs for automating server provisioning, firmware management, and infrastructure monitoring.",
+      "keyPoints": [
+        "Cisco UCS Manager provides an XML-based API for managing Unified Computing System blade and rack servers on-premises",
+        "Cisco Intersight is a cloud-based platform that manages UCS and HyperFlex systems with a RESTful API",
+        "Intersight supports both SaaS (cloud) and Connected Virtual Appliance (on-premises) deployment models",
+        "UCS Manager API uses an XML-based request/response format with session-based authentication",
+        "Intersight provides infrastructure as code capabilities for server profiles, policies, and firmware management"
+      ],
+      "examTips": [
+        "Know that UCS Manager uses XML while Intersight uses REST/JSON",
+        "Remember that Intersight is the cloud-based evolution of UCS management",
+        "UCS Manager manages the physical and logical configuration of servers within a UCS domain"
+      ],
+      "resources": [
+        { "title": "Cisco Intersight API Documentation", "url": "https://intersight.com/apidocs/" },
+        { "title": "Cisco DevNet - UCS Manager", "url": "https://developer.cisco.com/site/ucs-dev-center/" }
+      ]
+    },
+    {
+      "objectiveCode": "3.4",
+      "title": "Describe the capabilities of Cisco collaboration platforms and APIs",
+      "summary": "Cisco collaboration platforms enable communication and teamwork through messaging, meetings, and device management. Their APIs allow developers to build integrations, bots, and custom workflows.",
+      "keyPoints": [
+        "Webex provides REST APIs for messaging (rooms, messages, people), meetings, and device management",
+        "Webex Bots can send messages, respond to commands, and integrate with external systems via webhooks",
+        "Webex Devices (Room and Desk series) expose xAPI for controlling device features like cameras, displays, and call controls",
+        "Cisco Unified Communications Manager (CUCM) uses AXL (Administrative XML Layer) for provisioning and UDS (User Data Services) for user lookup",
+        "Webex APIs use OAuth 2.0 and Bearer tokens for authentication with granular scopes"
+      ],
+      "examTips": [
+        "Know that Webex uses REST APIs with OAuth while CUCM uses XML-based AXL and SOAP",
+        "Remember the difference between AXL (admin provisioning) and UDS (user data queries)",
+        "Webex webhooks are a common exam topic for event-driven automation scenarios"
+      ],
+      "resources": [
+        { "title": "Webex Developer Documentation", "url": "https://developer.webex.com/docs" },
+        { "title": "Cisco DevNet - Collaboration", "url": "https://developer.cisco.com/collaboration/" }
+      ]
+    },
+    {
+      "objectiveCode": "3.5",
+      "title": "Describe the capabilities of Cisco security platforms and APIs",
+      "summary": "Cisco security platforms protect networks, endpoints, and cloud services. Their APIs enable automated threat detection, incident response, and security policy management.",
+      "keyPoints": [
+        "Cisco XDR (Extended Detection and Response) provides a unified platform for threat hunting and incident response across multiple security products",
+        "Firepower (now Secure Firewall) provides RESTful APIs for managing firewall rules, intrusion prevention, and URL filtering policies",
+        "Cisco Umbrella (Secure Internet Gateway) offers APIs for DNS-layer security, web filtering, and threat intelligence",
+        "Cisco Secure Endpoint (formerly AMP) provides APIs for endpoint detection and response, file analysis, and threat hunting",
+        "Cisco ISE (Identity Services Engine) offers APIs for policy management, guest access, and network access control (RADIUS/TACACS+)"
+      ],
+      "examTips": [
+        "Know the current product names: AMP is now Secure Endpoint, Umbrella is part of Secure Access",
+        "Remember that ISE focuses on identity and access control (who can access the network) while Firepower focuses on traffic inspection (what is allowed to pass)",
+        "Understand that XDR correlates data from multiple security products for unified threat detection"
+      ],
+      "resources": [
+        { "title": "Cisco Security APIs", "url": "https://developer.cisco.com/security/" },
+        { "title": "Cisco DevNet Security Learning Labs", "url": "https://developer.cisco.com/learning/modules/security/" }
+      ]
+    },
+    {
+      "objectiveCode": "3.6",
+      "title": "Describe the device-level APIs and dynamic interfaces for IOS XE and NX-OS",
+      "summary": "Cisco IOS XE and NX-OS support multiple programmability interfaces beyond traditional CLI. These include RESTCONF, NETCONF, gRPC, and guest shell for on-box automation.",
+      "keyPoints": [
+        "IOS XE supports RESTCONF (REST-based), NETCONF (SSH-based), gRPC for telemetry, and on-box Python scripting via Guest Shell",
+        "NX-OS supports NX-API REST, NX-API CLI (sends CLI commands via HTTP), and NETCONF for programmatic configuration",
+        "RESTCONF uses HTTPS and YANG models to provide a RESTful interface to network devices",
+        "NETCONF uses SSH (port 830) and XML-encoded YANG models for configuration management with transaction support",
+        "Both platforms support YANG data models for standardized, model-driven configuration and operational data retrieval"
+      ],
+      "examTips": [
+        "Know the transport protocols: RESTCONF uses HTTPS, NETCONF uses SSH, NX-API uses HTTP/HTTPS",
+        "Remember that NETCONF operates on port 830 by default and provides full transaction support (commit/rollback)",
+        "IOS XE Guest Shell provides a Linux container for running Python scripts directly on the device"
+      ],
+      "resources": [
+        { "title": "Cisco IOS XE Programmability Guide", "url": "https://developer.cisco.com/docs/ios-xe/" },
+        { "title": "Cisco NX-OS Programmability Guide", "url": "https://developer.cisco.com/docs/nx-os/" }
+      ]
+    },
+    {
+      "objectiveCode": "3.7",
+      "title": "Describe the appropriate DevNet resource for a given scenario",
+      "summary": "Cisco DevNet provides a comprehensive ecosystem of resources for developers including sandboxes, code repositories, learning labs, forums, and API documentation.",
+      "keyPoints": [
+        "DevNet Sandbox provides free, pre-configured lab environments for hands-on learning and testing with real Cisco platforms",
+        "Code Exchange is a community-driven repository of sample code, scripts, and integrations shared by developers",
+        "DevNet Learning Labs offer guided, step-by-step tutorials on Cisco technologies and APIs",
+        "DevNet Support and Community Forums provide help from Cisco engineers and fellow developers",
+        "API documentation on DevNet includes interactive API consoles for testing requests directly from the browser"
+      ],
+      "examTips": [
+        "Know which resource to use for each scenario: Sandbox for testing, Code Exchange for examples, Learning Labs for education",
+        "Remember that Sandboxes come in two types: Always-On (shared, no reservation) and Reservable (dedicated, time-limited)",
+        "DevNet is the primary portal for all Cisco developer resources at developer.cisco.com"
+      ],
+      "resources": [
+        { "title": "Cisco DevNet Sandbox", "url": "https://developer.cisco.com/sandbox/" },
+        { "title": "Cisco Code Exchange", "url": "https://developer.cisco.com/codeexchange/" }
+      ]
+    },
+    {
+      "objectiveCode": "3.8",
+      "title": "Apply concepts of model-driven programmability (YANG, RESTCONF, and NETCONF)",
+      "summary": "Model-driven programmability uses YANG data models to define the structure of network configuration and operational data. RESTCONF and NETCONF provide transport protocols for interacting with these models.",
+      "keyPoints": [
+        "YANG is a data modeling language that defines the structure of configuration and operational data on network devices",
+        "YANG models define containers, leaves, lists, and leaf-lists to describe hierarchical data structures",
+        "RESTCONF provides a RESTful interface using YANG models over HTTPS with JSON or XML encoding",
+        "NETCONF provides an RPC-based interface using YANG models over SSH with XML encoding only",
+        "Both OpenConfig and IETF publish standard YANG models, while vendors provide native models for platform-specific features"
+      ],
+      "examTips": [
+        "Know that YANG is the data model, RESTCONF and NETCONF are the transport protocols",
+        "RESTCONF supports both JSON and XML, while NETCONF only supports XML",
+        "Remember the RESTCONF URL structure: https://host/restconf/data/{yang-module}:{container}"
+      ],
+      "resources": [
+        { "title": "YANG Models on GitHub", "url": "https://github.com/YangModels/yang" },
+        { "title": "Cisco DevNet - Model Driven Programmability", "url": "https://developer.cisco.com/learning/modules/intro-device-level-interfaces/" }
+      ]
+    },
+    {
+      "objectiveCode": "3.9",
+      "title": "Construct code to perform a specific operation based on API reference documentation",
+      "summary": "This objective combines knowledge of Cisco platform APIs with practical coding skills. You must be able to write Python code that interacts with Meraki, Catalyst Center, ACI, SD-WAN, NSO, and Webex APIs.",
+      "keyPoints": [
+        "Meraki API: Get networks with GET /organizations/{orgId}/networks, get devices with GET /networks/{networkId}/devices",
+        "Catalyst Center: Authenticate first with POST /dna/system/api/v1/auth/token, then use the token for subsequent API calls",
+        "Webex: Manage spaces (rooms) with /rooms endpoints and messages with /messages endpoints using Bearer token auth",
+        "ACI: Authenticate to APIC with POST /api/aaaLogin.json, then query objects using the MIT (Management Information Tree)",
+        "All Cisco APIs follow the pattern of authenticate, construct request, handle response, and process data"
+      ],
+      "examTips": [
+        "Be able to read API documentation and write the correct Python requests code for a given task",
+        "Know the authentication method for each platform: Meraki (API key), Catalyst Center (token), Webex (Bearer token), ACI (session cookie)",
+        "Practice constructing API URLs with the correct path parameters and query strings"
+      ],
+      "resources": [
+        { "title": "Cisco DevNet API Documentation Portal", "url": "https://developer.cisco.com/docs/" },
+        { "title": "Cisco DevNet Code Samples", "url": "https://developer.cisco.com/codeexchange/" }
+      ]
+    }
+  ],
+  "practiceScenarios": [
+    "You need to build a monitoring dashboard that shows real-time alerts from your Meraki network. Explain how you would use webhooks instead of polling, and describe the registration process.",
+    "Your automation script is receiving HTTP 429 responses from the Meraki API. Describe the steps to implement proper rate limit handling with exponential backoff.",
+    "Write a Python script that authenticates to Cisco Catalyst Center using token-based authentication, retrieves a list of all network devices, and prints their hostname and management IP address.",
+    "Compare how you would retrieve interface configuration from a Cisco IOS XE router using RESTCONF versus NETCONF, including the URL structure and data format differences."
+  ],
+  "commonMistakes": [
+    "Confusing Meraki (cloud-managed, API key auth) with Catalyst Center (on-prem, token auth) when constructing API requests",
+    "Not handling pagination when retrieving large datasets from APIs, resulting in incomplete data",
+    "Using NETCONF XML syntax in RESTCONF requests or vice versa",
+    "Forgetting that DNA Center requires a separate authentication step to obtain a token before making API calls",
+    "Not understanding the difference between YANG native models (vendor-specific) and IETF/OpenConfig standard models"
+  ]
+}

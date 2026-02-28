@@ -1,0 +1,247 @@
+{
+  "domain": 6,
+  "domainName": "Network Fundamentals",
+  "flashcards": [
+    {
+      "id": "d6-fc-001",
+      "objectiveCode": "6.1",
+      "question": "What is a MAC address and what is its purpose?",
+      "answer": "A MAC (Media Access Control) address is a 48-bit hardware address (e.g., AA:BB:CC:DD:EE:FF) burned into a network interface card. It uniquely identifies a device on a local network (Layer 2) and is used by switches to forward frames to the correct port.",
+      "explanation": "MAC addresses operate at OSI Layer 2 (Data Link). The first 24 bits are the OUI (Organizationally Unique Identifier) assigned to the manufacturer; the last 24 bits are unique to the device. Switches build a MAC address table mapping MAC addresses to ports. Frames are forwarded based on the destination MAC. Broadcast MAC (FF:FF:FF:FF:FF:FF) sends to all devices on the VLAN. MAC addresses are only relevant within a local network segment.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/networking/what-is-an-ethernet-switch.html",
+      "difficulty": "easy",
+      "tags": [
+        "mac-address",
+        "layer2",
+        "switching"
+      ]
+    },
+    {
+      "id": "d6-fc-002",
+      "objectiveCode": "6.1",
+      "question": "What is a VLAN and why is it used?",
+      "answer": "A VLAN (Virtual Local Area Network) logically segments a physical network into separate broadcast domains. Devices in different VLANs cannot communicate without a Layer 3 device (router or L3 switch). VLANs improve security, reduce broadcast traffic, and simplify network management.",
+      "explanation": "Without VLANs, all devices on a switch share one broadcast domain, meaning all broadcasts reach every device. VLANs solve this by creating isolated broadcast domains. VLAN tagging (IEEE 802.1Q) adds a 4-byte tag to Ethernet frames on trunk links to identify which VLAN the frame belongs to. Access ports carry traffic for a single VLAN; trunk ports carry traffic for multiple VLANs. Inter-VLAN routing requires a router or Layer 3 switch.",
+      "sourceUrl": "https://ieeexplore.ieee.org/document/10004498/",
+      "difficulty": "easy",
+      "tags": [
+        "vlan",
+        "broadcast-domain",
+        "802.1q",
+        "segmentation"
+      ]
+    },
+    {
+      "id": "d6-fc-003",
+      "objectiveCode": "6.2",
+      "question": "What is the purpose of a subnet mask and how does it work?",
+      "answer": "A subnet mask determines which portion of an IP address identifies the network and which identifies the host. For example, 255.255.255.0 (/24) means the first 24 bits are the network portion and the last 8 bits are for host addresses (254 usable hosts).",
+      "explanation": "A subnet mask is a 32-bit value where consecutive 1s represent the network portion and 0s represent the host portion. The device performs a bitwise AND between the IP address and subnet mask to determine the network address. Common masks: /8 (255.0.0.0) = Class A, /16 (255.255.0.0) = Class B, /24 (255.255.255.0) = Class C, /30 (255.255.255.252) = point-to-point links (2 usable hosts). CIDR notation (/24) is the number of network bits.",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc4632",
+      "difficulty": "medium",
+      "tags": [
+        "subnet-mask",
+        "cidr",
+        "ip-addressing",
+        "network"
+      ]
+    },
+    {
+      "id": "d6-fc-004",
+      "objectiveCode": "6.2",
+      "question": "What is the purpose of a default gateway?",
+      "answer": "The default gateway is the IP address of the router interface on the local network that a host uses to send packets to destinations outside its own subnet. Without a default gateway, a device can only communicate with other devices on the same local network.",
+      "explanation": "When a host wants to send a packet, it compares the destination IP with its own subnet mask. If the destination is on the same subnet, it sends directly (using ARP to find the MAC address). If the destination is on a different subnet, it forwards the packet to the default gateway (router), which then routes it toward the destination. The default gateway must be on the same subnet as the host.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/networking/what-is-routing.html",
+      "difficulty": "easy",
+      "tags": [
+        "gateway",
+        "routing",
+        "ip-addressing"
+      ]
+    },
+    {
+      "id": "d6-fc-005",
+      "objectiveCode": "6.3",
+      "question": "What is the difference between a switch, router, firewall, and load balancer?",
+      "answer": "Switch: Forwards frames based on MAC addresses (Layer 2). Router: Forwards packets based on IP addresses between networks (Layer 3). Firewall: Filters traffic based on security rules (Layer 3-7). Load balancer: Distributes traffic across multiple servers for availability and performance (Layer 4-7).",
+      "explanation": "Switches create the local network fabric. Routers connect different networks and make forwarding decisions based on routing tables. Firewalls enforce access control policies (stateful inspection, application-level filtering). Load balancers ensure high availability by distributing requests and performing health checks on backend servers. Modern devices often combine functions: L3 switches can route, next-gen firewalls include IPS and URL filtering.",
+      "sourceUrl": "https://www.cisco.com/c/en/us/solutions/small-business/resource-center/networking/network-switch-vs-router.html",
+      "difficulty": "easy",
+      "tags": [
+        "switch",
+        "router",
+        "firewall",
+        "load-balancer",
+        "network-devices"
+      ]
+    },
+    {
+      "id": "d6-fc-006",
+      "objectiveCode": "6.5",
+      "question": "What are the three planes in a network device: management, data, and control?",
+      "answer": "Management plane: Handles device administration (SSH, SNMP, RESTCONF, web GUI). Control plane: Manages routing protocols and building forwarding tables (OSPF, BGP, STP, ARP). Data plane: Forwards actual user traffic based on the forwarding table built by the control plane.",
+      "explanation": "The data plane (also called forwarding plane) handles the high-speed forwarding of packets, often in hardware (ASICs). The control plane runs protocols that determine how traffic should be forwarded (populates the routing/forwarding tables). The management plane provides access to configure and monitor the device. SDN (Software-Defined Networking) separates the control plane from the data plane, centralizing it in a controller.",
+      "sourceUrl": "https://www.cisco.com/c/en/us/solutions/software-defined-networking/overview.html",
+      "difficulty": "medium",
+      "tags": [
+        "management-plane",
+        "data-plane",
+        "control-plane",
+        "sdn"
+      ]
+    },
+    {
+      "id": "d6-fc-007",
+      "objectiveCode": "6.6",
+      "question": "What does DHCP do and what is the DORA process?",
+      "answer": "DHCP (Dynamic Host Configuration Protocol) automatically assigns IP addresses and network configuration to devices. The DORA process: Discover (client broadcasts to find servers), Offer (server proposes an IP), Request (client accepts the offer), Acknowledge (server confirms the assignment).",
+      "explanation": "DHCP provides: IP address, subnet mask, default gateway, DNS server(s), and lease duration. The client sends broadcast messages (destination 255.255.255.255) because it does not yet have an IP. DHCP relay agents (ip helper-address on Cisco) forward DHCP broadcasts across subnets to a centralized DHCP server. Leases have a renewal timer (typically 50% of lease time) where the client requests to keep its address.",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc2131",
+      "difficulty": "medium",
+      "tags": [
+        "dhcp",
+        "dora",
+        "ip-services",
+        "addressing"
+      ]
+    },
+    {
+      "id": "d6-fc-008",
+      "objectiveCode": "6.6",
+      "question": "What is DNS and what are common DNS record types?",
+      "answer": "DNS (Domain Name System) translates domain names (e.g., www.cisco.com) to IP addresses (e.g., 72.163.4.185). Common record types: A (name to IPv4), AAAA (name to IPv6), CNAME (alias to another name), MX (mail server), NS (name server), TXT (text data, used for verification), PTR (IP to name, reverse lookup).",
+      "explanation": "DNS uses a hierarchical structure: root servers (.),  top-level domains (.com, .org), authoritative servers (cisco.com). DNS queries are typically recursive: the client asks its local DNS resolver, which queries root, TLD, and authoritative servers as needed. DNS caching (using TTL values) reduces query load. DNS is critical for API access since REST API base URLs use domain names. DNS uses UDP port 53 (TCP 53 for zone transfers or large responses).",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Glossary/DNS",
+      "difficulty": "medium",
+      "tags": [
+        "dns",
+        "records",
+        "ip-services",
+        "name-resolution"
+      ]
+    },
+    {
+      "id": "d6-fc-009",
+      "objectiveCode": "6.6",
+      "question": "What is NAT (Network Address Translation) and what are its types?",
+      "answer": "NAT translates private IP addresses to public IP addresses (and vice versa) at the network boundary. Types: Static NAT (one-to-one mapping), Dynamic NAT (pool of public IPs), PAT/NAT Overload (many private IPs share one public IP using port numbers).",
+      "explanation": "NAT allows organizations to use private IP ranges (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16) internally while using a smaller number of public IPs for internet access. PAT (Port Address Translation) is the most common type, used in home routers, where all internal devices share one public IP distinguished by source port numbers. NAT can cause issues with protocols that embed IP addresses in payload (SIP, FTP) and breaks end-to-end connectivity.",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc3022",
+      "difficulty": "medium",
+      "tags": [
+        "nat",
+        "pat",
+        "ip-services",
+        "addressing"
+      ]
+    },
+    {
+      "id": "d6-fc-010",
+      "objectiveCode": "6.7",
+      "question": "What are the port numbers for SSH, Telnet, HTTP, HTTPS, NETCONF, and RESTCONF?",
+      "answer": "SSH: TCP 22. Telnet: TCP 23. HTTP: TCP 80. HTTPS: TCP 443. NETCONF: TCP 830. RESTCONF: TCP 443 (runs over HTTPS).",
+      "explanation": "These are well-known port numbers assigned by IANA. Other important ports: DNS (UDP/TCP 53), DHCP server (UDP 67), DHCP client (UDP 68), SNMP (UDP 161), SNMP Trap (UDP 162), NTP (UDP 123), FTP data (TCP 20), FTP control (TCP 21), SMTP (TCP 25), TFTP (UDP 69). RESTCONF uses the same port as HTTPS (443) because it is a RESTful API running over HTTP/TLS. Ports 0-1023 are well-known (privileged) ports.",
+      "sourceUrl": "https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml",
+      "difficulty": "easy",
+      "tags": [
+        "ports",
+        "ssh",
+        "http",
+        "netconf",
+        "well-known"
+      ]
+    },
+    {
+      "id": "d6-fc-011",
+      "objectiveCode": "6.8",
+      "question": "How would you diagnose an application connectivity issue caused by a blocked transport port?",
+      "answer": "1) Verify the application's required port using documentation. 2) Test connectivity with telnet <ip> <port> or nc -zv <ip> <port>. 3) Check firewall rules and ACLs along the path. 4) Use traceroute to identify where traffic is being dropped. 5) Check if the service is listening on the correct port (netstat -tlnp or ss -tlnp).",
+      "explanation": "A blocked port results in connection timeouts or 'connection refused' errors. Common scenarios: a firewall blocks the required port, the application is listening on a different port than expected, a security group (cloud) does not allow inbound traffic, or the service is not running. Tools: telnet (TCP connectivity test), curl (HTTP-level test), nmap (port scanning), tcpdump/Wireshark (packet capture).",
+      "sourceUrl": "https://www.cloudflare.com/learning/network-layer/what-is-a-computer-port/",
+      "difficulty": "medium",
+      "tags": [
+        "troubleshooting",
+        "ports",
+        "firewall",
+        "connectivity"
+      ]
+    },
+    {
+      "id": "d6-fc-012",
+      "objectiveCode": "6.8",
+      "question": "What are common NAT-related issues that affect application connectivity?",
+      "answer": "1) NAT table exhaustion (all available translations in use). 2) Asymmetric routing (return traffic bypasses the NAT device). 3) Protocols that embed IP addresses in payloads (SIP, FTP active mode) break when translated. 4) Hairpin NAT issues when internal clients access internal servers via the public IP.",
+      "explanation": "NAT issues are particularly problematic for peer-to-peer applications, VoIP (SIP), and active FTP. Application Layer Gateways (ALGs) on NAT devices can inspect and rewrite payload IPs for known protocols. NAT traversal techniques like STUN, TURN, and ICE help applications work through NAT. VPN tunnels can bypass NAT issues by encapsulating all traffic. When troubleshooting, check NAT translations with 'show ip nat translations' on Cisco devices.",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc3235",
+      "difficulty": "hard",
+      "tags": [
+        "nat",
+        "troubleshooting",
+        "connectivity",
+        "voip"
+      ]
+    },
+    {
+      "id": "d6-fc-013",
+      "objectiveCode": "6.9",
+      "question": "What network constraints impact application performance?",
+      "answer": "1) Bandwidth: Maximum data throughput of a link. 2) Latency: Time for a packet to travel from source to destination. 3) Jitter: Variation in latency over time. 4) Packet loss: Percentage of packets that fail to reach the destination. These affect throughput, response time, and reliability.",
+      "explanation": "Low bandwidth causes slow file transfers and buffering. High latency affects real-time applications (VoIP, video) and API response times. Jitter causes voice quality degradation and video artifacts. Packet loss triggers retransmissions (TCP) or data gaps (UDP). Solutions include QoS (Quality of Service) policies to prioritize traffic, WAN optimization, CDNs (Content Delivery Networks), and protocol optimizations (HTTP/2 multiplexing, connection pooling).",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/cloud-networking/what-is-low-latency.html",
+      "difficulty": "medium",
+      "tags": [
+        "bandwidth",
+        "latency",
+        "jitter",
+        "packet-loss",
+        "qos"
+      ]
+    },
+    {
+      "id": "d6-fc-014",
+      "objectiveCode": "6.6",
+      "question": "What are SNMP and NTP and what are they used for?",
+      "answer": "SNMP (Simple Network Management Protocol) monitors and manages network devices by querying MIB objects (e.g., CPU usage, interface status, error counters) and receiving traps (alerts). NTP (Network Time Protocol) synchronizes clocks across network devices, which is critical for log correlation, authentication, and certificate validation.",
+      "explanation": "SNMP versions: v1 (community strings, no encryption), v2c (bulk operations, still no encryption), v3 (authentication and encryption). SNMP uses UDP 161 for queries and UDP 162 for traps. NTP uses UDP 123 and provides millisecond-level accuracy. Accurate time is essential for: correlating syslog messages across devices, certificate validity checks, scheduled tasks, and forensic analysis. Stratum indicates the distance from the reference clock (stratum 0 = atomic clock).",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc3411",
+      "difficulty": "medium",
+      "tags": [
+        "snmp",
+        "ntp",
+        "monitoring",
+        "ip-services"
+      ]
+    },
+    {
+      "id": "d6-fc-015",
+      "objectiveCode": "6.4",
+      "question": "What information can you derive from a network topology diagram?",
+      "answer": "From a topology diagram you can identify: device types and roles (routers, switches, firewalls), network segments and subnets, redundancy paths, traffic flow, port numbers and interface connections, VLANs, IP addressing scheme, and potential single points of failure.",
+      "explanation": "Topology diagrams use standard icons: rectangles for switches, circles with arrows for routers, brick-wall icons for firewalls, and diamond shapes for load balancers. Lines between devices show physical or logical connections, often labeled with interface names (Gi0/1), IP addresses, and bandwidth. Reading these diagrams is essential for network engineers to understand traffic paths, plan changes, and troubleshoot connectivity issues.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/networking/what-is-network-topology.html",
+      "difficulty": "easy",
+      "tags": [
+        "topology",
+        "diagram",
+        "network-design",
+        "troubleshooting"
+      ]
+    },
+    {
+      "id": "d6-fc-016",
+      "objectiveCode": "6.2",
+      "question": "What is a routing table and how does a router use it to forward packets?",
+      "answer": "A routing table is a data structure in a router that maps destination network prefixes to next-hop addresses or exit interfaces. When a router receives a packet, it performs a longest-prefix match against the routing table to determine where to forward the packet.",
+      "explanation": "Routes are learned via: directly connected interfaces, static routes (manually configured), and dynamic routing protocols (OSPF, BGP, EIGRP). Each route has a prefix/mask, next-hop, administrative distance (trustworthiness of the source), and metric (cost of the path). Longest-prefix match means a /25 route is preferred over a /24 for the same destination. The default route (0.0.0.0/0) matches all destinations and is used as a last resort.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/networking/what-is-routing.html",
+      "difficulty": "medium",
+      "tags": [
+        "routing",
+        "routing-table",
+        "longest-prefix",
+        "forwarding"
+      ]
+    }
+  ]
+}

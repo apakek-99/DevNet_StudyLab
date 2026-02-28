@@ -1,0 +1,220 @@
+{
+  "domain": 2,
+  "slug": "apis",
+  "name": "Understanding and Using APIs",
+  "weight": 20,
+  "overview": "This is the highest-weighted domain on the DevNet Associate exam, reflecting the central role APIs play in network automation. You will learn how to construct REST API requests, understand HTTP methods and response codes, authenticate with APIs, work with webhooks, and build Python scripts that interact with Cisco platform APIs. Mastering these skills is essential for automating network operations across Meraki, DNA Center, ACI, and other Cisco platforms.",
+  "keyTopics": [
+    {
+      "objectiveCode": "2.1",
+      "title": "Construct a REST API request to accomplish a task given API documentation",
+      "summary": "REST APIs follow a standard pattern of HTTP methods, URL endpoints, headers, and request bodies. Being able to read API documentation and construct the correct request is the most practical skill tested on the exam.",
+      "keyPoints": [
+        "REST API requests consist of a method (GET, POST, PUT, PATCH, DELETE), URL endpoint, headers, and optionally a request body",
+        "GET retrieves data, POST creates new resources, PUT replaces a resource entirely, PATCH updates specific fields, DELETE removes a resource",
+        "API documentation specifies the base URL, available endpoints, required parameters, authentication method, and expected response format",
+        "Query parameters are appended to the URL after a question mark (e.g., /devices?status=active) for filtering and pagination",
+        "The Content-Type header tells the server the format of the request body (usually application/json)"
+      ],
+      "examTips": [
+        "Know the difference between PUT (full replace) and PATCH (partial update) as this is frequently tested",
+        "Pay attention to whether a question asks for query parameters versus request body parameters",
+        "Always check the required headers in API documentation, especially Content-Type and authentication headers"
+      ],
+      "resources": [
+        { "title": "Cisco DevNet - REST API Fundamentals", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" },
+        { "title": "MDN Web Docs - HTTP Methods", "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods" }
+      ]
+    },
+    {
+      "objectiveCode": "2.2",
+      "title": "Describe common usage patterns related to webhooks",
+      "summary": "Webhooks provide a way for APIs to push real-time notifications to your application when events occur, eliminating the need for constant polling. They are widely used in Cisco platforms for event-driven automation.",
+      "keyPoints": [
+        "Webhooks are HTTP callbacks that send data to a registered URL when a specific event occurs on the server",
+        "Unlike polling (repeatedly checking for updates), webhooks push notifications in real-time, reducing network traffic and latency",
+        "Webhook registration typically requires specifying a callback URL, the events to subscribe to, and optional secret for payload verification",
+        "Webex webhooks notify your application when messages are sent, spaces are created, or membership changes occur",
+        "Meraki webhooks can alert on network events like client connectivity changes, device status, and security alerts"
+      ],
+      "examTips": [
+        "Understand the difference between polling (client pulls) and webhooks (server pushes)",
+        "Know that webhooks require your application to have a publicly accessible URL to receive callbacks",
+        "Remember that webhooks use the Observer design pattern from Domain 1"
+      ],
+      "resources": [
+        { "title": "Cisco Webex Webhooks Guide", "url": "https://developer.webex.com/docs/api/v1/webhooks" },
+        { "title": "Meraki Webhooks Documentation", "url": "https://developer.cisco.com/meraki/webhooks/" }
+      ]
+    },
+    {
+      "objectiveCode": "2.3",
+      "title": "Identify the constraints when consuming APIs",
+      "summary": "APIs impose constraints to manage server resources and ensure fair usage. Understanding rate limiting, pagination, and other constraints is essential for building robust automation scripts that handle these limitations gracefully.",
+      "keyPoints": [
+        "Rate limiting restricts the number of API calls a client can make within a time period (e.g., 10 requests per second)",
+        "Rate limit information is typically returned in HTTP response headers (X-RateLimit-Limit, X-RateLimit-Remaining, Retry-After)",
+        "Pagination splits large result sets into smaller pages, requiring multiple requests to retrieve all data",
+        "APIs may use offset-based pagination (page=2&limit=50) or cursor-based pagination (next_token=abc123)",
+        "API versioning (v1, v2) allows providers to evolve APIs without breaking existing integrations"
+      ],
+      "examTips": [
+        "Know how to handle HTTP 429 (Too Many Requests) responses by implementing retry logic with backoff",
+        "Understand that the Meraki API has a rate limit of 10 requests per second per organization",
+        "Be familiar with pagination patterns and how to loop through all pages of results"
+      ],
+      "resources": [
+        { "title": "Cisco Meraki API Rate Limits", "url": "https://developer.cisco.com/meraki/api-v1/rate-limit/" },
+        { "title": "Cisco DevNet - API Constraints", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" }
+      ]
+    },
+    {
+      "objectiveCode": "2.4",
+      "title": "Explain common HTTP response codes associated with REST APIs",
+      "summary": "HTTP response codes indicate the result of an API request. They are grouped into categories: 2xx for success, 3xx for redirection, 4xx for client errors, and 5xx for server errors.",
+      "keyPoints": [
+        "200 OK: Request succeeded, response body contains requested data",
+        "201 Created: Resource was successfully created (typical response to POST)",
+        "204 No Content: Request succeeded but no response body (typical for DELETE)",
+        "301 Moved Permanently: Resource has been permanently moved to a new URL",
+        "400 Bad Request: The request was malformed or missing required parameters",
+        "401 Unauthorized: Authentication credentials are missing or invalid",
+        "403 Forbidden: Valid credentials but insufficient permissions for the requested action",
+        "404 Not Found: The requested resource does not exist at the specified URL",
+        "429 Too Many Requests: Rate limit exceeded, retry after the specified delay",
+        "500 Internal Server Error: The server encountered an unexpected error"
+      ],
+      "examTips": [
+        "Know the difference between 401 (not authenticated) and 403 (authenticated but not authorized)",
+        "Remember that 201 is the standard response for successful resource creation, not 200",
+        "429 is critical for API automation: always implement retry logic for rate-limited APIs"
+      ],
+      "resources": [
+        { "title": "MDN Web Docs - HTTP Status Codes", "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status" },
+        { "title": "HTTP Status Code Reference", "url": "https://httpstatuses.com/" }
+      ]
+    },
+    {
+      "objectiveCode": "2.5",
+      "title": "Troubleshoot a problem given the HTTP response code, request, and API documentation",
+      "summary": "When API requests fail, the HTTP response code, response body, and error messages provide clues for diagnosing the issue. Systematic troubleshooting is a critical skill for network automation.",
+      "keyPoints": [
+        "Start by checking the HTTP status code to identify the category of error (4xx client vs 5xx server)",
+        "Read the response body for detailed error messages that often specify which field or parameter caused the issue",
+        "Verify the URL endpoint matches the API documentation exactly, including API version and resource path",
+        "Check that all required headers are present and correctly formatted (Authorization, Content-Type)",
+        "Validate the request body format matches what the API expects (correct JSON structure, required fields)"
+      ],
+      "examTips": [
+        "The exam will show you a request and response and ask you to identify the problem",
+        "Common troubleshooting scenarios: wrong HTTP method, missing auth token, malformed JSON body, incorrect endpoint URL",
+        "Always check Content-Type header matches the body format (application/json for JSON bodies)"
+      ],
+      "resources": [
+        { "title": "Cisco DevNet - API Troubleshooting", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" },
+        { "title": "Postman Learning Center", "url": "https://learning.postman.com/docs/getting-started/introduction/" }
+      ]
+    },
+    {
+      "objectiveCode": "2.6",
+      "title": "Identify the parts of an HTTP response (response code, headers, body)",
+      "summary": "Every HTTP response consists of three parts: a status line with the response code, headers with metadata, and an optional body with the response data. Understanding each part is essential for working with APIs.",
+      "keyPoints": [
+        "The status line contains the HTTP version, status code, and reason phrase (e.g., HTTP/1.1 200 OK)",
+        "Response headers contain metadata: Content-Type, Content-Length, Set-Cookie, Cache-Control, and custom API headers",
+        "The response body contains the actual data, typically in JSON format for REST APIs",
+        "The Content-Type header specifies the format of the response body (application/json, application/xml, text/html)",
+        "Custom headers from APIs often include rate limit information, pagination links, and request IDs for debugging"
+      ],
+      "examTips": [
+        "Be able to identify all three parts of an HTTP response when shown a raw response",
+        "Know common response headers and their purposes, especially Content-Type and Authorization-related headers",
+        "Remember that not all responses have a body (204 No Content, 304 Not Modified)"
+      ],
+      "resources": [
+        { "title": "MDN Web Docs - HTTP Responses", "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages#http_responses" },
+        { "title": "Cisco DevNet - HTTP Fundamentals", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" }
+      ]
+    },
+    {
+      "objectiveCode": "2.7",
+      "title": "Utilize common API authentication mechanisms: basic, custom token, and API keys",
+      "summary": "APIs use authentication to verify the identity of the client making requests. Different authentication mechanisms offer varying levels of security and complexity.",
+      "keyPoints": [
+        "Basic authentication encodes username and password in Base64 and sends them in the Authorization header",
+        "API keys are unique identifiers passed as a header (X-API-Key) or query parameter to identify the calling application",
+        "Token-based authentication (Bearer tokens) involves obtaining a token via a login endpoint and including it in subsequent requests",
+        "OAuth 2.0 provides delegated authorization using access tokens with defined scopes and expiration times",
+        "Cisco Meraki uses API keys passed in the X-Cisco-Meraki-API-Key header",
+        "Cisco DNA Center uses token-based auth: first authenticate to get a token, then use it as a Bearer token"
+      ],
+      "examTips": [
+        "Know which Cisco platforms use which authentication method (Meraki = API key, DNA Center = token)",
+        "Basic auth is the least secure method because credentials are only Base64 encoded, not encrypted",
+        "Remember that Bearer tokens must be included in the Authorization header as 'Bearer <token>'"
+      ],
+      "resources": [
+        { "title": "Cisco DevNet - API Authentication", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" },
+        { "title": "MDN Web Docs - HTTP Authentication", "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication" }
+      ]
+    },
+    {
+      "objectiveCode": "2.8",
+      "title": "Compare common API styles (REST, RPC, synchronous, and asynchronous)",
+      "summary": "Different API architectures serve different purposes. REST is resource-oriented, RPC is action-oriented, and APIs can operate synchronously (blocking) or asynchronously (non-blocking).",
+      "keyPoints": [
+        "REST (Representational State Transfer) is resource-oriented and uses standard HTTP methods to perform CRUD operations on resources identified by URLs",
+        "RPC (Remote Procedure Call) is action-oriented and typically uses a single endpoint with the operation specified in the request body or URL",
+        "Synchronous APIs return the response immediately within the same HTTP request-response cycle",
+        "Asynchronous APIs return a job ID or callback URL; the client polls for results or receives a webhook notification when the task completes",
+        "RESTCONF and NETCONF follow REST and RPC patterns respectively for network device management",
+        "GraphQL is another API style that allows clients to request exactly the data fields they need"
+      ],
+      "examTips": [
+        "REST uses HTTP methods (GET, POST, PUT, DELETE) while RPC typically uses POST for all operations",
+        "Asynchronous APIs are used for long-running operations like network provisioning or firmware upgrades",
+        "Know that NETCONF is RPC-based while RESTCONF is REST-based"
+      ],
+      "resources": [
+        { "title": "Cisco DevNet - API Styles Comparison", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" },
+        { "title": "REST vs RPC Explained", "url": "https://www.smashingmagazine.com/2016/09/understanding-rest-and-rpc-for-http-apis/" }
+      ]
+    },
+    {
+      "objectiveCode": "2.9",
+      "title": "Construct a Python script that calls a REST API using the requests library",
+      "summary": "The Python requests library is the de facto standard for making HTTP requests. You must be able to write scripts that authenticate, send requests, handle responses, and process data from Cisco APIs.",
+      "keyPoints": [
+        "The requests library provides methods matching HTTP verbs: requests.get(), requests.post(), requests.put(), requests.delete()",
+        "Response objects have .status_code, .json(), .text, .headers, and .content attributes for accessing different parts of the response",
+        "Authentication can be passed via headers parameter, auth parameter (for basic auth), or custom token in the headers dict",
+        "The json parameter automatically serializes a Python dict to JSON and sets the Content-Type header",
+        "Always use requests.Session() for multiple requests to the same API to reuse connections and persist settings",
+        "Use verify=False to skip SSL certificate verification in lab environments (never in production)"
+      ],
+      "examTips": [
+        "Know the difference between response.json() (parsed dict) and response.text (raw string)",
+        "Remember that requests.post(url, json=data) automatically sets Content-Type to application/json",
+        "Be able to read and write basic Python scripts using requests to interact with REST APIs"
+      ],
+      "resources": [
+        { "title": "Python Requests Library Documentation", "url": "https://docs.python-requests.org/" },
+        { "title": "Cisco DevNet - Python REST API Lab", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" }
+      ]
+    }
+  ],
+  "practiceScenarios": [
+    "You need to retrieve a list of all networks in a Meraki organization. Construct the complete API request including the URL, method, and required headers using the Meraki Dashboard API documentation.",
+    "Your automation script receives a 401 response when calling the DNA Center API. Walk through the troubleshooting steps to identify and fix the authentication issue.",
+    "Design a webhook-based notification system that alerts a Webex Teams room whenever a new device connects to your Meraki network.",
+    "Write a Python script using the requests library that authenticates to DNA Center, retrieves a list of network devices, and prints each device hostname and IP address."
+  ],
+  "commonMistakes": [
+    "Confusing 401 Unauthorized (bad credentials) with 403 Forbidden (insufficient permissions) when troubleshooting API errors",
+    "Forgetting to include the Content-Type: application/json header when sending POST/PUT requests with JSON bodies",
+    "Not implementing rate limit handling (429 responses) in automation scripts, causing them to fail under load",
+    "Using response.text instead of response.json() and then trying to access dictionary keys on a string",
+    "Hardcoding API keys and tokens directly in scripts instead of using environment variables or secure vaults",
+    "Confusing PUT (full resource replacement) with PATCH (partial update) when modifying existing resources"
+  ]
+}

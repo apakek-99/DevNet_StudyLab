@@ -1,0 +1,870 @@
+{
+  "examId": "sample-exam-2",
+  "title": "DevNet Associate Practice Exam 2",
+  "description": "40-question practice exam covering all 6 domains of the Cisco DevNet Associate (200-901) exam, weighted by exam blueprint percentages. Different questions from Practice Exam 1.",
+  "totalQuestions": 40,
+  "timeLimit": 60,
+  "questions": [
+    {
+      "id": "se2-q01",
+      "objectiveCode": "1.1",
+      "type": "multiple_select",
+      "question": "Which TWO statements are true about JSON? (Choose 2)",
+      "options": [
+        "A) JSON supports comments using // syntax",
+        "B) JSON keys must be enclosed in double quotes",
+        "C) JSON natively supports date data types",
+        "D) JSON arrays are enclosed in square brackets []"
+      ],
+      "correctAnswer": [
+        "B",
+        "D"
+      ],
+      "explanation": "JSON keys must be strings enclosed in double quotes, and arrays use square brackets []. JSON does not support comments (unlike YAML which uses #). JSON does not have a native date type; dates are typically represented as strings (e.g., ISO 8601 format). JSON supports: strings, numbers, booleans, null, objects, and arrays.",
+      "sourceUrl": "https://www.json.org/json-en.html",
+      "difficulty": "medium",
+      "tags": [
+        "json",
+        "data-formats"
+      ]
+    },
+    {
+      "id": "se2-q02",
+      "objectiveCode": "1.2",
+      "type": "multiple_choice",
+      "question": "What Python function should be used to parse YAML data safely from an untrusted source?",
+      "options": [
+        "A) yaml.load(data)",
+        "B) yaml.safe_load(data)",
+        "C) yaml.parse(data)",
+        "D) yaml.deserialize(data)"
+      ],
+      "correctAnswer": "B",
+      "explanation": "yaml.safe_load() only parses standard YAML tags and prevents arbitrary Python object execution. yaml.load() without a specified Loader can execute arbitrary Python objects embedded in YAML, creating a serious security vulnerability. yaml.parse() and yaml.deserialize() are not standard PyYAML functions. Always use safe_load for untrusted input.",
+      "sourceUrl": "https://pyyaml.org/wiki/PyYAMLDocumentation",
+      "difficulty": "medium",
+      "tags": [
+        "python",
+        "yaml",
+        "security"
+      ]
+    },
+    {
+      "id": "se2-q03",
+      "objectiveCode": "1.4",
+      "type": "multiple_choice",
+      "question": "Which software development methodology delivers working software in short iterations (typically 2-4 weeks) and embraces changing requirements?",
+      "options": [
+        "A) Waterfall",
+        "B) Agile",
+        "C) V-Model",
+        "D) Spiral"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Agile delivers working software in short iterations called sprints (2-4 weeks). It embraces changing requirements, values customer collaboration, and seeks continuous feedback. Waterfall is sequential with fixed requirements. V-Model pairs each development phase with a testing phase. Spiral combines iterative development with risk analysis. Scrum and Kanban are common Agile frameworks.",
+      "sourceUrl": "https://www.agilealliance.org/agile101/",
+      "difficulty": "easy",
+      "tags": [
+        "agile",
+        "sdlc",
+        "methodology"
+      ]
+    },
+    {
+      "id": "se2-q04",
+      "objectiveCode": "1.7",
+      "type": "multiple_choice",
+      "question": "A team of developers working on the same project needs to track who made what changes and when, collaborate without overwriting each other's work, and revert to previous versions if needed. Which tool addresses all of these needs?",
+      "options": [
+        "A) A shared network drive",
+        "B) A CI/CD pipeline",
+        "C) Git version control",
+        "D) A project management tool like Jira"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Git provides: complete history of all changes with author and timestamp, branching for parallel development without conflicts, the ability to revert to any previous state, and merge capabilities for combining work. A shared drive does not track changes or prevent overwrites. CI/CD automates build/test/deploy but does not manage code versions. Project management tools track tasks, not code changes.",
+      "sourceUrl": "https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control",
+      "difficulty": "easy",
+      "tags": [
+        "git",
+        "version-control",
+        "collaboration"
+      ]
+    },
+    {
+      "id": "se2-q05",
+      "objectiveCode": "1.8",
+      "type": "fill_in_the_blank",
+      "question": "Complete the Git command to view the differences between the current working directory and the staging area (index): git ______",
+      "options": [
+        "diff",
+        "status",
+        "log",
+        "show"
+      ],
+      "correctAnswer": "diff",
+      "explanation": "git diff (with no arguments) shows the differences between the working directory and the staging area (index). git diff --staged shows differences between the staging area and the last commit. git status shows which files are modified/staged/untracked. git log shows commit history. git show displays the details of a specific commit.",
+      "sourceUrl": "https://git-scm.com/docs/git-diff",
+      "difficulty": "easy",
+      "tags": [
+        "git",
+        "diff"
+      ]
+    },
+    {
+      "id": "se2-q06",
+      "objectiveCode": "2.1",
+      "type": "multiple_choice",
+      "question": "A developer needs to delete a specific device from a network management API. Which HTTP method and URL pattern is correct?",
+      "options": [
+        "A) POST /api/v1/devices/abc123",
+        "B) DELETE /api/v1/devices/abc123",
+        "C) PUT /api/v1/devices/abc123 with empty body",
+        "D) GET /api/v1/devices/abc123?action=delete"
+      ],
+      "correctAnswer": "B",
+      "explanation": "DELETE /api/v1/devices/{id} is the RESTful way to remove a specific resource. POST is for creating resources. PUT with empty body would clear the resource data, not delete it. Using GET with an action parameter violates REST principles (GET should be safe and idempotent with no side effects). DELETE is idempotent: deleting the same resource twice returns 404 on the second attempt but has the same end state.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/DELETE",
+      "difficulty": "easy",
+      "tags": [
+        "rest",
+        "http-methods",
+        "delete"
+      ]
+    },
+    {
+      "id": "se2-q07",
+      "objectiveCode": "2.4",
+      "type": "multiple_choice",
+      "question": "An API returns HTTP 204. What does this status code indicate?",
+      "options": [
+        "A) The resource was not found",
+        "B) The request was successful, but there is no content to return in the response body",
+        "C) The resource was moved permanently",
+        "D) The request requires authentication"
+      ],
+      "correctAnswer": "B",
+      "explanation": "HTTP 204 No Content means the request was successful but the server has no content to return in the response body. This is commonly returned after a successful DELETE operation or a PUT/PATCH that does not need to return the updated resource. 404 is Not Found. 301 is Moved Permanently. 401 is Unauthorized (needs authentication).",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/204",
+      "difficulty": "medium",
+      "tags": [
+        "http",
+        "status-codes"
+      ]
+    },
+    {
+      "id": "se2-q08",
+      "objectiveCode": "2.6",
+      "type": "multiple_choice",
+      "question": "Which HTTP response header indicates the format of the data in the response body?",
+      "options": [
+        "A) Accept",
+        "B) Content-Type",
+        "C) Authorization",
+        "D) Content-Length"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Content-Type specifies the media type (MIME type) of the response body, e.g., application/json, application/xml, text/html. Accept is a request header that tells the server what formats the client can handle. Authorization carries authentication credentials. Content-Length indicates the size of the response body in bytes, not its format.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type",
+      "difficulty": "easy",
+      "tags": [
+        "http",
+        "headers",
+        "content-type"
+      ]
+    },
+    {
+      "id": "se2-q09",
+      "objectiveCode": "2.8",
+      "type": "multiple_choice",
+      "question": "A network provisioning API returns HTTP 202 Accepted with a task ID when a device configuration change is submitted. What type of API pattern does this represent?",
+      "options": [
+        "A) Synchronous REST API",
+        "B) Asynchronous API",
+        "C) RPC-style API",
+        "D) GraphQL API"
+      ],
+      "correctAnswer": "B",
+      "explanation": "HTTP 202 Accepted indicates an asynchronous pattern: the server accepted the request for processing but has not completed it. The client receives a task/job ID and must poll a status endpoint (or receive a webhook) to check when the operation completes. Synchronous APIs return the final result immediately (200, 201, etc.). This pattern is common for long-running operations like device provisioning.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/202",
+      "difficulty": "medium",
+      "tags": [
+        "asynchronous",
+        "api-styles",
+        "http"
+      ]
+    },
+    {
+      "id": "se2-q10",
+      "objectiveCode": "2.9",
+      "type": "multiple_choice",
+      "question": "What does response.raise_for_status() do in the Python requests library?",
+      "options": [
+        "A) Returns the HTTP status code as an integer",
+        "B) Raises an HTTPError exception if the response status code indicates an error (4xx or 5xx)",
+        "C) Prints the status code to the console",
+        "D) Retries the request if the status code is not 200"
+      ],
+      "correctAnswer": "B",
+      "explanation": "response.raise_for_status() raises a requests.exceptions.HTTPError if the HTTP response status code is 4xx (client error) or 5xx (server error). It does nothing for successful responses (2xx). This is useful for error handling in a try/except block. response.status_code returns the integer code. The requests library does not automatically retry on errors.",
+      "sourceUrl": "https://docs.python-requests.org/en/latest/api/#requests.Response.raise_for_status",
+      "difficulty": "medium",
+      "tags": [
+        "python",
+        "requests",
+        "error-handling"
+      ]
+    },
+    {
+      "id": "se2-q11",
+      "objectiveCode": "2.3",
+      "type": "multiple_choice",
+      "question": "An API documentation states that results are paginated with a maximum of 100 items per page. How should a client retrieve all 350 items?",
+      "options": [
+        "A) Send a single request with ?limit=350",
+        "B) Send 4 requests, incrementing the offset parameter (0, 100, 200, 300)",
+        "C) Send a request with ?all=true to override pagination",
+        "D) Use the DELETE method to remove the pagination limit"
+      ],
+      "correctAnswer": "B",
+      "explanation": "With pagination, the client must make multiple requests, advancing through pages using offset/limit or cursor parameters. Sending requests with offset=0&limit=100, offset=100&limit=100, offset=200&limit=100, and offset=300&limit=100 retrieves all 350 items across 4 pages. The server enforces the max page size; you cannot override it. Check for a 'next' link or total count to know when to stop.",
+      "sourceUrl": "https://developer.cisco.com/meraki/api-v1/#!pagination",
+      "difficulty": "medium",
+      "tags": [
+        "pagination",
+        "api-constraints"
+      ]
+    },
+    {
+      "id": "se2-q12",
+      "objectiveCode": "3.2",
+      "type": "multiple_choice",
+      "question": "Which Cisco platform uses the APIC controller to manage a fabric of Nexus 9000 switches using a policy-based model?",
+      "options": [
+        "A) Cisco Meraki",
+        "B) Cisco Catalyst Center",
+        "C) Cisco ACI",
+        "D) Cisco Catalyst SD-WAN"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Cisco ACI (Application Centric Infrastructure) uses the APIC (Application Policy Infrastructure Controller) to manage the data center network fabric. ACI uses a policy-based model with Tenants, Application Profiles, EPGs (Endpoint Groups), and Contracts. Meraki is cloud-managed. Catalyst Center is for campus/branch. SD-WAN manages WAN connectivity via vManage.",
+      "sourceUrl": "https://developer.cisco.com/docs/aci/",
+      "difficulty": "medium",
+      "tags": [
+        "aci",
+        "apic",
+        "sdn",
+        "data-center"
+      ]
+    },
+    {
+      "id": "se2-q13",
+      "objectiveCode": "3.4",
+      "type": "multiple_choice",
+      "question": "A developer wants to create a Webex bot that sends a message to a specific room. Which API endpoint and HTTP method should they use?",
+      "options": [
+        "A) GET https://webexapis.com/v1/messages",
+        "B) POST https://webexapis.com/v1/messages",
+        "C) PUT https://webexapis.com/v1/rooms",
+        "D) POST https://webexapis.com/v1/rooms"
+      ],
+      "correctAnswer": "B",
+      "explanation": "POST /v1/messages creates (sends) a new message. The request body includes 'roomId' and 'text' (or 'markdown'). GET /v1/messages retrieves existing messages. PUT /v1/rooms would update a room's properties. POST /v1/rooms creates a new room but does not send a message. The bot uses a Bearer token in the Authorization header.",
+      "sourceUrl": "https://developer.webex.com/docs/api/v1/messages/create-a-message",
+      "difficulty": "medium",
+      "tags": [
+        "webex",
+        "api",
+        "messages"
+      ]
+    },
+    {
+      "id": "se2-q14",
+      "objectiveCode": "3.8",
+      "type": "multiple_choice",
+      "question": "What is the correct RESTCONF URL to retrieve the configuration of interface GigabitEthernet1 on an IOS XE device?",
+      "options": [
+        "A) https://device/restconf/data/interfaces/GigabitEthernet1",
+        "B) https://device/restconf/data/ietf-interfaces:interfaces/interface=GigabitEthernet1",
+        "C) https://device/api/v1/interfaces/GigabitEthernet1",
+        "D) https://device/netconf/get-config/interfaces/GigabitEthernet1"
+      ],
+      "correctAnswer": "B",
+      "explanation": "RESTCONF URLs follow the pattern: /restconf/data/<module>:<container>/<list>=<key>. The ietf-interfaces module defines the interfaces container with interface as a list keyed by name. List entries are accessed with =<key-value>. Option A is missing the module prefix. Option C is not a valid RESTCONF URL structure. Option D confuses NETCONF operations with RESTCONF URLs.",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc8040",
+      "difficulty": "hard",
+      "tags": [
+        "restconf",
+        "ios-xe",
+        "url-structure"
+      ]
+    },
+    {
+      "id": "se2-q15",
+      "objectiveCode": "3.5",
+      "type": "multiple_choice",
+      "question": "Which Cisco security platform provides network access control and has an ERS (External RESTful Services) API for managing guest accounts and policies?",
+      "options": [
+        "A) Cisco Secure Endpoint",
+        "B) Cisco ISE",
+        "C) Cisco XDR",
+        "D) Cisco Firepower"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Cisco ISE (Identity Services Engine) provides network access control (802.1X, MAB, profiling) and exposes the ERS API for managing: guest users, internal users, endpoints, network devices, authorization profiles, and SGTs. Secure Endpoint is for endpoint protection. XDR is for extended detection and response. Firepower/Secure Firewall is for firewall management.",
+      "sourceUrl": "https://developer.cisco.com/docs/identity-services-engine/latest/",
+      "difficulty": "medium",
+      "tags": [
+        "ise",
+        "security",
+        "ers-api"
+      ]
+    },
+    {
+      "id": "se2-q16",
+      "objectiveCode": "3.9",
+      "type": "multiple_choice",
+      "question": "To obtain a list of clients seen on a Meraki network, which API endpoint should you use?",
+      "options": [
+        "A) GET /api/v1/networks/{networkId}/clients",
+        "B) GET /api/v1/organizations/{orgId}/clients",
+        "C) POST /api/v1/networks/{networkId}/clients",
+        "D) GET /api/v1/devices/{serial}/clients"
+      ],
+      "correctAnswer": "A",
+      "explanation": "GET /api/v1/networks/{networkId}/clients returns the list of clients that have been seen on the specified Meraki network. You can filter by timespan. GET /api/v1/devices/{serial}/clients returns clients for a specific device. There is no /organizations/{orgId}/clients endpoint at the organization level. POST would be for creating resources, not retrieving client lists.",
+      "sourceUrl": "https://developer.cisco.com/meraki/api-v1/get-network-clients/",
+      "difficulty": "medium",
+      "tags": [
+        "meraki",
+        "clients",
+        "api"
+      ]
+    },
+    {
+      "id": "se2-q17",
+      "objectiveCode": "4.2",
+      "type": "multiple_choice",
+      "question": "An organization needs to keep sensitive data on-premises while leveraging public cloud for scalable web hosting. Which deployment model best fits this requirement?",
+      "options": [
+        "A) Public cloud only",
+        "B) Private cloud only",
+        "C) Hybrid cloud",
+        "D) Edge computing"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Hybrid cloud combines private cloud (for sensitive data that must stay on-premises) with public cloud (for scalable, cost-effective workloads). This allows the organization to meet regulatory requirements while taking advantage of public cloud elasticity. Public cloud alone would not keep data on-premises. Private cloud alone would not provide public cloud scalability. Edge computing is for processing at the network edge.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/computing/what-is-hybrid-cloud.html",
+      "difficulty": "easy",
+      "tags": [
+        "cloud",
+        "hybrid",
+        "deployment-models"
+      ]
+    },
+    {
+      "id": "se2-q18",
+      "objectiveCode": "4.4",
+      "type": "drag_and_drop",
+      "question": "Place the CI/CD pipeline stages in the correct order:\n1. First stage\n2. Second stage\n3. Third stage\n4. Fourth stage",
+      "options": [
+        "A) Deploy to production",
+        "B) Run automated tests",
+        "C) Commit code to repository",
+        "D) Build the application"
+      ],
+      "correctAnswer": [
+        "C",
+        "D",
+        "B",
+        "A"
+      ],
+      "explanation": "The standard CI/CD pipeline order is: 1) Commit code to the repository (triggers the pipeline), 2) Build the application (compile, install dependencies), 3) Run automated tests (unit tests, integration tests, linting), 4) Deploy to production (or staging first). Each stage acts as a quality gate. If tests fail, the pipeline stops and does not deploy broken code.",
+      "sourceUrl": "https://www.cisco.com/c/en/us/solutions/data-center/data-center-networking/what-is-ci-cd.html",
+      "difficulty": "medium",
+      "tags": [
+        "cicd",
+        "pipeline",
+        "stages"
+      ]
+    },
+    {
+      "id": "se2-q19",
+      "objectiveCode": "4.7",
+      "type": "multiple_choice",
+      "question": "What does the Docker command 'docker run -d -p 5000:8080 myapp:latest' do?",
+      "options": [
+        "A) Builds an image named myapp and exposes port 5000",
+        "B) Runs a container in detached mode, mapping host port 5000 to container port 8080",
+        "C) Runs a container in detached mode, mapping host port 8080 to container port 5000",
+        "D) Pulls the myapp:latest image and removes it after use"
+      ],
+      "correctAnswer": "B",
+      "explanation": "docker run -d runs the container in detached (background) mode. -p 5000:8080 maps host port 5000 to container port 8080 (format: -p host:container). Accessing localhost:5000 on the host reaches port 8080 inside the container. docker build is for building images. --rm flag removes the container after it exits. The myapp:latest image is used as-is if available locally, otherwise pulled from a registry.",
+      "sourceUrl": "https://docs.docker.com/reference/cli/docker/container/run/",
+      "difficulty": "medium",
+      "tags": [
+        "docker",
+        "run",
+        "port-mapping"
+      ]
+    },
+    {
+      "id": "se2-q20",
+      "objectiveCode": "4.8",
+      "type": "multiple_choice",
+      "question": "A developer accidentally committed an API key to a public Git repository. What should they do FIRST?",
+      "options": [
+        "A) Delete the commit from Git history",
+        "B) Immediately revoke/rotate the API key",
+        "C) Add the file to .gitignore",
+        "D) Make the repository private"
+      ],
+      "correctAnswer": "B",
+      "explanation": "The first action should be to revoke or rotate the compromised API key immediately, as it may have already been scraped by automated bots. Then: remove the key from the code, add the file to .gitignore, and clean Git history (git filter-branch or BFG Repo-Cleaner). Making the repo private does not help if the key was already exposed. Adding to .gitignore only prevents future commits, not past exposure.",
+      "sourceUrl": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html",
+      "difficulty": "medium",
+      "tags": [
+        "security",
+        "secrets",
+        "git"
+      ]
+    },
+    {
+      "id": "se2-q21",
+      "objectiveCode": "4.11",
+      "type": "multiple_choice",
+      "question": "What does the Bash command 'export PATH=$PATH:/opt/myapp/bin' do?",
+      "options": [
+        "A) Replaces the PATH variable with /opt/myapp/bin",
+        "B) Appends /opt/myapp/bin to the existing PATH variable and exports it to child processes",
+        "C) Creates a new directory at /opt/myapp/bin",
+        "D) Displays the current PATH variable"
+      ],
+      "correctAnswer": "B",
+      "explanation": "export sets an environment variable that is available to child processes. $PATH expands to the current PATH value. The = with $PATH:/opt/myapp/bin appends the new directory, separated by a colon. After this command, executables in /opt/myapp/bin can be run without specifying the full path. Without export, the variable would only be available in the current shell.",
+      "sourceUrl": "https://www.gnu.org/software/bash/manual/bash.html#Environment",
+      "difficulty": "medium",
+      "tags": [
+        "bash",
+        "environment-variables",
+        "path"
+      ]
+    },
+    {
+      "id": "se2-q22",
+      "objectiveCode": "5.2",
+      "type": "multiple_choice",
+      "question": "Which management approach provides a centralized, network-wide view and uses intent-based APIs to abstract device-specific details?",
+      "options": [
+        "A) Device-level management via SSH",
+        "B) Controller-level management via Catalyst Center",
+        "C) Device-level management via SNMP",
+        "D) Direct console access"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Controller-level management (e.g., Catalyst Center, Meraki Dashboard, ACI APIC) provides centralized visibility and control using high-level intent APIs that abstract device-specific CLI/configuration. Device-level approaches (SSH, SNMP, console) manage individual devices directly. Controllers are better for large-scale operations, while device-level is useful for granular troubleshooting.",
+      "sourceUrl": "https://developer.cisco.com/docs/dna-center/",
+      "difficulty": "easy",
+      "tags": [
+        "controller",
+        "device-level",
+        "catalyst-center"
+      ]
+    },
+    {
+      "id": "se2-q23",
+      "objectiveCode": "5.5",
+      "type": "multiple_choice",
+      "question": "Which Infrastructure as Code tool uses HCL (HashiCorp Configuration Language), tracks resource state, and is primarily used for infrastructure provisioning?",
+      "options": [
+        "A) Ansible",
+        "B) Terraform",
+        "C) Puppet",
+        "D) Cisco NSO"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Terraform uses HCL for declarative infrastructure definitions, maintains a state file to track created resources, and supports a plan/apply workflow. It excels at provisioning cloud infrastructure (AWS, Azure, GCP) and on-premises resources. Ansible uses YAML playbooks. Puppet uses its own DSL and requires agents. NSO uses YANG models for network service orchestration.",
+      "sourceUrl": "https://developer.hashicorp.com/terraform/docs",
+      "difficulty": "easy",
+      "tags": [
+        "terraform",
+        "iac",
+        "hcl"
+      ]
+    },
+    {
+      "id": "se2-q24",
+      "objectiveCode": "5.7",
+      "type": "multiple_choice",
+      "question": "A Python script authenticates to Catalyst Center, calls GET /dna/intent/api/v1/client-health, and writes the results to a JSON file. What workflow is being automated?",
+      "options": [
+        "A) Network device provisioning",
+        "B) Client health monitoring and reporting",
+        "C) Software image management",
+        "D) Device configuration backup"
+      ],
+      "correctAnswer": "B",
+      "explanation": "The /dna/intent/api/v1/client-health endpoint returns health scores and connectivity metrics for wired and wireless clients. Writing results to JSON creates a health report. This automates client health monitoring. Device provisioning would use /template-programmer. Image management would use /image. Config backup would use /network-device/{id}/config.",
+      "sourceUrl": "https://developer.cisco.com/docs/dna-center/",
+      "difficulty": "medium",
+      "tags": [
+        "catalyst-center",
+        "python",
+        "workflow",
+        "monitoring"
+      ]
+    },
+    {
+      "id": "se2-q25",
+      "objectiveCode": "5.9",
+      "type": "multiple_choice",
+      "question": "What does the following bash script do?\n\n#!/bin/bash\nfor user in alice bob charlie; do\n  useradd -m -s /bin/bash $user\n  echo \"$user:TempPass123!\" | chpasswd\ndone",
+      "options": [
+        "A) Deletes three user accounts",
+        "B) Creates three user accounts with home directories and sets temporary passwords",
+        "C) Lists the details of three existing users",
+        "D) Changes the shell for three existing users"
+      ],
+      "correctAnswer": "B",
+      "explanation": "The script loops through three usernames. useradd -m creates each user with a home directory (-m) and sets /bin/bash as their login shell (-s). The echo with pipe to chpasswd sets a password for each user. This is a common server provisioning pattern for creating multiple user accounts with initial credentials. chpasswd reads username:password pairs from stdin.",
+      "sourceUrl": "https://www.gnu.org/software/bash/manual/bash.html",
+      "difficulty": "medium",
+      "tags": [
+        "bash",
+        "user-management",
+        "workflow"
+      ]
+    },
+    {
+      "id": "se2-q26",
+      "objectiveCode": "5.10",
+      "type": "multiple_choice",
+      "question": "A NETCONF <get-config> operation returns XML data with the <running> source. What does this retrieve?",
+      "options": [
+        "A) The startup configuration stored in NVRAM",
+        "B) The currently active running configuration",
+        "C) The candidate configuration that has not been committed",
+        "D) Both configuration and operational state data"
+      ],
+      "correctAnswer": "B",
+      "explanation": "NETCONF <get-config> with source <running> retrieves the currently active configuration from the running datastore. <startup> would get the saved startup config. <candidate> would get uncommitted changes (if the device supports it). To get operational state data (counters, status), use <get> instead of <get-config>. The <get> operation returns both configuration and operational data.",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc6241#section-7.1",
+      "difficulty": "hard",
+      "tags": [
+        "netconf",
+        "get-config",
+        "datastore"
+      ]
+    },
+    {
+      "id": "se2-q27",
+      "objectiveCode": "5.14",
+      "type": "multiple_choice",
+      "question": "In a sequence diagram, a solid arrow from Client to Server labeled 'POST /api/auth' followed by a dashed arrow back labeled '200 OK + token' represents what?",
+      "options": [
+        "A) The server initiating a connection to the client",
+        "B) The client sending an authentication request and receiving a token in the response",
+        "C) A bidirectional data stream between client and server",
+        "D) An error condition where authentication failed"
+      ],
+      "correctAnswer": "B",
+      "explanation": "In sequence diagrams, solid arrows represent requests (messages sent) and dashed arrows represent responses (return messages). The chronological order goes top to bottom. Client sends POST /api/auth (solid arrow right), server processes it and returns 200 OK with a token (dashed arrow left). A 200 status code indicates success, not an error. The arrows are unidirectional, not bidirectional.",
+      "sourceUrl": "https://www.lucidchart.com/pages/uml-sequence-diagram",
+      "difficulty": "medium",
+      "tags": [
+        "sequence-diagram",
+        "api-calls",
+        "uml"
+      ]
+    },
+    {
+      "id": "se2-q28",
+      "objectiveCode": "6.2",
+      "type": "multiple_choice",
+      "question": "A host with IP address 192.168.10.50/24 wants to communicate with 192.168.20.100. What will it do?",
+      "options": [
+        "A) Send the packet directly using ARP to find the destination MAC address",
+        "B) Send the packet to its default gateway because the destination is on a different subnet",
+        "C) Drop the packet because the destination is unreachable",
+        "D) Broadcast the packet to all devices on the network"
+      ],
+      "correctAnswer": "B",
+      "explanation": "The host is on the 192.168.10.0/24 network. The destination 192.168.20.100 is on the 192.168.20.0/24 network, which is a different subnet. Since the destination is not local, the host sends the packet to its default gateway (router), which then routes it toward the destination network. ARP is only used for destinations on the same local subnet. The host uses ARP to find the gateway's MAC address.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/networking/what-is-routing.html",
+      "difficulty": "medium",
+      "tags": [
+        "ip-addressing",
+        "subnet",
+        "gateway",
+        "routing"
+      ]
+    },
+    {
+      "id": "se2-q29",
+      "objectiveCode": "6.3",
+      "type": "multiple_choice",
+      "question": "Which network device operates at Layer 2 of the OSI model and uses MAC addresses to forward frames?",
+      "options": [
+        "A) Router",
+        "B) Firewall",
+        "C) Switch",
+        "D) Load balancer"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Switches operate at Layer 2 (Data Link) and use MAC address tables to forward Ethernet frames to the correct port. Routers operate at Layer 3 (Network) and use IP addresses. Firewalls can operate at Layer 3-7 depending on the type. Load balancers operate at Layer 4-7. Layer 3 switches combine switching and routing capabilities.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/networking/what-is-an-ethernet-switch.html",
+      "difficulty": "easy",
+      "tags": [
+        "switch",
+        "layer2",
+        "mac-address"
+      ]
+    },
+    {
+      "id": "se2-q30",
+      "objectiveCode": "6.9",
+      "type": "multiple_select",
+      "question": "Which TWO network constraints most directly affect real-time applications like VoIP and video conferencing? (Choose 2)",
+      "options": [
+        "A) High bandwidth",
+        "B) High latency",
+        "C) Jitter (variation in delay)",
+        "D) Large MTU size"
+      ],
+      "correctAnswer": [
+        "B",
+        "C"
+      ],
+      "explanation": "Real-time applications like VoIP and video are most affected by latency (delay in packet delivery) and jitter (variation in latency). High latency causes noticeable delay in conversations. Jitter causes voice distortion and video artifacts. High bandwidth is desirable (not a constraint). Large MTU size is generally helpful for throughput. Packet loss also significantly affects real-time applications but was not listed.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/cloud-networking/what-is-low-latency.html",
+      "difficulty": "medium",
+      "tags": [
+        "latency",
+        "jitter",
+        "voip",
+        "network-constraints"
+      ]
+    },
+    {
+      "id": "se2-q31",
+      "objectiveCode": "3.1",
+      "type": "multiple_choice",
+      "question": "A developer needs to retrieve the list of network devices from Cisco Catalyst Center using the Python SDK (dnacentersdk). Given the SDK documentation shows the method `devices.get_device_list()`, which code snippet correctly accomplishes this?",
+      "options": [
+        "A) from dnacentersdk import api\ndnac = api.DNACenterAPI(base_url='https://sandboxdnac.cisco.com', username='devnetuser', password='Cisco123!')\ndevices = dnac.devices.get_device_list()\nfor d in devices.response:\n    print(d.hostname)",
+        "B) import dnacentersdk\ndnac = dnacentersdk.connect('https://sandboxdnac.cisco.com')\ndevices = dnac.get('/api/v1/devices')\nprint(devices)",
+        "C) from dnacentersdk import DNACenterAPI\ndnac = DNACenterAPI()\ndevices = dnac.run_command('show devices')\nprint(devices)",
+        "D) import requests\nresponse = requests.get('https://sandboxdnac.cisco.com/devices')\ndevices = response.json()\nprint(devices)"
+      ],
+      "correctAnswer": "A",
+      "explanation": "The dnacentersdk Python SDK provides a DNACenterAPI class that wraps REST API calls into Python methods. You instantiate it with connection parameters (base_url, username, password), then call methods matching the API structure (e.g., devices.get_device_list()). Results are returned as Python objects with a .response attribute. Option B uses incorrect connection syntax. Option C uses CLI-style commands, not SDK methods. Option D uses raw requests, not the SDK.",
+      "sourceUrl": "https://dnacentersdk.readthedocs.io/en/latest/api/api.html",
+      "difficulty": "medium",
+      "tags": [
+        "python",
+        "cisco-sdk",
+        "catalyst-center",
+        "dnacentersdk"
+      ]
+    },
+    {
+      "id": "se2-q32",
+      "objectiveCode": "4.1",
+      "type": "multiple_choice",
+      "question": "A manufacturing company deploys compute resources directly on the factory floor to process sensor data with sub-10ms latency instead of sending it to a remote data center. Which benefit of edge computing does this scenario demonstrate?",
+      "options": [
+        "A) Reduced software licensing costs",
+        "B) Reduced latency by processing data closer to where it is generated",
+        "C) Simplified network topology by eliminating routers",
+        "D) Increased storage capacity compared to cloud data centers"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Edge computing processes data at or near the source of data generation rather than in a centralized data center or cloud. The primary benefits include: reduced latency for time-sensitive applications (critical in manufacturing, autonomous vehicles, and IoT), reduced bandwidth consumption since raw data is processed locally and only summaries or alerts are sent upstream, continued operation even when connectivity to the cloud is intermittent, and improved data sovereignty by keeping sensitive data local. Edge computing does not simplify network topology or replace cloud storage capacity.",
+      "sourceUrl": "https://developer.cisco.com/docs/iox/",
+      "difficulty": "medium",
+      "tags": [
+        "edge-computing",
+        "iot",
+        "latency",
+        "distributed-computing"
+      ]
+    },
+    {
+      "id": "se2-q33",
+      "objectiveCode": "5.3",
+      "type": "multiple_choice",
+      "question": "Which statement best describes the relationship between Cisco Modeling Labs (CML) and pyATS in network development and testing?",
+      "options": [
+        "A) CML and pyATS are competing tools that serve the same purpose",
+        "B) CML provides virtual network simulation environments, while pyATS provides automated testing and validation of network device state, and they are often used together",
+        "C) CML is used for physical lab management while pyATS is used only for configuration backups",
+        "D) pyATS replaces the need for CML because it can simulate network topologies"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Cisco Modeling Labs (CML) creates virtual network topologies by running actual Cisco operating system images (IOS XE, NX-OS, IOS XR) as virtual machines, allowing developers to simulate realistic network environments without physical hardware. pyATS (Python Automated Test Systems) is a test framework that connects to network devices (real or virtual), learns device state using parsers (Genie), and validates operational state through automated tests. They complement each other: CML provides the simulated lab environment, and pyATS validates that the network behaves as expected.",
+      "sourceUrl": "https://developer.cisco.com/docs/pyats/",
+      "difficulty": "medium",
+      "tags": [
+        "cml",
+        "pyats",
+        "network-simulation",
+        "testing"
+      ]
+    },
+    {
+      "id": "se2-q34",
+      "objectiveCode": "5.13",
+      "type": "multiple_choice",
+      "question": "Which of the following is a key benefit of conducting code reviews before merging changes into the main branch?",
+      "options": [
+        "A) Code reviews eliminate the need for automated testing",
+        "B) Code reviews guarantee that the code is free of all bugs",
+        "C) Code reviews catch defects early, share knowledge across the team, and enforce coding standards",
+        "D) Code reviews are only necessary for junior developers' code"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Code reviews provide multiple benefits: catching bugs and logic errors before they reach production, spreading knowledge of the codebase across team members (reducing bus factor), enforcing consistent coding standards and best practices, identifying security vulnerabilities and performance issues, and mentoring less experienced developers. Code reviews complement automated testing but do not replace it. They are valuable for all team members regardless of experience level. No process can guarantee code is entirely bug-free, but reviews significantly reduce defect rates.",
+      "sourceUrl": "https://google.github.io/eng-practices/review/",
+      "difficulty": "easy",
+      "tags": [
+        "code-review",
+        "best-practices",
+        "collaboration",
+        "quality"
+      ]
+    },
+    {
+      "id": "se2-q35",
+      "objectiveCode": "6.4",
+      "type": "multiple_choice",
+      "question": "Examine the following network topology:\n\n[Internet] --- [Firewall:outside] --- [Firewall:dmz] --- [Web Server :443]\n                    |\n              [Firewall:inside] --- [Core Switch] --- [App Server :8080]\n                                          |\n                                   [Database Server :3306]\n\nA user on the Internet tries to access the web application but receives a timeout. The firewall logs show that traffic on TCP port 443 is permitted from outside to the DMZ. Which component should be investigated next?",
+      "options": [
+        "A) The core switch, because it may be blocking port 443",
+        "B) The web server in the DMZ, because the service on port 443 may not be running",
+        "C) The database server, because port 3306 may be blocked",
+        "D) The Internet connection, because the firewall is dropping all traffic"
+      ],
+      "correctAnswer": "B",
+      "explanation": "The firewall logs confirm that traffic on TCP 443 is permitted from outside to the DMZ, so the firewall is not blocking the connection. The next logical step is to verify the web server in the DMZ is operational and listening on port 443. The core switch is on the inside zone and is not in the path between the Internet and the DMZ web server. The database server is behind the inside interface and is not involved in the initial client-to-web-server connection. Since the firewall permits the traffic, the Internet connection itself is not the issue.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/networking/what-is-network-topology.html",
+      "difficulty": "hard",
+      "tags": [
+        "topology",
+        "firewall",
+        "dmz",
+        "troubleshooting",
+        "network-diagram"
+      ]
+    },
+    {
+      "id": "se2-q36",
+      "objectiveCode": "1.5",
+      "type": "multiple_choice",
+      "question": "A Python project has the following structure:\n\nnetwork_tools/\n  __init__.py\n  parsers/\n    __init__.py\n    json_parser.py\n    xml_parser.py\n  validators/\n    __init__.py\n    ip_validator.py\n\nWhat does this structure represent?",
+      "options": [
+        "A) A virtual environment with multiple installed packages",
+        "B) A Python package with sub-packages for modular code organization",
+        "C) A Docker container with multiple microservices",
+        "D) A Git repository with multiple branches"
+      ],
+      "correctAnswer": "B",
+      "explanation": "The directory structure with __init__.py files represents Python packages and sub-packages. This modular organization groups related code together (parsers in one sub-package, validators in another), making the codebase easier to navigate, test, and maintain. Each __init__.py marks the directory as a Python package, enabling imports like 'from network_tools.parsers import json_parser'. This is unrelated to virtual environments, Docker containers, or Git branches.",
+      "sourceUrl": "https://docs.python.org/3/tutorial/modules.html#packages",
+      "difficulty": "medium",
+      "tags": [
+        "python",
+        "packages",
+        "code-organization",
+        "modules"
+      ]
+    },
+    {
+      "id": "se2-q37",
+      "objectiveCode": "4.4",
+      "type": "multiple_choice",
+      "question": "Which practice ensures that developers merge their code changes into a shared repository frequently, triggering automated builds and tests with each integration?",
+      "options": [
+        "A) Continuous Deployment",
+        "B) Continuous Integration",
+        "C) Blue-Green Deployment",
+        "D) Canary Release"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Continuous Integration (CI) is the practice of frequently merging code changes into a shared repository, with each integration triggering automated builds and tests to catch issues early. Continuous Deployment automatically releases every change that passes all pipeline stages to production. Blue-Green Deployment maintains two identical production environments for zero-downtime releases. Canary Release gradually rolls out changes to a small percentage of users before full deployment.",
+      "sourceUrl": "https://www.cisco.com/c/en/us/solutions/data-center/data-center-networking/what-is-ci-cd.html",
+      "difficulty": "easy",
+      "tags": [
+        "cicd",
+        "continuous-integration",
+        "devops"
+      ]
+    },
+    {
+      "id": "se2-q38",
+      "objectiveCode": "6.8",
+      "type": "multiple_choice",
+      "question": "A developer runs 'ping 10.0.0.1' from their workstation and receives 'Destination Host Unreachable' from their own default gateway (10.0.0.254). What does this indicate?",
+      "options": [
+        "A) The DNS server cannot resolve 10.0.0.1",
+        "B) The default gateway cannot find a route to the destination network, or the host is down on a directly connected network",
+        "C) A firewall is blocking ICMP packets",
+        "D) The developer's network interface is not configured"
+      ],
+      "correctAnswer": "B",
+      "explanation": "'Destination Host Unreachable' from the default gateway means the gateway either has no route to the destination network (no matching entry in the routing table), or the destination is on a directly connected network but the host is not responding to ARP requests. DNS is not involved since an IP address was used directly. A firewall blocking ICMP typically causes timeouts rather than 'Host Unreachable' messages. If the local interface were down, the ping would fail before reaching the gateway.",
+      "sourceUrl": "https://www.cisco.com/c/en/us/support/docs/ios-nx-os-software/ios-software-releases-121-mainline/12778-ping-traceroute.html",
+      "difficulty": "medium",
+      "tags": [
+        "troubleshooting",
+        "icmp",
+        "routing",
+        "connectivity"
+      ]
+    },
+    {
+      "id": "se2-q39",
+      "objectiveCode": "6.1",
+      "type": "multiple_choice",
+      "question": "On a Cisco switch, what is the purpose of a trunk port?",
+      "options": [
+        "A) To connect end-user devices like laptops and printers to the network",
+        "B) To carry traffic from multiple VLANs between switches using 802.1Q tagging",
+        "C) To provide a redundant backup link if the primary port fails",
+        "D) To connect the switch exclusively to an external firewall"
+      ],
+      "correctAnswer": "B",
+      "explanation": "A trunk port carries traffic for multiple VLANs between switches (or between a switch and a router for inter-VLAN routing) by inserting 802.1Q VLAN tags into Ethernet frames. Access ports connect end devices and assign them to a single VLAN. EtherChannel provides link redundancy and bandwidth aggregation. Trunk ports are not limited to firewall connections—any inter-switch link or router-on-a-stick configuration uses trunk ports.",
+      "sourceUrl": "https://www.cisco.com/c/en/us/tech/lan-switching/virtual-lans-vlan-trunking-protocol-vlans-vtp/index.html",
+      "difficulty": "easy",
+      "tags": [
+        "vlan",
+        "trunk",
+        "802.1q",
+        "layer2"
+      ]
+    },
+    {
+      "id": "se2-q40",
+      "objectiveCode": "6.6",
+      "type": "multiple_choice",
+      "question": "Why is NTP (Network Time Protocol) considered critical for network security operations?",
+      "options": [
+        "A) NTP encrypts all network traffic between devices",
+        "B) NTP prevents unauthorized access to network devices",
+        "C) Synchronized time ensures accurate log timestamps for forensic analysis, and is required for certificate validation and time-based authentication protocols like Kerberos",
+        "D) NTP replaces the need for a centralized syslog server"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Accurate and synchronized time across devices is essential for: correlating logs from multiple devices during security incident investigation, validating digital certificates (which have start and expiration times), time-based authentication protocols like Kerberos (which has a default 5-minute clock skew tolerance), and meeting regulatory compliance requirements for timestamped audit trails. NTP does not provide encryption, access control, or logging functionality—it solely ensures clocks are synchronized.",
+      "sourceUrl": "https://www.cisco.com/c/en/us/tech/ip/network-time-protocol-ntp/index.html",
+      "difficulty": "medium",
+      "tags": [
+        "ntp",
+        "security",
+        "time-synchronization",
+        "logging"
+      ]
+    }
+  ]
+}

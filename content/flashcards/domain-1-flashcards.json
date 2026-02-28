@@ -1,0 +1,176 @@
+{
+  "domain": 1,
+  "domainName": "Software Development and Design",
+  "flashcards": [
+    {
+      "id": "d1-fc-001",
+      "objectiveCode": "1.1",
+      "question": "Which data format uses curly braces {} for objects and square brackets [] for arrays, and is natively supported by JavaScript?",
+      "answer": "JSON (JavaScript Object Notation)",
+      "explanation": "JSON uses curly braces to define objects (key-value pairs) and square brackets for ordered arrays. It is derived from JavaScript and is the most common data format for REST APIs. Unlike XML, JSON has no closing tags, making it more compact.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON",
+      "difficulty": "easy",
+      "tags": ["json", "data-formats", "syntax"]
+    },
+    {
+      "id": "d1-fc-002",
+      "objectiveCode": "1.1",
+      "question": "How does YAML indicate hierarchy and nesting?",
+      "answer": "YAML uses indentation (spaces, not tabs) to indicate hierarchy and nesting. It does not use braces or brackets for structure.",
+      "explanation": "YAML (YAML Ain't Markup Language) relies on whitespace indentation to define structure. Lists use a dash-space prefix (- item), and key-value pairs use 'key: value' syntax. Tabs are not allowed in YAML indentation; only spaces are valid. This makes YAML very human-readable but sensitive to whitespace errors.",
+      "sourceUrl": "https://yaml.org/spec/1.2.2/",
+      "difficulty": "easy",
+      "tags": ["yaml", "data-formats", "syntax"]
+    },
+    {
+      "id": "d1-fc-003",
+      "objectiveCode": "1.1",
+      "question": "What are three key differences between XML and JSON?",
+      "answer": "1) XML uses opening and closing tags (<tag>value</tag>) while JSON uses key-value pairs ({\"key\": \"value\"}). 2) XML supports attributes on elements; JSON does not. 3) XML supports namespaces for avoiding naming conflicts; JSON has no namespace support.",
+      "explanation": "XML (eXtensible Markup Language) is more verbose but supports features like schemas (XSD), XSLT transformations, namespaces, and attributes. JSON is lighter weight and easier to parse programmatically, making it preferred for REST APIs. XML is still widely used in SOAP-based web services and NETCONF.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/XML/XML_introduction",
+      "difficulty": "medium",
+      "tags": ["xml", "json", "data-formats", "comparison"]
+    },
+    {
+      "id": "d1-fc-004",
+      "objectiveCode": "1.2",
+      "question": "What Python standard library function parses a JSON string into a Python dictionary?",
+      "answer": "json.loads() parses a JSON string into a Python dictionary. json.load() reads from a file object.",
+      "explanation": "The json module is part of Python's standard library. json.loads(string) deserializes a JSON-formatted string into a Python dict or list. json.load(file_object) reads directly from a file. The reverse operations are json.dumps() (to string) and json.dump() (to file). JSON objects become Python dicts, JSON arrays become Python lists, and JSON null becomes Python None.",
+      "sourceUrl": "https://docs.python.org/3/library/json.html",
+      "difficulty": "easy",
+      "tags": ["python", "json", "parsing"]
+    },
+    {
+      "id": "d1-fc-005",
+      "objectiveCode": "1.2",
+      "question": "What Python function is used to safely parse a YAML string, and why is safe_load preferred over load?",
+      "answer": "yaml.safe_load() is used to parse YAML. It is preferred because yaml.load() can execute arbitrary Python objects embedded in YAML, which is a security risk.",
+      "explanation": "The PyYAML library provides yaml.safe_load() which only parses standard YAML tags and prevents arbitrary code execution. yaml.load() without a Loader argument can deserialize arbitrary Python objects, making it vulnerable to code injection attacks. Always use yaml.safe_load() or yaml.load(data, Loader=yaml.SafeLoader) for untrusted input.",
+      "sourceUrl": "https://pyyaml.org/wiki/PyYAMLDocumentation",
+      "difficulty": "medium",
+      "tags": ["python", "yaml", "parsing", "security"]
+    },
+    {
+      "id": "d1-fc-006",
+      "objectiveCode": "1.2",
+      "question": "Which Python standard library module is used to parse XML, and what object does ElementTree.parse() return?",
+      "answer": "The xml.etree.ElementTree module parses XML. ElementTree.parse() returns an ElementTree object; calling .getroot() on it returns the root Element.",
+      "explanation": "Python's xml.etree.ElementTree (often imported as ET) provides a simple API for parsing XML. ET.parse('file.xml') returns an ElementTree, and ET.fromstring(xml_string) returns an Element directly. You navigate the tree using methods like .find(), .findall(), .iter(), and access tag names with .tag, text content with .text, and attributes with .attrib.",
+      "sourceUrl": "https://docs.python.org/3/library/xml.etree.elementtree.html",
+      "difficulty": "medium",
+      "tags": ["python", "xml", "parsing", "elementtree"]
+    },
+    {
+      "id": "d1-fc-007",
+      "objectiveCode": "1.3",
+      "question": "What are the three phases of the TDD (Test-Driven Development) cycle?",
+      "answer": "Red, Green, Refactor. 1) Red: Write a failing test. 2) Green: Write the minimum code to make the test pass. 3) Refactor: Improve the code while keeping tests passing.",
+      "explanation": "In TDD, you write the test before the implementation code. The Red phase ensures the test correctly fails when the feature is absent. The Green phase focuses on making the test pass with the simplest possible implementation. The Refactor phase cleans up the code (removing duplication, improving naming) while continuously running tests to ensure nothing breaks.",
+      "sourceUrl": "https://www.agilealliance.org/glossary/tdd/",
+      "difficulty": "easy",
+      "tags": ["tdd", "testing", "methodology"]
+    },
+    {
+      "id": "d1-fc-008",
+      "objectiveCode": "1.4",
+      "question": "What is the key difference between Agile and Waterfall software development methodologies?",
+      "answer": "Waterfall follows a sequential, linear process where each phase must complete before the next begins. Agile uses iterative cycles (sprints) with continuous feedback, allowing requirements to evolve throughout development.",
+      "explanation": "Waterfall phases are: Requirements, Design, Implementation, Testing, Deployment, Maintenance - each completed in order. Agile (Scrum, Kanban) delivers working software in short iterations (typically 2-4 weeks), embraces changing requirements, and emphasizes customer collaboration. Lean focuses on eliminating waste and maximizing value with principles like just-in-time delivery and continuous improvement (kaizen).",
+      "sourceUrl": "https://www.agilealliance.org/agile101/",
+      "difficulty": "easy",
+      "tags": ["agile", "waterfall", "sdlc", "methodology"]
+    },
+    {
+      "id": "d1-fc-009",
+      "objectiveCode": "1.4",
+      "question": "What are the core principles of Lean software development?",
+      "answer": "Lean principles include: eliminate waste, amplify learning, decide as late as possible, deliver as fast as possible, empower the team, build integrity in, and optimize the whole.",
+      "explanation": "Lean software development adapts principles from lean manufacturing (Toyota Production System). It focuses on eliminating anything that does not add value to the customer, including unnecessary code, features, documentation, and delays. Key practices include value stream mapping, reducing work-in-progress (WIP), and continuous improvement (kaizen).",
+      "sourceUrl": "https://www.agilealliance.org/glossary/lean-software-development/",
+      "difficulty": "medium",
+      "tags": ["lean", "sdlc", "methodology"]
+    },
+    {
+      "id": "d1-fc-010",
+      "objectiveCode": "1.5",
+      "question": "What are three benefits of organizing code into functions and classes?",
+      "answer": "1) Reusability: Functions and classes can be called multiple times without duplicating code. 2) Maintainability: Changes only need to be made in one place. 3) Readability: Well-named functions and classes make code self-documenting.",
+      "explanation": "Functions encapsulate a specific task, accepting parameters and returning results. Classes group related data (attributes) and behavior (methods) together using object-oriented principles like encapsulation, inheritance, and polymorphism. Modules are Python files that group related functions and classes, enabling import and namespace organization. This separation of concerns makes code easier to test, debug, and extend.",
+      "sourceUrl": "https://docs.python.org/3/tutorial/modules.html",
+      "difficulty": "easy",
+      "tags": ["functions", "classes", "modules", "code-organization"]
+    },
+    {
+      "id": "d1-fc-011",
+      "objectiveCode": "1.6",
+      "question": "What are the three components of the MVC (Model-View-Controller) design pattern and their responsibilities?",
+      "answer": "Model: Manages data, business logic, and rules. View: Renders the user interface and displays data. Controller: Handles user input, updates the Model, and selects the appropriate View.",
+      "explanation": "MVC separates an application into three interconnected components. The Model is independent of the UI and manages the application's data and state. The View presents data from the Model to the user. The Controller acts as an intermediary, processing user actions and updating the Model accordingly. This separation enables parallel development, easier testing, and the ability to have multiple views for the same data.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Glossary/MVC",
+      "difficulty": "medium",
+      "tags": ["mvc", "design-patterns", "architecture"]
+    },
+    {
+      "id": "d1-fc-012",
+      "objectiveCode": "1.6",
+      "question": "How does the Observer design pattern work, and when is it useful?",
+      "answer": "The Observer pattern defines a one-to-many dependency between objects. When one object (the Subject) changes state, all its dependents (Observers) are notified and updated automatically.",
+      "explanation": "The Observer pattern is useful when multiple objects need to react to changes in another object without tight coupling. The Subject maintains a list of Observers and notifies them via a common interface (e.g., update() method). Real-world examples include event listeners in GUIs, webhook subscriptions, publish-subscribe messaging systems, and network monitoring alerts.",
+      "sourceUrl": "https://refactoring.guru/design-patterns/observer",
+      "difficulty": "medium",
+      "tags": ["observer", "design-patterns", "architecture"]
+    },
+    {
+      "id": "d1-fc-013",
+      "objectiveCode": "1.7",
+      "question": "What are three key advantages of using version control (e.g., Git)?",
+      "answer": "1) Complete history of all changes with the ability to revert to any previous state. 2) Collaboration support through branching and merging, allowing multiple developers to work simultaneously. 3) Traceability and accountability, as every change is recorded with author, timestamp, and commit message.",
+      "explanation": "Version control systems (VCS) like Git track every modification to code in a repository. Additional advantages include: disaster recovery (distributed copies), code review support through pull requests, CI/CD integration via hooks and triggers, and the ability to experiment safely using branches without affecting the main codebase.",
+      "sourceUrl": "https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control",
+      "difficulty": "easy",
+      "tags": ["git", "version-control", "collaboration"]
+    },
+    {
+      "id": "d1-fc-014",
+      "objectiveCode": "1.8",
+      "question": "What is the difference between 'git merge' and 'git rebase', and how do you resolve a merge conflict?",
+      "answer": "git merge creates a new merge commit that combines two branches, preserving history. git rebase replays commits from one branch onto another, creating a linear history. To resolve a merge conflict, edit the conflicted files (removing <<<<<<<, =======, >>>>>>> markers), then git add the resolved files and git commit.",
+      "explanation": "When Git cannot automatically combine changes (e.g., both branches modified the same line), it marks the file with conflict markers. The developer must manually choose which changes to keep, remove the markers, stage the resolved file with git add, and complete the merge with git commit. Tools like 'git mergetool' can help visualize conflicts.",
+      "sourceUrl": "https://git-scm.com/docs/git-merge",
+      "difficulty": "hard",
+      "tags": ["git", "merge", "rebase", "conflict-resolution"]
+    },
+    {
+      "id": "d1-fc-015",
+      "objectiveCode": "1.8",
+      "question": "What does 'git clone', 'git pull', and 'git push' do?",
+      "answer": "git clone: Creates a local copy of a remote repository. git pull: Fetches changes from the remote and merges them into the current branch. git push: Uploads local commits to the remote repository.",
+      "explanation": "git clone <url> downloads the entire repository history and sets up the remote tracking. git pull is effectively git fetch + git merge, updating your local branch with remote changes. git push sends your local commits to the remote (e.g., origin). These three commands form the core of the distributed workflow in Git. Use 'git pull --rebase' to rebase instead of merge when pulling.",
+      "sourceUrl": "https://git-scm.com/docs/git-clone",
+      "difficulty": "easy",
+      "tags": ["git", "clone", "pull", "push", "remote"]
+    },
+    {
+      "id": "d1-fc-016",
+      "objectiveCode": "1.8",
+      "question": "What does 'git diff' show, and what are common variations of the command?",
+      "answer": "git diff shows the line-by-line differences between two states of code. 'git diff' shows unstaged changes, 'git diff --staged' shows staged changes, and 'git diff branch1..branch2' compares two branches.",
+      "explanation": "The output uses unified diff format: lines prefixed with '-' were removed, lines with '+' were added. The @@ markers indicate the line numbers affected. git diff is essential for reviewing changes before committing, comparing branches before merging, and understanding what changed in a commit (git diff HEAD~1).",
+      "sourceUrl": "https://git-scm.com/docs/git-diff",
+      "difficulty": "medium",
+      "tags": ["git", "diff", "code-review"]
+    },
+    {
+      "id": "d1-fc-017",
+      "objectiveCode": "1.1",
+      "question": "Which data format is used by NETCONF for encoding configuration data on Cisco devices?",
+      "answer": "XML. NETCONF uses XML for encoding all configuration and operational data, structured according to YANG data models.",
+      "explanation": "NETCONF (Network Configuration Protocol) uses XML exclusively as its data encoding format. The protocol itself operates over SSH (typically port 830) and uses XML-based RPC messages. RESTCONF, by contrast, supports both XML and JSON encoding. This is why XML remains important in network automation despite JSON being more common in web APIs.",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc6241",
+      "difficulty": "medium",
+      "tags": ["xml", "netconf", "data-formats", "network-automation"]
+    }
+  ]
+}

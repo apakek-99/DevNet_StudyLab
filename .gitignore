@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+.next/
+out/
+dist/
+build/
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+.claude/
+*.swp
+*.swo
+.DS_Store
+
+# Testing
+coverage/
+playwright-report/
+test-results/
+
+# Database
+*.db
+pgdata/
+
+# Docker volumes
+docker/postgres/data/
+
+# Python
+.venv/
+venv/
+*.egg-info/
+
+# Misc
+*.log
+npm-debug.log*

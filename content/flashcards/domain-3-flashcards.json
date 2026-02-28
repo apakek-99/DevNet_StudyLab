@@ -1,0 +1,166 @@
+{
+  "domain": 3,
+  "domainName": "Cisco Platforms and Development",
+  "flashcards": [
+    {
+      "id": "d3-fc-001",
+      "objectiveCode": "3.2",
+      "question": "What is the Meraki Dashboard API, and what is its base URL?",
+      "answer": "The Meraki Dashboard API provides cloud-managed network administration via REST. The base URL is https://api.meraki.com/api/v1. It uses an API key sent in the X-Cisco-Meraki-API-Key header for authentication.",
+      "explanation": "Meraki is a cloud-managed networking platform. The Dashboard API allows you to manage organizations, networks, devices, clients, SSIDs, VLANs, and more programmatically. Meraki uses a hierarchy: Organization > Network > Device. API calls are rate limited to 10 requests per second per organization. The API key is generated from the Meraki Dashboard under Organization > Settings.",
+      "sourceUrl": "https://developer.cisco.com/meraki/api-v1/",
+      "difficulty": "medium",
+      "tags": ["meraki", "dashboard-api", "cloud-managed"]
+    },
+    {
+      "id": "d3-fc-002",
+      "objectiveCode": "3.2",
+      "question": "What is Cisco Catalyst Center (formerly DNA Center) and what capabilities does its API provide?",
+      "answer": "Catalyst Center is an intent-based networking controller for enterprise campus and branch networks. Its APIs enable network discovery, device management, path trace, template deployment, software image management (SWIM), and assurance (health monitoring).",
+      "explanation": "Catalyst Center uses token-based authentication: POST to /dna/system/api/v1/auth/token with Basic Auth to receive a temporary token. The platform exposes Intent APIs (high-level business operations), Integration APIs (events and webhooks), and Multivendor SDK. It acts as a controller for Cisco IOS-XE, IOS, and wireless infrastructure.",
+      "sourceUrl": "https://developer.cisco.com/docs/dna-center/",
+      "difficulty": "medium",
+      "tags": ["catalyst-center", "dna-center", "intent-based", "controller"]
+    },
+    {
+      "id": "d3-fc-003",
+      "objectiveCode": "3.2",
+      "question": "What is Cisco ACI and what is the APIC?",
+      "answer": "ACI (Application Centric Infrastructure) is Cisco's SDN solution for data centers. The APIC (Application Policy Infrastructure Controller) is the centralized controller that manages the ACI fabric. It exposes a REST API for managing tenants, application profiles, EPGs (Endpoint Groups), contracts, and bridge domains.",
+      "explanation": "ACI uses a policy-based model where you define application requirements (contracts between EPGs) rather than configuring individual switches. The APIC manages the Nexus 9000 switches in the fabric. Authentication is done by POSTing to /api/aaaLogin.json with credentials. ACI uses a hierarchical MIT (Management Information Tree) object model accessed via the API.",
+      "sourceUrl": "https://developer.cisco.com/docs/aci/",
+      "difficulty": "hard",
+      "tags": ["aci", "apic", "sdn", "data-center"]
+    },
+    {
+      "id": "d3-fc-004",
+      "objectiveCode": "3.2",
+      "question": "What is Cisco Catalyst SD-WAN (formerly Viptela SD-WAN) and what does its vManage API provide?",
+      "answer": "Catalyst SD-WAN is a cloud-delivered WAN architecture that provides secure connectivity over any transport (MPLS, broadband, LTE). The vManage API provides programmatic access to device management, template deployment, monitoring, and policy configuration.",
+      "explanation": "The SD-WAN architecture has four planes: vManage (management), vSmart (control), vBond (orchestration), and vEdge/cEdge (data). The vManage REST API endpoints include /dataservice/device for device info, /dataservice/template for templates, and /dataservice/statistics for monitoring data. Authentication uses session cookies obtained via POST /j_security_check.",
+      "sourceUrl": "https://developer.cisco.com/docs/sdwan/",
+      "difficulty": "hard",
+      "tags": ["sd-wan", "vmanage", "wan", "overlay"]
+    },
+    {
+      "id": "d3-fc-005",
+      "objectiveCode": "3.2",
+      "question": "What is Cisco NSO (Network Services Orchestrator) and what is its key advantage?",
+      "answer": "NSO is a network automation and orchestration platform that provides a unified API across multivendor devices. Its key advantage is the use of YANG models and NEDs (Network Element Drivers) to abstract device-specific CLI differences into a common data model.",
+      "explanation": "NSO supports NETCONF, RESTCONF, and CLI-based device communication through NEDs. It provides transactional service deployment (all-or-nothing commits across multiple devices), rollback capabilities, and a service modeling framework. NSO uses YANG to define both device models and service models, and provides northbound APIs (RESTCONF, JSON-RPC, CLI) for integration.",
+      "sourceUrl": "https://developer.cisco.com/docs/nso/",
+      "difficulty": "hard",
+      "tags": ["nso", "orchestration", "yang", "multivendor"]
+    },
+    {
+      "id": "d3-fc-006",
+      "objectiveCode": "3.3",
+      "question": "What are Cisco UCS Manager and Intersight, and how do they differ?",
+      "answer": "UCS Manager is the on-premises management platform for Cisco UCS (Unified Computing System) servers, accessed via its XML API. Intersight is the cloud-based SaaS management platform for UCS and HyperFlex systems, accessed via a REST API with API key authentication.",
+      "explanation": "UCS Manager manages compute, network, and storage resources for blade and rack servers within a UCS domain. Intersight extends this to cloud-based management with global visibility, AI-driven analytics, and integration with third-party tools. Intersight uses API key + secret key authentication with request signing. UCS Manager API uses XML-based request/response over HTTP/HTTPS.",
+      "sourceUrl": "https://developer.cisco.com/docs/intersight/",
+      "difficulty": "medium",
+      "tags": ["ucs", "intersight", "compute", "server-management"]
+    },
+    {
+      "id": "d3-fc-007",
+      "objectiveCode": "3.4",
+      "question": "What can you do with the Webex REST API?",
+      "answer": "The Webex API allows you to manage rooms (spaces), send/receive messages, manage memberships (adding/removing people from rooms), create webhooks for events, manage teams, and interact with Webex Devices. It uses a Bearer token for authentication.",
+      "explanation": "Key Webex API resources: /rooms (spaces where conversations happen), /messages (send and receive messages including file attachments), /memberships (add/remove people from rooms), /people (user directory), /webhooks (event notifications), and /teams (groups of rooms). Personal access tokens work for testing; bots and integrations use OAuth tokens for production. Base URL: https://webexapis.com/v1.",
+      "sourceUrl": "https://developer.webex.com/docs/getting-started",
+      "difficulty": "medium",
+      "tags": ["webex", "collaboration", "messaging", "rooms"]
+    },
+    {
+      "id": "d3-fc-008",
+      "objectiveCode": "3.4",
+      "question": "What are the AXL and UDS interfaces for Cisco Unified Communications Manager (CUCM)?",
+      "answer": "AXL (Administrative XML Layer) is a SOAP-based API for provisioning and configuring CUCM (managing phones, users, lines, partitions, etc.). UDS (User Data Services) is a REST API for end-user operations like accessing personal contacts and speed dials.",
+      "explanation": "AXL uses SOAP/XML over HTTPS and supports full CRUD operations on CUCM database objects. It is used for bulk provisioning, migrations, and automation. UDS is a lightweight REST/XML API designed for end-user-facing applications, providing read access to corporate directory and user settings. AXL requires admin credentials, while UDS can use end-user credentials.",
+      "sourceUrl": "https://developer.cisco.com/docs/axl/",
+      "difficulty": "hard",
+      "tags": ["cucm", "axl", "uds", "collaboration", "voip"]
+    },
+    {
+      "id": "d3-fc-009",
+      "objectiveCode": "3.5",
+      "question": "What are three Cisco security platforms with programmable APIs?",
+      "answer": "1) Cisco XDR (Extended Detection and Response) for threat investigation and response. 2) Cisco Secure Endpoint (formerly AMP for Endpoints) for endpoint protection with APIs for querying events and managing policies. 3) Cisco ISE (Identity Services Engine) for network access control with ERS (External RESTful Services) API.",
+      "explanation": "XDR provides a unified platform that aggregates security data across the network. Secure Endpoint APIs allow you to query endpoint events, manage file lists, and trigger scans. ISE ERS API manages network access policies, guest accounts, and profiling. Cisco Firepower (now Secure Firewall) provides FDM and FMC APIs for managing firewall rules. Secure Malware Analytics (formerly Threat Grid) provides sandboxing APIs.",
+      "sourceUrl": "https://developer.cisco.com/site/security/",
+      "difficulty": "medium",
+      "tags": ["security", "xdr", "ise", "secure-endpoint"]
+    },
+    {
+      "id": "d3-fc-010",
+      "objectiveCode": "3.6",
+      "question": "What device-level APIs does IOS XE support?",
+      "answer": "IOS XE supports RESTCONF (REST-based, uses YANG models, HTTP/HTTPS on port 443), NETCONF (SSH-based, uses YANG models, port 830), gNMI/gNOI (gRPC-based telemetry and operations), and the traditional CLI. It also supports guest shell for running Python scripts on-box.",
+      "explanation": "RESTCONF provides a RESTful interface to YANG-modeled data at https://device/restconf/data/. NETCONF uses XML-encoded RPCs over SSH for configuration management with features like candidate config, commit, rollback, and validation. Both use YANG models (e.g., Cisco-IOS-XE-native, openconfig, ietf) to define the data structure. IOS XE also supports on-box Python scripting via the Guest Shell (a Linux container).",
+      "sourceUrl": "https://developer.cisco.com/docs/ios-xe/",
+      "difficulty": "medium",
+      "tags": ["ios-xe", "restconf", "netconf", "device-apis"]
+    },
+    {
+      "id": "d3-fc-011",
+      "objectiveCode": "3.7",
+      "question": "What is the Cisco DevNet Sandbox and when would you use it?",
+      "answer": "DevNet Sandbox provides free, pre-configured lab environments (Always-On and Reservable) for testing code against real Cisco platforms without needing your own hardware. Use it to develop and test scripts, explore APIs, and learn new platforms.",
+      "explanation": "Always-On Sandboxes are shared, read-only environments available 24/7 (e.g., read-only Meraki dashboard, always-on IOS XE). Reservable Sandboxes provide dedicated, full-access environments for a limited time (typically 2-8 hours). Other DevNet resources: Code Exchange (shared community code/projects), Learning Labs (guided tutorials), DevNet forums (community support), and API documentation on developer.cisco.com.",
+      "sourceUrl": "https://developer.cisco.com/site/sandbox/",
+      "difficulty": "easy",
+      "tags": ["devnet", "sandbox", "learning", "labs"]
+    },
+    {
+      "id": "d3-fc-012",
+      "objectiveCode": "3.8",
+      "question": "What is a YANG model and how is it related to NETCONF and RESTCONF?",
+      "answer": "YANG (Yet Another Next Generation) is a data modeling language used to define the structure and constraints of network configuration and operational data. NETCONF and RESTCONF both use YANG models to define what data can be read or configured on a device.",
+      "explanation": "YANG defines data types using constructs: container (grouping node), list (multiple instances with keys), leaf (single value), leaf-list (multiple values), choice (mutually exclusive options). YANG models are organized in modules (e.g., ietf-interfaces, Cisco-IOS-XE-native). RESTCONF maps YANG models to URL paths: /restconf/data/ietf-interfaces:interfaces/interface=GigabitEthernet1. NETCONF uses XML encoding of the YANG-modeled data.",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc7950",
+      "difficulty": "hard",
+      "tags": ["yang", "netconf", "restconf", "model-driven"]
+    },
+    {
+      "id": "d3-fc-013",
+      "objectiveCode": "3.8",
+      "question": "What is the RESTCONF URL structure for accessing interface configuration on IOS XE?",
+      "answer": "https://<device>/restconf/data/ietf-interfaces:interfaces/interface=GigabitEthernet1. The format is: /restconf/data/<module>:<container>/<list>=<key>.",
+      "explanation": "RESTCONF URL structure maps directly to the YANG model hierarchy. /restconf/data/ is the data resource base. The module name and colon prefix the top-level container. List entries are accessed by their key value using =. Query parameters like ?depth=1 limit response depth, and ?fields= selects specific leaves. RESTCONF supports Accept: application/yang-data+json or +xml.",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc8040",
+      "difficulty": "hard",
+      "tags": ["restconf", "ios-xe", "yang", "url-structure"]
+    },
+    {
+      "id": "d3-fc-014",
+      "objectiveCode": "3.9",
+      "question": "How do you obtain a list of network devices from Meraki using the Dashboard API?",
+      "answer": "Send GET /api/v1/organizations/{orgId}/devices with the X-Cisco-Meraki-API-Key header. First get organizations with GET /api/v1/organizations, then use the org ID to list devices.",
+      "explanation": "The Meraki API follows a hierarchy: first get organizations, then networks within an organization, then devices within a network. To list all devices across an org: GET /api/v1/organizations/{orgId}/devices. To list devices in a specific network: GET /api/v1/networks/{networkId}/devices. Each device has properties like serial, model, name, networkId, and firmware version.",
+      "sourceUrl": "https://developer.cisco.com/meraki/api-v1/get-organization-devices/",
+      "difficulty": "medium",
+      "tags": ["meraki", "devices", "api", "python"]
+    },
+    {
+      "id": "d3-fc-015",
+      "objectiveCode": "3.9",
+      "question": "How do you send a message to a Webex room using the Webex API?",
+      "answer": "Send a POST request to https://webexapis.com/v1/messages with a JSON body containing 'roomId' and 'text' (or 'markdown' for formatted messages). Include 'Authorization: Bearer <token>' in the header.",
+      "explanation": "Example body: {\"roomId\": \"abc123\", \"text\": \"Hello from Python!\"}. You can also send messages to a person directly using 'toPersonEmail' instead of 'roomId'. File attachments are supported via the 'files' field. To create a room first: POST /v1/rooms with {\"title\": \"My Room\"}. To add someone: POST /v1/memberships with {\"roomId\": \"abc\", \"personEmail\": \"user@example.com\"}.",
+      "sourceUrl": "https://developer.webex.com/docs/api/v1/messages/create-a-message",
+      "difficulty": "medium",
+      "tags": ["webex", "messages", "api", "python"]
+    },
+    {
+      "id": "d3-fc-016",
+      "objectiveCode": "3.1",
+      "question": "What is the Meraki Python SDK and how does it differ from using the requests library directly?",
+      "answer": "The Meraki Python SDK (pip install meraki) provides a higher-level interface with pre-built methods for all API endpoints (e.g., dashboard.organizations.getOrganizations()). It handles authentication, pagination, rate limiting, and retries automatically, unlike raw requests calls.",
+      "explanation": "With the SDK: import meraki; dashboard = meraki.DashboardAPI(api_key); orgs = dashboard.organizations.getOrganizations(). With requests: you must manually set headers, handle pagination loops, implement retry logic for 429 errors, and parse responses. The SDK provides better error handling, logging, and is always up-to-date with the API specification.",
+      "sourceUrl": "https://developer.cisco.com/meraki/api-v1/python/",
+      "difficulty": "medium",
+      "tags": ["meraki", "sdk", "python", "automation"]
+    }
+  ]
+}

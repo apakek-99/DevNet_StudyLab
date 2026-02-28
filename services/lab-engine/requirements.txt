@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+pydantic
+httpx
+python-multipart
+pyyaml
+lxml
+ncclient
+pytest
+jinja2

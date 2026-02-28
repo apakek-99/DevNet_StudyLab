@@ -1,0 +1,181 @@
+{
+  "domain": 1,
+  "slug": "software-dev",
+  "name": "Software Development & Design",
+  "weight": 15,
+  "overview": "This domain covers the foundational skills every network automation developer needs, including understanding data formats, writing clean Python code, and applying modern software development methodologies. It tests your ability to work with structured data, organize code effectively, apply design patterns, and use version control, all of which are essential for building and maintaining network automation solutions.",
+  "keyTopics": [
+    {
+      "objectiveCode": "1.1",
+      "title": "Compare data formats (XML, JSON, and YAML)",
+      "summary": "Understanding the three primary data serialization formats used in network programmability is essential. Each format has distinct syntax rules, strengths, and common use cases across Cisco platforms and APIs.",
+      "keyPoints": [
+        "JSON uses curly braces for objects and square brackets for arrays, is lightweight, and is the most common format for REST API responses",
+        "XML uses angle-bracket tags with opening and closing elements, supports attributes and namespaces, and is used heavily in NETCONF operations",
+        "YAML uses indentation with spaces only (never tabs), is the most human-readable format, and is commonly used for Ansible playbooks and configuration files",
+        "JSON does not support comments natively, while YAML supports comments with the hash symbol and XML supports comments with <!-- --> syntax",
+        "All three formats can represent hierarchical and nested data structures but differ in verbosity and readability"
+      ],
+      "examTips": [
+        "Be able to identify the correct format from a code snippet (look for braces, angle brackets, or indentation)",
+        "Know that REST APIs predominantly use JSON while NETCONF uses XML",
+        "Remember that YAML is a superset of JSON, meaning valid JSON is also valid YAML"
+      ],
+      "resources": [
+        { "title": "Cisco DevNet - Parsing Data Formats", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" },
+        { "title": "JSON.org Specification", "url": "https://www.json.org/" }
+      ]
+    },
+    {
+      "objectiveCode": "1.2",
+      "title": "Describe parsing of common data format (XML, JSON, and YAML) to Python data structures",
+      "summary": "Python provides built-in and third-party libraries to convert between data formats and native Python data structures. Understanding how each format maps to Python dictionaries, lists, and strings is critical for working with network APIs.",
+      "keyPoints": [
+        "The json module in Python converts JSON objects to dictionaries and JSON arrays to lists using json.loads() for strings and json.load() for files",
+        "The xmltodict library parses XML into ordered dictionaries, making XML data easier to work with in Python than the built-in xml.etree.ElementTree module",
+        "The PyYAML library uses yaml.safe_load() to parse YAML into Python dictionaries and lists, and yaml.dump() to serialize Python objects back to YAML",
+        "JSON null maps to Python None, JSON true/false maps to Python True/False, and JSON numbers map to Python int or float"
+      ],
+      "examTips": [
+        "Know the specific Python library and function for each format: json.loads(), yaml.safe_load(), xmltodict.parse()",
+        "Understand that json.loads() takes a string while json.load() takes a file object"
+      ],
+      "resources": [
+        { "title": "Python json Module Documentation", "url": "https://docs.python.org/3/library/json.html" },
+        { "title": "Cisco DevNet - Working with Data in Python", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" }
+      ]
+    },
+    {
+      "objectiveCode": "1.3",
+      "title": "Describe the concepts of test-driven development (TDD)",
+      "summary": "Test-driven development is a software methodology where tests are written before the actual code. This approach leads to more reliable, maintainable code and is a key practice in modern network automation development.",
+      "keyPoints": [
+        "TDD follows the Red-Green-Refactor cycle: write a failing test (Red), write minimal code to pass the test (Green), then improve the code without changing behavior (Refactor)",
+        "Unit tests verify individual functions or methods in isolation, while integration tests verify that multiple components work together correctly",
+        "Python's unittest module and the pytest framework are the primary tools for implementing TDD in Python",
+        "TDD encourages writing smaller, more focused functions that are easier to test and maintain"
+      ],
+      "examTips": [
+        "Memorize the Red-Green-Refactor cycle and understand the order of steps",
+        "Know the difference between unit tests and integration tests and when each is appropriate"
+      ],
+      "resources": [
+        { "title": "Python unittest Documentation", "url": "https://docs.python.org/3/library/unittest.html" },
+        { "title": "Cisco DevNet - Software Development Practices", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" }
+      ]
+    },
+    {
+      "objectiveCode": "1.4",
+      "title": "Compare software development methods (Agile, Lean, and Waterfall)",
+      "summary": "Different software development methodologies provide frameworks for organizing work, managing projects, and delivering software. Understanding the differences between these approaches is important for selecting the right method for network automation projects.",
+      "keyPoints": [
+        "Waterfall is a linear, sequential approach where each phase (requirements, design, implementation, testing, deployment) must be completed before the next begins",
+        "Agile is an iterative approach that delivers working software in short cycles called sprints (typically 2-4 weeks), emphasizing collaboration and adaptability",
+        "Lean focuses on eliminating waste, optimizing the whole workflow, and delivering value as quickly as possible with continuous improvement",
+        "Agile values working software over comprehensive documentation and responding to change over following a rigid plan",
+        "Scrum and Kanban are popular frameworks that implement Agile principles with specific roles, ceremonies, and artifacts"
+      ],
+      "examTips": [
+        "Understand that Waterfall is best for projects with well-defined, unchanging requirements, while Agile excels when requirements evolve",
+        "Know the four values of the Agile Manifesto and how they contrast with Waterfall",
+        "Remember that Lean originated from manufacturing (Toyota) and emphasizes reducing waste in the development process"
+      ],
+      "resources": [
+        { "title": "Agile Manifesto", "url": "https://agilemanifesto.org/" },
+        { "title": "Cisco DevNet - Software Development Methodologies", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" }
+      ]
+    },
+    {
+      "objectiveCode": "1.5",
+      "title": "Explain the benefits of organizing code into methods, functions, classes, and modules",
+      "summary": "Proper code organization is fundamental to writing maintainable, reusable, and scalable network automation scripts. Python supports multiple levels of code organization from simple functions to complex class hierarchies and module packages.",
+      "keyPoints": [
+        "Functions encapsulate reusable blocks of code that perform a single task, improving readability and reducing code duplication",
+        "Classes group related data (attributes) and behavior (methods) together using object-oriented programming principles like encapsulation and inheritance",
+        "Modules are Python files (.py) that contain functions, classes, and variables that can be imported and reused across multiple scripts",
+        "Packages are directories containing multiple modules with an __init__.py file, enabling hierarchical organization of large codebases",
+        "Well-organized code follows the DRY (Don't Repeat Yourself) principle and the Single Responsibility Principle"
+      ],
+      "examTips": [
+        "Know the hierarchy: statements inside functions, functions inside classes, classes inside modules, modules inside packages",
+        "Understand when to use a function versus a class (stateless operations vs. objects with state and behavior)"
+      ],
+      "resources": [
+        { "title": "Python Modules Documentation", "url": "https://docs.python.org/3/tutorial/modules.html" },
+        { "title": "Cisco DevNet - Python Fundamentals", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" }
+      ]
+    },
+    {
+      "objectiveCode": "1.6",
+      "title": "Identify the advantages of common design patterns (MVC and Observer)",
+      "summary": "Design patterns are proven solutions to recurring software design problems. MVC and Observer are two patterns particularly relevant to network automation and web application development in the Cisco ecosystem.",
+      "keyPoints": [
+        "MVC (Model-View-Controller) separates an application into three components: Model (data and business logic), View (user interface/presentation), and Controller (handles user input and coordinates Model and View)",
+        "The Observer pattern defines a one-to-many relationship where when one object (subject) changes state, all dependent objects (observers) are notified automatically",
+        "MVC promotes separation of concerns, making applications easier to develop, test, and maintain by different team members",
+        "The Observer pattern is commonly used in event-driven systems, webhooks, and publish-subscribe messaging patterns in network monitoring"
+      ],
+      "examTips": [
+        "Be able to identify which MVC component handles which responsibility in a given scenario",
+        "Recognize that webhooks use the Observer pattern: a network device (subject) notifies registered endpoints (observers) when events occur"
+      ],
+      "resources": [
+        { "title": "MDN Web Docs - MVC Architecture", "url": "https://developer.mozilla.org/en-US/docs/Glossary/MVC" },
+        { "title": "Cisco DevNet - Application Design Patterns", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" }
+      ]
+    },
+    {
+      "objectiveCode": "1.7",
+      "title": "Explain the advantages of version control",
+      "summary": "Version control systems like Git are indispensable for tracking changes, collaborating on code, and maintaining a history of network automation scripts and configurations. Understanding Git workflows is essential for any DevNet professional.",
+      "keyPoints": [
+        "Git tracks every change to files with a complete history, allowing developers to revert to any previous state of the codebase",
+        "Branching allows parallel development of features without affecting the main codebase, and merging integrates changes back together",
+        "The Git workflow involves staging changes (git add), committing locally (git commit), and pushing to remote repositories (git push)",
+        "Pull requests (or merge requests) enable code review before changes are merged into the main branch, improving code quality",
+        "Git enables distributed collaboration where every developer has a full copy of the repository history"
+      ],
+      "examTips": [
+        "Know the basic Git commands: clone, add, commit, push, pull, branch, merge, and checkout",
+        "Understand the difference between local and remote repositories and how they synchronize",
+        "Remember that git add stages changes and git commit saves them locally; git push sends them to the remote"
+      ],
+      "resources": [
+        { "title": "Git Official Documentation", "url": "https://git-scm.com/doc" },
+        { "title": "Cisco DevNet - Version Control with Git", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" }
+      ]
+    },
+    {
+      "objectiveCode": "1.8",
+      "title": "Utilize common version control operations with Git",
+      "summary": "Beyond understanding version control concepts, you must be able to perform practical Git operations. This includes cloning repositories, creating branches, resolving conflicts, and working with remote repositories on platforms like GitHub.",
+      "keyPoints": [
+        "git clone creates a local copy of a remote repository including all history and branches",
+        "git diff shows the differences between the working directory and the staging area or between commits",
+        "git log displays the commit history, and git status shows the current state of the working directory and staging area",
+        "Merge conflicts occur when two branches modify the same lines and must be resolved manually by editing the conflicting files",
+        "The .gitignore file specifies files and directories that Git should not track, such as credentials, virtual environments, and compiled files"
+      ],
+      "examTips": [
+        "Know how to read a git diff output and understand the plus and minus signs indicating additions and deletions",
+        "Understand the purpose of .gitignore and why sensitive files like API keys should always be excluded from version control"
+      ],
+      "resources": [
+        { "title": "GitHub Docs - Git Handbook", "url": "https://docs.github.com/en/get-started/using-git" },
+        { "title": "Cisco DevNet - Git Lab Exercises", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" }
+      ]
+    }
+  ],
+  "practiceScenarios": [
+    "You receive a JSON API response from the Meraki Dashboard API containing a list of network devices. Write a Python snippet using the json module to parse the response and extract each device's serial number and model.",
+    "Your team wants to store network device configuration templates that will be edited by both developers and network engineers. Which data format (JSON, XML, or YAML) would you recommend for maximum human readability and why?",
+    "A colleague has pushed a broken Python script to the main branch of your network automation repository. Describe the Git commands you would use to revert the change and create a new branch to fix the issue properly.",
+    "You are building a network monitoring dashboard. Explain how you would apply the MVC pattern to separate the data collection from Cisco APIs, the web interface, and the user interaction logic."
+  ],
+  "commonMistakes": [
+    "Confusing YAML's strict indentation rules (spaces only, no tabs) with JSON's bracket-based structure, leading to parsing errors in Ansible playbooks",
+    "Using json.loads() when you should use json.load() (loads takes a string, load takes a file object) or vice versa",
+    "Forgetting that XML requires a closing tag for every opening tag and that element names are case-sensitive",
+    "Committing sensitive data like API keys or passwords to Git repositories instead of using environment variables and .gitignore"
+  ]
+}

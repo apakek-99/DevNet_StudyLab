@@ -1,0 +1,247 @@
+{
+  "domain": 5,
+  "domainName": "Infrastructure and Automation",
+  "flashcards": [
+    {
+      "id": "d5-fc-001",
+      "objectiveCode": "5.1",
+      "question": "What is model-driven programmability and why is it valuable for infrastructure automation?",
+      "answer": "Model-driven programmability uses structured data models (YANG) to define configuration and operational state, enabling consistent, programmatic, and vendor-neutral management of network devices through protocols like NETCONF and RESTCONF.",
+      "explanation": "Traditional CLI-based management is unstructured (screen scraping), inconsistent across vendors, and error-prone. Model-driven approaches provide: structured data (machine-readable), validation against the model before applying changes, multi-vendor consistency through standard models (IETF, OpenConfig), transactional operations (commit/rollback), and a clear contract between the management system and device about what data is available.",
+      "sourceUrl": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/prog/configuration/1717/b_1717_programmability_cg/m_1717_prog_yang_netconf.html",
+      "difficulty": "medium",
+      "tags": [
+        "model-driven",
+        "yang",
+        "automation",
+        "programmability"
+      ]
+    },
+    {
+      "id": "d5-fc-002",
+      "objectiveCode": "5.2",
+      "question": "What is the difference between controller-level and device-level management?",
+      "answer": "Controller-level management uses a centralized platform (Catalyst Center, Meraki Dashboard, ACI APIC) to manage the network as a whole through high-level intent APIs. Device-level management interacts directly with individual devices via NETCONF, RESTCONF, SSH/CLI, or SNMP.",
+      "explanation": "Controller-level provides abstraction, orchestration across multiple devices, network-wide policies, and simplified management. Device-level provides granular control over individual devices, is useful when a controller is unavailable, and allows direct troubleshooting. Controllers typically use device-level protocols internally (e.g., Catalyst Center uses NETCONF/CLI to configure devices). The choice depends on scale, complexity, and the level of abstraction needed.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/networking/what-is-a-network-controller.html",
+      "difficulty": "medium",
+      "tags": [
+        "controller",
+        "device-level",
+        "management",
+        "architecture"
+      ]
+    },
+    {
+      "id": "d5-fc-003",
+      "objectiveCode": "5.3",
+      "question": "What is Cisco Modeling Labs (CML) and how does it differ from pyATS?",
+      "answer": "CML is a network simulation platform for creating virtual network topologies with real Cisco OS images for testing and learning. pyATS (Python Automated Test Systems) is a testing framework for validating network state and performing automated testing against live or simulated devices.",
+      "explanation": "CML (formerly VIRL) allows you to build virtual labs with IOSv, IOS XE, NX-OS, ASA, and other images. It provides a GUI and API for topology management. pyATS provides libraries for device connection (Unicon), output parsing (Genie parsers for 500+ show commands), state learning, and test execution (aetest). They complement each other: build a topology in CML, then validate it with pyATS. pyATS can also generate diffs between device states.",
+      "sourceUrl": "https://developer.cisco.com/docs/pyats/",
+      "difficulty": "medium",
+      "tags": [
+        "cml",
+        "pyats",
+        "simulation",
+        "testing"
+      ]
+    },
+    {
+      "id": "d5-fc-004",
+      "objectiveCode": "5.4",
+      "question": "How does CI/CD apply to infrastructure automation (as opposed to application deployment)?",
+      "answer": "In infrastructure automation, CI/CD pipelines validate network configuration changes: CI runs linting, syntax checks, and tests against a virtual lab before merging. CD automates the deployment of validated configurations to staging and production networks.",
+      "explanation": "Infrastructure CI/CD example: 1) Developer commits network config change to Git, 2) CI pipeline runs YANG validation, linting, and deploys to a CML virtual lab, 3) pyATS tests verify connectivity and routing, 4) After peer review and approval, CD deploys to staging network, 5) After staging validation, deploy to production with rollback capability. This is often called NetDevOps.",
+      "sourceUrl": "https://developer.cisco.com/docs/network-automation-delivery-model/cicd/",
+      "difficulty": "medium",
+      "tags": [
+        "cicd",
+        "netdevops",
+        "infrastructure",
+        "pipeline"
+      ]
+    },
+    {
+      "id": "d5-fc-005",
+      "objectiveCode": "5.5",
+      "question": "What are the key principles of Infrastructure as Code (IaC)?",
+      "answer": "1) Infrastructure is defined in declarative or imperative code files. 2) Code is version-controlled in Git. 3) Changes are repeatable, consistent, and idempotent. 4) Infrastructure can be reviewed, tested, and audited like application code. 5) Environments are reproducible from code.",
+      "explanation": "Declarative IaC (Terraform, Ansible) describes the desired state and the tool figures out how to achieve it. Imperative IaC (scripts) describes step-by-step instructions. Benefits: eliminates configuration drift, enables disaster recovery (rebuild from code), supports peer review of changes, provides an audit trail, and reduces human error. Key concept: idempotency means running the same code multiple times produces the same result.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/computing/what-is-iac.html",
+      "difficulty": "medium",
+      "tags": [
+        "iac",
+        "infrastructure-as-code",
+        "declarative",
+        "version-control"
+      ]
+    },
+    {
+      "id": "d5-fc-006",
+      "objectiveCode": "5.6",
+      "question": "How do Ansible, Terraform, and Cisco NSO differ as automation tools?",
+      "answer": "Ansible: Agentless configuration management using SSH/NETCONF, uses YAML playbooks, primarily imperative/procedural. Terraform: Infrastructure provisioning tool using declarative HCL, manages cloud and on-prem resource lifecycle with state tracking. NSO: Network service orchestrator using YANG models and NEDs, provides transactional multi-device configuration with rollback.",
+      "explanation": "Ansible is best for configuration management and ad-hoc tasks (push-based, no agent needed). Terraform excels at provisioning and managing infrastructure lifecycle (tracks state, plans changes, supports destroy). NSO is purpose-built for network service orchestration with multi-vendor support and YANG-based service models. They can complement each other: Terraform provisions infrastructure, Ansible configures it, NSO orchestrates network services.",
+      "sourceUrl": "https://docs.ansible.com/ansible/latest/network/index.html",
+      "difficulty": "medium",
+      "tags": [
+        "ansible",
+        "terraform",
+        "nso",
+        "automation-tools"
+      ]
+    },
+    {
+      "id": "d5-fc-007",
+      "objectiveCode": "5.7",
+      "question": "Given a Python script that calls GET /dna/intent/api/v1/network-device on Catalyst Center, what workflow is being automated?",
+      "answer": "The script is automating network device inventory collection. The /dna/intent/api/v1/network-device endpoint returns a list of all discovered devices with details like hostname, IP, platform, software version, and management status.",
+      "explanation": "Common Catalyst Center API workflows to recognize: /network-device (inventory), /network-device/{id}/config (device config), /client-health (client health scores), /site-health (site health), /flow-analysis (path trace), /template-programmer/template (deploy templates), /command-runner (run CLI commands). The Intent API tier provides business-level abstractions.",
+      "sourceUrl": "https://developer.cisco.com/docs/dna-center/getting-started/",
+      "difficulty": "medium",
+      "tags": [
+        "catalyst-center",
+        "python",
+        "workflow",
+        "inventory"
+      ]
+    },
+    {
+      "id": "d5-fc-008",
+      "objectiveCode": "5.8",
+      "question": "What workflow does an Ansible playbook with 'ansible.builtin.apt', 'ansible.builtin.service', and 'ansible.builtin.user' modules automate?",
+      "answer": "This playbook automates server provisioning: apt manages package installation (e.g., installing nginx), service manages system services (start/stop/enable), and user manages user accounts (create/modify users and groups).",
+      "explanation": "Ansible playbook structure: hosts (target machines), tasks (ordered list of actions), each task uses a module. Common modules: apt/yum (package management), service/systemd (service management), user (user accounts), copy/template (file management), lineinfile (edit files), command/shell (run commands). Playbooks are idempotent: running twice produces the same result. Use 'state: present/absent' to ensure resources exist or are removed.",
+      "sourceUrl": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html",
+      "difficulty": "medium",
+      "tags": [
+        "ansible",
+        "playbook",
+        "workflow",
+        "provisioning"
+      ]
+    },
+    {
+      "id": "d5-fc-009",
+      "objectiveCode": "5.9",
+      "question": "What workflow does this bash script automate: mkdir -p /opt/app && cp app.tar.gz /opt/app/ && cd /opt/app && tar xzf app.tar.gz && useradd -r appuser && chown -R appuser:appuser /opt/app && systemctl start app",
+      "answer": "This script automates application deployment: creates a directory, copies and extracts the application archive, creates a service account user, sets file ownership for security, and starts the application service.",
+      "explanation": "Breaking it down: mkdir -p creates the directory (and parents). cp copies the archive. tar xzf extracts a gzipped tar archive. useradd -r creates a system (non-login) user for running the app. chown -R recursively sets ownership. systemctl start launches the service. The && operator ensures each command only runs if the previous one succeeded. This is a common pattern for deploying applications on Linux servers.",
+      "sourceUrl": "https://www.gnu.org/software/bash/manual/bash.html",
+      "difficulty": "medium",
+      "tags": [
+        "bash",
+        "workflow",
+        "deployment",
+        "linux"
+      ]
+    },
+    {
+      "id": "d5-fc-010",
+      "objectiveCode": "5.10",
+      "question": "How do you interpret the results of a RESTCONF GET request to /restconf/data/ietf-interfaces:interfaces?",
+      "answer": "The response returns a JSON or XML document containing all interfaces on the device, structured according to the ietf-interfaces YANG model. Each interface entry includes name, type, enabled status, and optionally IPv4/IPv6 addresses, statistics, and operational state.",
+      "explanation": "Example JSON response structure: {\"ietf-interfaces:interfaces\": {\"interface\": [{\"name\": \"GigabitEthernet1\", \"type\": \"iana-if-type:ethernetCsmacd\", \"enabled\": true, \"ietf-ip:ipv4\": {\"address\": [{\"ip\": \"10.0.0.1\", \"netmask\": \"255.255.255.0\"}]}}]}}. The module prefix (ietf-interfaces:) identifies the YANG module. The data is hierarchical, matching the YANG model structure.",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc8040",
+      "difficulty": "hard",
+      "tags": [
+        "restconf",
+        "interfaces",
+        "yang",
+        "interpretation"
+      ]
+    },
+    {
+      "id": "d5-fc-011",
+      "objectiveCode": "5.11",
+      "question": "What do the YANG keywords 'container', 'list', 'leaf', and 'leaf-list' mean?",
+      "answer": "container: A grouping node that holds child nodes (no value itself). list: A collection of entries identified by key leaf(s), like rows in a table. leaf: A single data value (string, integer, boolean, etc.). leaf-list: An ordered collection of scalar values (like a leaf that can have multiple values).",
+      "explanation": "Example: container interfaces { list interface { key name; leaf name { type string; } leaf enabled { type boolean; } leaf-list dns-server { type inet:ipv4-address; } } }. This defines a container 'interfaces' holding a list of 'interface' entries, each keyed by 'name', with an 'enabled' flag and a list of DNS server IPs. Other YANG keywords include choice (mutually exclusive options), grouping (reusable definitions), augment (extend existing models), and typedef (custom types).",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc7950#section-7",
+      "difficulty": "hard",
+      "tags": [
+        "yang",
+        "data-model",
+        "container",
+        "list",
+        "leaf"
+      ]
+    },
+    {
+      "id": "d5-fc-012",
+      "objectiveCode": "5.12",
+      "question": "How do you read a unified diff output?",
+      "answer": "Lines starting with '---' and '+++' show the old and new file names. '@@ -start,count +start,count @@' shows line ranges. Lines prefixed with '-' were removed, '+' were added, and ' ' (space) are unchanged context lines.",
+      "explanation": "Example: @@ -5,7 +5,8 @@ means starting at line 5 of the old file (7 lines of context) and line 5 of the new file (8 lines of context, since a line was added). Unified diff is used by 'git diff', pull request reviews, and patch files. It shows only changed sections with surrounding context (default 3 lines). Multiple @@ sections appear for changes in different parts of the file.",
+      "sourceUrl": "https://www.gnu.org/software/diffutils/manual/html_node/Unified-Format.html",
+      "difficulty": "medium",
+      "tags": [
+        "diff",
+        "unified-diff",
+        "git",
+        "code-review"
+      ]
+    },
+    {
+      "id": "d5-fc-013",
+      "objectiveCode": "5.13",
+      "question": "What are the key benefits of a code review process?",
+      "answer": "1) Catches bugs and design flaws before they reach production. 2) Ensures code quality and adherence to standards. 3) Shares knowledge across the team. 4) Provides a documented audit trail of changes. 5) Mentors less experienced developers through feedback.",
+      "explanation": "Code reviews are typically done through pull requests (GitHub/GitLab) or merge requests. Best practices: keep changes small and focused, provide constructive feedback, automate what you can (linting, formatting, tests), review for correctness and maintainability, and respond to reviews promptly. Code reviews catch 60-90% of defects according to industry studies. They also ensure multiple people understand each part of the codebase.",
+      "sourceUrl": "https://google.github.io/eng-practices/review/",
+      "difficulty": "easy",
+      "tags": [
+        "code-review",
+        "best-practices",
+        "collaboration",
+        "quality"
+      ]
+    },
+    {
+      "id": "d5-fc-014",
+      "objectiveCode": "5.14",
+      "question": "How do you interpret a sequence diagram that includes API calls?",
+      "answer": "A sequence diagram shows the time-ordered interaction between participants (actors, systems, services). Vertical lines represent participants, horizontal arrows represent messages (API calls), and the vertical order shows chronological sequence. Solid arrows are requests; dashed arrows are responses.",
+      "explanation": "In API sequence diagrams: each participant is a column (e.g., Client, API Gateway, Auth Server, Database). Arrows show HTTP requests with method and path (e.g., POST /api/login). Return arrows show responses with status codes. Activation bars (rectangles on lifelines) show when a participant is processing. Loops, alternatives (if/else), and optional fragments model conditional behavior. These diagrams are essential for understanding multi-step API workflows.",
+      "sourceUrl": "https://www.uml-diagrams.org/sequence-diagrams.html",
+      "difficulty": "medium",
+      "tags": [
+        "sequence-diagram",
+        "uml",
+        "api-calls",
+        "design"
+      ]
+    },
+    {
+      "id": "d5-fc-015",
+      "objectiveCode": "5.10",
+      "question": "What is the difference between NETCONF <get-config> and <get> operations?",
+      "answer": "<get-config> retrieves only configuration data (running, startup, or candidate datastore). <get> retrieves both configuration and operational state data (e.g., interface counters, CPU usage, neighbor tables).",
+      "explanation": "NETCONF operations are XML-encoded RPCs sent over SSH (port 830). <get-config> takes an optional <filter> to limit which config is returned. <get> also supports filters but returns operational data that cannot be directly configured. Other NETCONF operations: <edit-config> (modify configuration), <copy-config> (copy between datastores), <lock>/<unlock> (prevent concurrent edits), <commit> (apply candidate config to running). The candidate datastore allows staging changes before applying them.",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc6241#section-7",
+      "difficulty": "hard",
+      "tags": [
+        "netconf",
+        "get-config",
+        "operational-data",
+        "rpc"
+      ]
+    },
+    {
+      "id": "d5-fc-016",
+      "objectiveCode": "5.6",
+      "question": "What is Ansible's approach to network automation and what are Network Resource Modules?",
+      "answer": "Ansible uses agentless, push-based automation for network devices via SSH or NETCONF. Network Resource Modules (e.g., cisco.ios.ios_interfaces, cisco.ios.ios_ospfv2) provide declarative, idempotent management of specific device features using a standardized state-based approach (merged, replaced, overridden, deleted).",
+      "explanation": "Resource modules abstract vendor-specific commands into a common data model. States: merged (add config without removing existing), replaced (replace config for specified resources), overridden (replace entire resource config, removing unspecified items), deleted (remove config). Example: cisco.ios.ios_vlans with state=merged adds VLANs without affecting existing ones. This is more reliable than using raw CLI commands via ios_config module.",
+      "sourceUrl": "https://docs.ansible.com/ansible/latest/network/user_guide/network_resource_modules.html",
+      "difficulty": "hard",
+      "tags": [
+        "ansible",
+        "network-automation",
+        "resource-modules",
+        "idempotent"
+      ]
+    }
+  ]
+}

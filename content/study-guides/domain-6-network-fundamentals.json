@@ -1,0 +1,220 @@
+{
+  "domain": 6,
+  "slug": "network-fundamentals",
+  "name": "Network Fundamentals",
+  "weight": 15,
+  "overview": "This domain ensures you have a solid foundation in networking concepts that underpin all network automation. You need to understand IP addressing, routing, switching, common network services, and how to troubleshoot connectivity issues. While this is not a deep networking exam, having strong fundamentals helps you understand the context of the automation tasks you will perform.",
+  "keyTopics": [
+    {
+      "objectiveCode": "6.1",
+      "title": "Describe the purpose and usage of MAC addresses and VLANs",
+      "summary": "MAC addresses and VLANs operate at Layer 2 of the OSI model. MAC addresses uniquely identify network interfaces while VLANs logically segment a network into isolated broadcast domains.",
+      "keyPoints": [
+        "MAC addresses are 48-bit hardware addresses written as six pairs of hexadecimal digits (e.g., AA:BB:CC:DD:EE:FF)",
+        "MAC addresses operate at Layer 2 (Data Link) and are used for communication within a local network segment",
+        "VLANs (Virtual Local Area Networks) logically divide a physical switch into separate broadcast domains",
+        "Devices in different VLANs cannot communicate without a Layer 3 device (router or L3 switch) to route between them",
+        "Trunk ports carry traffic for multiple VLANs between switches using 802.1Q tagging",
+        "Access ports are assigned to a single VLAN and connect end devices like computers and servers"
+      ],
+      "examTips": [
+        "Know that MAC addresses are Layer 2 and IP addresses are Layer 3",
+        "Understand that VLANs segment broadcast domains without requiring physical separation",
+        "Remember that inter-VLAN routing requires a Layer 3 device (router-on-a-stick or L3 switch)"
+      ],
+      "resources": [
+        { "title": "Cisco - VLANs and Trunking", "url": "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/17-6/configuration_guide/vlan/b_176_vlan_9300_cg.html" },
+        { "title": "Cisco DevNet - Network Fundamentals", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" }
+      ]
+    },
+    {
+      "objectiveCode": "6.2",
+      "title": "Describe the purpose and usage of IP addresses, routes, subnet mask / prefix, and gateways",
+      "summary": "IP addressing is the foundation of network communication. Understanding how IP addresses, subnet masks, routing, and default gateways work together enables effective network automation and troubleshooting.",
+      "keyPoints": [
+        "IPv4 addresses are 32-bit numbers written in dotted decimal notation (e.g., 192.168.1.1) with a subnet mask defining the network portion",
+        "Subnet masks determine which part of the IP address identifies the network versus the host (e.g., /24 = 255.255.255.0)",
+        "The default gateway is the router interface that forwards traffic to destinations outside the local subnet",
+        "Routes in a routing table specify the next hop for reaching destination networks",
+        "Private IP ranges (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16) are not routable on the internet",
+        "CIDR notation (e.g., /24) is a compact way to express the subnet mask length"
+      ],
+      "examTips": [
+        "Be able to calculate network address, broadcast address, and usable host range from an IP and subnet mask",
+        "Know the common subnet masks: /8 (255.0.0.0), /16 (255.255.0.0), /24 (255.255.255.0), /30 (255.255.255.252)",
+        "Remember that the default gateway must be on the same subnet as the host"
+      ],
+      "resources": [
+        { "title": "Cisco - IP Addressing and Subnetting", "url": "https://www.cisco.com/c/en/us/support/docs/ip/routing-information-protocol-rip/13788-3.html" },
+        { "title": "Subnet Calculator", "url": "https://www.subnet-calculator.com/" }
+      ]
+    },
+    {
+      "objectiveCode": "6.3",
+      "title": "Describe the function of common networking components (switches, routers, firewalls, load balancers)",
+      "summary": "Understanding the role of each network component is essential for designing, automating, and troubleshooting network infrastructure. Each component operates at specific layers and serves distinct functions.",
+      "keyPoints": [
+        "Switches operate at Layer 2, forwarding frames based on MAC addresses within a local network",
+        "Routers operate at Layer 3, forwarding packets between different networks based on IP addresses and routing tables",
+        "Firewalls inspect and filter traffic based on security rules, operating at Layers 3-7 depending on the type",
+        "Load balancers distribute incoming traffic across multiple servers to ensure availability and performance",
+        "Layer 3 switches combine switching and routing capabilities in a single device",
+        "Next-generation firewalls (NGFW) provide deep packet inspection, application awareness, and intrusion prevention"
+      ],
+      "examTips": [
+        "Know which OSI layer each component primarily operates at",
+        "Understand that a Layer 3 switch can route between VLANs without a separate router",
+        "Remember that load balancers can operate at Layer 4 (TCP/UDP) or Layer 7 (HTTP/HTTPS)"
+      ],
+      "resources": [
+        { "title": "Cisco Networking Basics", "url": "https://www.cisco.com/c/en/us/solutions/small-business/resource-center/networking/networking-basics.html" },
+        { "title": "Cisco DevNet - Network Components", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" }
+      ]
+    },
+    {
+      "objectiveCode": "6.4",
+      "title": "Interpret a basic network topology diagram",
+      "summary": "Network topology diagrams visually represent how network devices are connected and communicate. Being able to read these diagrams is essential for understanding network architecture and planning automation.",
+      "keyPoints": [
+        "Topology diagrams show devices (routers, switches, firewalls), connections (links), and addressing information",
+        "Common symbols: rectangles for switches, circles with arrows for routers, shields for firewalls",
+        "Interface labels on connections identify which port connects to which (e.g., Gi0/1 to Gi0/2)",
+        "IP addresses and subnet masks on interfaces show the addressing scheme for each network segment",
+        "Cloud symbols typically represent the internet or WAN connections",
+        "Serial connections show WAN links, while straight lines typically show LAN connections"
+      ],
+      "examTips": [
+        "Be able to trace a packet's path through the topology from source to destination",
+        "Identify which subnets are connected to which interfaces on routers",
+        "Look for redundant paths that indicate high availability configurations"
+      ],
+      "resources": [
+        { "title": "Cisco Network Diagram Symbols", "url": "https://www.cisco.com/c/en/us/about/brand-center/network-topology-icons.html" },
+        { "title": "Cisco DevNet - Network Diagrams", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" }
+      ]
+    },
+    {
+      "objectiveCode": "6.5",
+      "title": "Describe the function of management, data, and control planes",
+      "summary": "Network devices separate their functions into three planes: the management plane for device administration, the control plane for routing decisions, and the data plane for packet forwarding.",
+      "keyPoints": [
+        "The management plane handles device administration: SSH, SNMP, NETCONF, RESTCONF, and web GUI access",
+        "The control plane makes forwarding decisions by building routing tables, ARP tables, and MAC address tables",
+        "The data plane (forwarding plane) moves packets through the device based on the decisions made by the control plane",
+        "Routing protocols (OSPF, BGP, EIGRP) operate in the control plane to build and maintain routing tables",
+        "Network automation tools primarily interact with the management plane via APIs and management protocols",
+        "Control Plane Policing (CoPP) protects the control plane from denial-of-service attacks"
+      ],
+      "examTips": [
+        "Know which plane each protocol or function belongs to: SSH/NETCONF = management, OSPF/BGP = control, packet forwarding = data",
+        "Remember that automation tools interact with the management plane (RESTCONF, NETCONF, SSH)",
+        "Understand that the control plane populates the tables that the data plane uses for forwarding"
+      ],
+      "resources": [
+        { "title": "Cisco - Control and Data Planes", "url": "https://www.ciscopress.com/articles/article.asp?p=2272154&seqNum=3" },
+        { "title": "Cisco DevNet - Network Planes", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" }
+      ]
+    },
+    {
+      "objectiveCode": "6.6",
+      "title": "Describe the functionality of IP Services: DHCP, DNS, NAT, SNMP, NTP",
+      "summary": "Essential IP services keep networks running smoothly. Each service solves a specific problem: DHCP automates IP assignment, DNS resolves names, NAT translates addresses, SNMP monitors devices, and NTP synchronizes time.",
+      "keyPoints": [
+        "DHCP (Dynamic Host Configuration Protocol) automatically assigns IP addresses, subnet masks, gateways, and DNS servers to hosts",
+        "DNS (Domain Name System) translates human-readable domain names (www.cisco.com) to IP addresses",
+        "NAT (Network Address Translation) translates private IP addresses to public IP addresses for internet access",
+        "SNMP (Simple Network Management Protocol) monitors and manages network devices by collecting metrics and sending alerts (traps)",
+        "NTP (Network Time Protocol) synchronizes clocks across network devices, which is critical for logging, security, and certificate validation"
+      ],
+      "examTips": [
+        "Know the purpose and basic operation of each service, not deep implementation details",
+        "Remember that SNMP uses communities (v2c) or users (v3) and operates with GET, SET, and TRAP operations",
+        "NTP synchronization is essential for correlating logs across devices during troubleshooting"
+      ],
+      "resources": [
+        { "title": "Cisco - IP Services Configuration", "url": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing.html" },
+        { "title": "Cisco DevNet - Network Services", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" }
+      ]
+    },
+    {
+      "objectiveCode": "6.7",
+      "title": "Recognize common protocol port numbers (SSH, Telnet, HTTP, HTTPS, NETCONF)",
+      "summary": "Network protocols use specific TCP/UDP port numbers for communication. Knowing these port numbers is essential for firewall configuration, troubleshooting, and understanding network traffic.",
+      "keyPoints": [
+        "SSH: TCP port 22 (secure remote access and SFTP)",
+        "Telnet: TCP port 23 (unencrypted remote access, deprecated for security reasons)",
+        "HTTP: TCP port 80 (unencrypted web traffic)",
+        "HTTPS: TCP port 443 (encrypted web traffic using TLS)",
+        "NETCONF: TCP port 830 (network configuration protocol over SSH)",
+        "DNS: UDP/TCP port 53 (name resolution queries and zone transfers)",
+        "SNMP: UDP port 161 (queries) and UDP port 162 (traps)",
+        "NTP: UDP port 123 (time synchronization)"
+      ],
+      "examTips": [
+        "Memorize all port numbers listed above as they are directly testable",
+        "Know that NETCONF uses port 830 (not 22) even though it runs over SSH transport",
+        "Remember that RESTCONF uses port 443 (HTTPS) since it is a REST API over HTTP"
+      ],
+      "resources": [
+        { "title": "IANA Service Name and Port Number Registry", "url": "https://www.iana.org/assignments/service-names-port-numbers/" },
+        { "title": "Cisco DevNet - Protocol Ports", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" }
+      ]
+    },
+    {
+      "objectiveCode": "6.8",
+      "title": "Diagnose application connectivity issues (NAT problem, Transport Port blocked, proxy, VPN)",
+      "summary": "When network applications cannot connect, the issue often lies in NAT configuration, firewall port blocking, proxy settings, or VPN tunnel problems. Systematic troubleshooting is essential.",
+      "keyPoints": [
+        "NAT issues: Application fails because NAT is not translating the correct addresses or ports, check NAT translation tables",
+        "Port blocked: Firewall or ACL is blocking the required transport port, verify with packet captures or ACL hit counts",
+        "Proxy issues: Application is not configured to use a proxy server, or the proxy is blocking the request",
+        "VPN issues: Tunnel is down, split tunneling routes traffic incorrectly, or encryption mismatch prevents connectivity",
+        "Troubleshooting approach: check physical connectivity, verify IP addressing, test reachability (ping), verify port access (telnet to port), check application logs"
+      ],
+      "examTips": [
+        "Follow a systematic approach: work from Layer 1 (physical) up to Layer 7 (application)",
+        "Know common tools: ping (Layer 3 reachability), traceroute (path analysis), telnet to port (Layer 4 connectivity)",
+        "NAT problems often manifest as one-way communication or asymmetric routing issues"
+      ],
+      "resources": [
+        { "title": "Cisco Troubleshooting Guide", "url": "https://www.cisco.com/c/en/us/support/docs/ip/network-address-translation-nat/26704-nat-faq-00.html" },
+        { "title": "Cisco DevNet - Network Troubleshooting", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" }
+      ]
+    },
+    {
+      "objectiveCode": "6.9",
+      "title": "Explain the impacts of network constraints on applications",
+      "summary": "Network performance constraints directly affect application behavior and user experience. Understanding how bandwidth, latency, jitter, and packet loss impact different types of applications is critical.",
+      "keyPoints": [
+        "Bandwidth: The maximum data transfer rate of a network link, insufficient bandwidth causes slow transfers and congestion",
+        "Latency: The time delay for data to travel from source to destination, high latency degrades real-time applications",
+        "Jitter: Variation in latency over time, causing inconsistent delivery that affects voice and video quality",
+        "Packet loss: Percentage of packets that fail to reach the destination, causing retransmissions (TCP) or data gaps (UDP)",
+        "QoS (Quality of Service) prioritizes critical traffic to minimize the impact of network constraints on important applications"
+      ],
+      "examTips": [
+        "Know which constraints most affect which application types: voice/video = latency and jitter, file transfers = bandwidth",
+        "Understand that TCP handles packet loss through retransmission while UDP does not",
+        "Remember that QoS does not create bandwidth; it prioritizes existing bandwidth for critical traffic"
+      ],
+      "resources": [
+        { "title": "Cisco QoS Overview", "url": "https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/qos/b-quality-of-service.html" },
+        { "title": "Cisco DevNet - Network Performance", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" }
+      ]
+    }
+  ],
+  "practiceScenarios": [
+    "A user reports they cannot access a web application hosted on a server in a different VLAN. Walk through the troubleshooting steps from Layer 1 to Layer 7 to identify the root cause.",
+    "Consider this network: Host A (192.168.1.10/24) connects to Router R1 (192.168.1.1). R1 connects to R2 via 10.0.0.0/30. R2 connects to R3 via 10.0.1.0/30. R3 connects to the 10.0.2.0/24 subnet where Host B (10.0.2.20) resides. Trace the routing path a packet takes from Host A to Host B, identifying each hop and which interface forwards the packet.",
+    "Your monitoring tool shows high latency on a VoIP call. Explain which network constraints are likely causing the issue and what QoS mechanisms could help.",
+    "A developer's automation script cannot reach a network device via NETCONF. The script works on other devices. What port should you verify is open, and how would you troubleshoot?"
+  ],
+  "commonMistakes": [
+    "Confusing MAC addresses (Layer 2, local network) with IP addresses (Layer 3, routable across networks)",
+    "Forgetting that NETCONF uses port 830, not port 22, even though the transport is SSH",
+    "Not recognizing that devices in different VLANs require a Layer 3 device (router) to communicate",
+    "Confusing the three planes: management (admin access), control (routing decisions), data (packet forwarding)",
+    "Thinking NAT only translates IP addresses when PAT (Port Address Translation) also translates port numbers",
+    "Not understanding that QoS prioritizes traffic but cannot increase available bandwidth"
+  ]
+}

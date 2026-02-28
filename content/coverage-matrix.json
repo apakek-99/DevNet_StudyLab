@@ -1,0 +1,890 @@
+{
+  "generatedAt": "2026-02-27T20:35:23.597Z",
+  "examCode": "200-901",
+  "totalObjectives": 61,
+  "coveredObjectives": 61,
+  "coveragePercent": 100,
+  "totalFlashcards": 97,
+  "totalQuestions": 60,
+  "matrix": [
+    {
+      "objectiveCode": "1.1",
+      "objectiveTitle": "Compare data formats (XML, JSON, and YAML)",
+      "domainNumber": 1,
+      "flashcardCount": 4,
+      "flashcardIds": [
+        "d1-fc-001",
+        "d1-fc-002",
+        "d1-fc-003",
+        "d1-fc-017"
+      ],
+      "questionCount": 2,
+      "questionIds": [
+        "se1-q01",
+        "se2-q01"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "1.2",
+      "objectiveTitle": "Describe parsing of common data format (XML, JSON, and YAML) to Python data structures",
+      "domainNumber": 1,
+      "flashcardCount": 3,
+      "flashcardIds": [
+        "d1-fc-004",
+        "d1-fc-005",
+        "d1-fc-006"
+      ],
+      "questionCount": 2,
+      "questionIds": [
+        "se1-q02",
+        "se2-q02"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "1.3",
+      "objectiveTitle": "Describe the concepts of test-driven development",
+      "domainNumber": 1,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d1-fc-007"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se1-q03"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "1.4",
+      "objectiveTitle": "Compare software development methods (agile, lean, and waterfall)",
+      "domainNumber": 1,
+      "flashcardCount": 2,
+      "flashcardIds": [
+        "d1-fc-008",
+        "d1-fc-009"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se2-q03"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "1.5",
+      "objectiveTitle": "Explain the benefits of organizing code into methods / functions, classes, and modules",
+      "domainNumber": 1,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d1-fc-010"
+      ],
+      "questionCount": 0,
+      "questionIds": [],
+      "covered": true
+    },
+    {
+      "objectiveCode": "1.6",
+      "objectiveTitle": "Explain the advantages of common design patterns (MVC and Observer)",
+      "domainNumber": 1,
+      "flashcardCount": 2,
+      "flashcardIds": [
+        "d1-fc-011",
+        "d1-fc-012"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se1-q05"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "1.7",
+      "objectiveTitle": "Explain the advantages of version control",
+      "domainNumber": 1,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d1-fc-013"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se2-q04"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "1.8",
+      "objectiveTitle": "Utilize common version control operations with Git",
+      "domainNumber": 1,
+      "flashcardCount": 3,
+      "flashcardIds": [
+        "d1-fc-014",
+        "d1-fc-015",
+        "d1-fc-016"
+      ],
+      "questionCount": 2,
+      "questionIds": [
+        "se1-q04",
+        "se2-q05"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "2.1",
+      "objectiveTitle": "Construct a REST API request to accomplish a task given API documentation",
+      "domainNumber": 2,
+      "flashcardCount": 2,
+      "flashcardIds": [
+        "d2-fc-001",
+        "d2-fc-002"
+      ],
+      "questionCount": 2,
+      "questionIds": [
+        "se1-q06",
+        "se2-q06"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "2.2",
+      "objectiveTitle": "Describe common usage patterns related to webhooks",
+      "domainNumber": 2,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d2-fc-003"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se1-q10"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "2.3",
+      "objectiveTitle": "Describe the constraints when consuming APIs",
+      "domainNumber": 2,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d2-fc-004"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se2-q11"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "2.4",
+      "objectiveTitle": "Explain common HTTP response codes associated with REST APIs",
+      "domainNumber": 2,
+      "flashcardCount": 2,
+      "flashcardIds": [
+        "d2-fc-005",
+        "d2-fc-006"
+      ],
+      "questionCount": 2,
+      "questionIds": [
+        "se1-q07",
+        "se2-q07"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "2.5",
+      "objectiveTitle": "Troubleshoot a problem given the HTTP response code, request and API documentation",
+      "domainNumber": 2,
+      "flashcardCount": 2,
+      "flashcardIds": [
+        "d2-fc-007",
+        "d2-fc-015"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se1-q11"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "2.6",
+      "objectiveTitle": "Interpret the parts of an HTTP response (response code, headers, body)",
+      "domainNumber": 2,
+      "flashcardCount": 2,
+      "flashcardIds": [
+        "d2-fc-008",
+        "d2-fc-016"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se2-q08"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "2.7",
+      "objectiveTitle": "Utilize common API authentication mechanisms: basic, custom token, and API keys",
+      "domainNumber": 2,
+      "flashcardCount": 2,
+      "flashcardIds": [
+        "d2-fc-009",
+        "d2-fc-010"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se1-q08"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "2.8",
+      "objectiveTitle": "Compare common API styles (REST, RPC, synchronous, and asynchronous)",
+      "domainNumber": 2,
+      "flashcardCount": 2,
+      "flashcardIds": [
+        "d2-fc-011",
+        "d2-fc-012"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se2-q09"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "2.9",
+      "objectiveTitle": "Construct a Python script that calls a REST API using the requests library",
+      "domainNumber": 2,
+      "flashcardCount": 2,
+      "flashcardIds": [
+        "d2-fc-013",
+        "d2-fc-014"
+      ],
+      "questionCount": 2,
+      "questionIds": [
+        "se1-q09",
+        "se2-q10"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "3.1",
+      "objectiveTitle": "Construct a Python script that uses a Cisco SDK given SDK documentation",
+      "domainNumber": 3,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d3-fc-016"
+      ],
+      "questionCount": 0,
+      "questionIds": [],
+      "covered": true
+    },
+    {
+      "objectiveCode": "3.2",
+      "objectiveTitle": "Describe the capabilities of Cisco network management platforms and APIs (Meraki, Cisco Catalyst Center, ACI, Cisco Catalyst SD-WAN, and NSO)",
+      "domainNumber": 3,
+      "flashcardCount": 5,
+      "flashcardIds": [
+        "d3-fc-001",
+        "d3-fc-002",
+        "d3-fc-003",
+        "d3-fc-004",
+        "d3-fc-005"
+      ],
+      "questionCount": 2,
+      "questionIds": [
+        "se1-q12",
+        "se2-q12"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "3.3",
+      "objectiveTitle": "Describe the capabilities of Cisco compute management platforms and APIs (UCS Manager and Intersight)",
+      "domainNumber": 3,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d3-fc-006"
+      ],
+      "questionCount": 0,
+      "questionIds": [],
+      "covered": true
+    },
+    {
+      "objectiveCode": "3.4",
+      "objectiveTitle": "Describe the capabilities of Cisco collaboration platforms and APIs (Webex, Webex devices, Cisco Unified Communications Manager including AXL and UDS interfaces)",
+      "domainNumber": 3,
+      "flashcardCount": 2,
+      "flashcardIds": [
+        "d3-fc-007",
+        "d3-fc-008"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se2-q13"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "3.5",
+      "objectiveTitle": "Describe the capabilities of Cisco security platforms and APIs (XDR, Firepower, Secure Connect, Secure Endpoint, ISE, and Secure Malware Analytics)",
+      "domainNumber": 3,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d3-fc-009"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se2-q15"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "3.6",
+      "objectiveTitle": "Describe the device level APIs and dynamic interfaces for IOS XE and NX-OS",
+      "domainNumber": 3,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d3-fc-010"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se1-q14"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "3.7",
+      "objectiveTitle": "Describe the appropriate DevNet resource for a given scenario (Sandbox, Code Exchange, support, forums, Learning Labs, and API documentation)",
+      "domainNumber": 3,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d3-fc-011"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se1-q15"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "3.8",
+      "objectiveTitle": "Apply concepts of model driven programmability (YANG, RESTCONF, and NETCONF) in a Cisco environment",
+      "domainNumber": 3,
+      "flashcardCount": 2,
+      "flashcardIds": [
+        "d3-fc-012",
+        "d3-fc-013"
+      ],
+      "questionCount": 2,
+      "questionIds": [
+        "se1-q13",
+        "se2-q14"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "3.9",
+      "objectiveTitle": "Construct code to perform a specific operation based on a set of requirements and given API reference documentation",
+      "domainNumber": 3,
+      "flashcardCount": 2,
+      "flashcardIds": [
+        "d3-fc-014",
+        "d3-fc-015"
+      ],
+      "questionCount": 2,
+      "questionIds": [
+        "se1-q16",
+        "se2-q16"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "4.1",
+      "objectiveTitle": "Describe the benefits of edge computing",
+      "domainNumber": 4,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d4-fc-001"
+      ],
+      "questionCount": 0,
+      "questionIds": [],
+      "covered": true
+    },
+    {
+      "objectiveCode": "4.2",
+      "objectiveTitle": "Describe the attributes of different application deployment models (private cloud, public cloud, hybrid cloud, and edge)",
+      "domainNumber": 4,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d4-fc-002"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se2-q17"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "4.3",
+      "objectiveTitle": "Describe the attributes of these application deployment types",
+      "domainNumber": 4,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d4-fc-003"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se1-q17"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "4.4",
+      "objectiveTitle": "Describe components for a CI/CD pipeline in application deployments",
+      "domainNumber": 4,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d4-fc-004"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se2-q18"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "4.5",
+      "objectiveTitle": "Construct a Python unit test",
+      "domainNumber": 4,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d4-fc-005"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se1-q20"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "4.6",
+      "objectiveTitle": "Interpret contents of a Dockerfile",
+      "domainNumber": 4,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d4-fc-006"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se1-q18"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "4.7",
+      "objectiveTitle": "Utilize Docker images in local developer environment",
+      "domainNumber": 4,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d4-fc-007"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se2-q19"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "4.8",
+      "objectiveTitle": "Describe application security issues related to secret protection, encryption (storage and transport), and data handling",
+      "domainNumber": 4,
+      "flashcardCount": 2,
+      "flashcardIds": [
+        "d4-fc-008",
+        "d4-fc-009"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se2-q20"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "4.9",
+      "objectiveTitle": "Explain how firewall, DNS, load balancers, and reverse proxy in application deployment",
+      "domainNumber": 4,
+      "flashcardCount": 2,
+      "flashcardIds": [
+        "d4-fc-010",
+        "d4-fc-016"
+      ],
+      "questionCount": 0,
+      "questionIds": [],
+      "covered": true
+    },
+    {
+      "objectiveCode": "4.10",
+      "objectiveTitle": "Describe top OWASP threats (such as XSS, SQL injections, and CSRF)",
+      "domainNumber": 4,
+      "flashcardCount": 3,
+      "flashcardIds": [
+        "d4-fc-011",
+        "d4-fc-012",
+        "d4-fc-013"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se1-q19"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "4.11",
+      "objectiveTitle": "Utilize Bash commands (file management, directory navigation, and environmental variables)",
+      "domainNumber": 4,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d4-fc-014"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se2-q21"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "4.12",
+      "objectiveTitle": "Describe the principles of DevOps practices",
+      "domainNumber": 4,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d4-fc-015"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se1-q21"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "5.1",
+      "objectiveTitle": "Describe the value of model driven programmability for infrastructure automation",
+      "domainNumber": 5,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d5-fc-001"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se1-q26"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "5.2",
+      "objectiveTitle": "Compare controller-level to device-level management",
+      "domainNumber": 5,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d5-fc-002"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se2-q22"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "5.3",
+      "objectiveTitle": "Describe the use and roles of network simulation and test tools (such as Cisco Modeling Labs and pyATS)",
+      "domainNumber": 5,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d5-fc-003"
+      ],
+      "questionCount": 0,
+      "questionIds": [],
+      "covered": true
+    },
+    {
+      "objectiveCode": "5.4",
+      "objectiveTitle": "Describe the components and benefits of CI/CD pipeline in infrastructure automation",
+      "domainNumber": 5,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d5-fc-004"
+      ],
+      "questionCount": 0,
+      "questionIds": [],
+      "covered": true
+    },
+    {
+      "objectiveCode": "5.5",
+      "objectiveTitle": "Describe the principles of infrastructure as code",
+      "domainNumber": 5,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d5-fc-005"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se2-q23"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "5.6",
+      "objectiveTitle": "Describe the capabilities of automation tools such as Ansible, Terraform, and Cisco NSO",
+      "domainNumber": 5,
+      "flashcardCount": 2,
+      "flashcardIds": [
+        "d5-fc-006",
+        "d5-fc-016"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se1-q22"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "5.7",
+      "objectiveTitle": "Identify the workflow being automated by a Python script that uses Cisco APIs including ACI, Meraki, Cisco Catalyst Center, and RESTCONF",
+      "domainNumber": 5,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d5-fc-007"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se2-q24"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "5.8",
+      "objectiveTitle": "Interpret the workflow being automated by an Ansible playbook (management packages, user management related to services, basic service configuration, and start/stop)",
+      "domainNumber": 5,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d5-fc-008"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se1-q25"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "5.9",
+      "objectiveTitle": "Interpret the workflow being automated by a bash script (such as file management, app install, user management, directory navigation)",
+      "domainNumber": 5,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d5-fc-009"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se2-q25"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "5.10",
+      "objectiveTitle": "Interpret the results of a RESTCONF or NETCONF query",
+      "domainNumber": 5,
+      "flashcardCount": 2,
+      "flashcardIds": [
+        "d5-fc-010",
+        "d5-fc-015"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se2-q26"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "5.11",
+      "objectiveTitle": "Interpret basic YANG models",
+      "domainNumber": 5,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d5-fc-011"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se1-q23"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "5.12",
+      "objectiveTitle": "Interpret a unified diff",
+      "domainNumber": 5,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d5-fc-012"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se1-q24"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "5.13",
+      "objectiveTitle": "Describe the principles and benefits of a code review process",
+      "domainNumber": 5,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d5-fc-013"
+      ],
+      "questionCount": 0,
+      "questionIds": [],
+      "covered": true
+    },
+    {
+      "objectiveCode": "5.14",
+      "objectiveTitle": "Interpret a sequence diagram that includes API calls",
+      "domainNumber": 5,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d5-fc-014"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se2-q27"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "6.1",
+      "objectiveTitle": "Describe the purpose and usage of MAC addresses and VLANs",
+      "domainNumber": 6,
+      "flashcardCount": 2,
+      "flashcardIds": [
+        "d6-fc-001",
+        "d6-fc-002"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se1-q27"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "6.2",
+      "objectiveTitle": "Describe the purpose and usage of IP addresses, routes, subnet mask / prefix, and gateways",
+      "domainNumber": 6,
+      "flashcardCount": 3,
+      "flashcardIds": [
+        "d6-fc-003",
+        "d6-fc-004",
+        "d6-fc-016"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se2-q28"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "6.3",
+      "objectiveTitle": "Describe the function of common networking components (such as switches, routers, firewalls, and load balancers)",
+      "domainNumber": 6,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d6-fc-005"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se2-q29"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "6.4",
+      "objectiveTitle": "Interpret a basic network topology diagram with elements such as switches, routers, firewalls, load balancers, and port values",
+      "domainNumber": 6,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d6-fc-015"
+      ],
+      "questionCount": 0,
+      "questionIds": [],
+      "covered": true
+    },
+    {
+      "objectiveCode": "6.5",
+      "objectiveTitle": "Describe the function of management, data, and control planes in a network device",
+      "domainNumber": 6,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d6-fc-006"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se1-q28"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "6.6",
+      "objectiveTitle": "Describe the functionality of these IP Services: DHCP, DNS, NAT, SNMP, NTP",
+      "domainNumber": 6,
+      "flashcardCount": 4,
+      "flashcardIds": [
+        "d6-fc-007",
+        "d6-fc-008",
+        "d6-fc-009",
+        "d6-fc-014"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se1-q30"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "6.7",
+      "objectiveTitle": "Recognize common protocol port values (such as, SSH, Telnet, HTTP, HTTPS, and NETCONF)",
+      "domainNumber": 6,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d6-fc-010"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se1-q29"
+      ],
+      "covered": true
+    },
+    {
+      "objectiveCode": "6.8",
+      "objectiveTitle": "Diagnose application connectivity issues (NAT problem, Transport Port blocked, proxy, and VPN)",
+      "domainNumber": 6,
+      "flashcardCount": 2,
+      "flashcardIds": [
+        "d6-fc-011",
+        "d6-fc-012"
+      ],
+      "questionCount": 0,
+      "questionIds": [],
+      "covered": true
+    },
+    {
+      "objectiveCode": "6.9",
+      "objectiveTitle": "Explain the impacts of network constraints on applications",
+      "domainNumber": 6,
+      "flashcardCount": 1,
+      "flashcardIds": [
+        "d6-fc-013"
+      ],
+      "questionCount": 1,
+      "questionIds": [
+        "se2-q30"
+      ],
+      "covered": true
+    }
+  ]
+}

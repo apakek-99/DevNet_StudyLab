@@ -1,0 +1,166 @@
+{
+  "domain": 2,
+  "domainName": "Understanding and Using APIs",
+  "flashcards": [
+    {
+      "id": "d2-fc-001",
+      "objectiveCode": "2.1",
+      "question": "What are the four most common HTTP methods used in REST APIs, and what does each do?",
+      "answer": "GET: Retrieve a resource. POST: Create a new resource. PUT: Replace/update an entire resource. DELETE: Remove a resource. Additionally, PATCH updates part of a resource.",
+      "explanation": "REST APIs use HTTP methods to indicate the desired action. GET and DELETE do not have a request body. POST and PUT include a body with the resource data. PATCH is used for partial updates. GET, PUT, and DELETE are idempotent (same result if called multiple times). POST is not idempotent as each call may create a new resource.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods",
+      "difficulty": "easy",
+      "tags": ["rest", "http-methods", "crud"]
+    },
+    {
+      "id": "d2-fc-002",
+      "objectiveCode": "2.1",
+      "question": "What does it mean for an HTTP method to be 'idempotent'?",
+      "answer": "An idempotent method produces the same result regardless of how many times it is called with the same parameters. GET, PUT, DELETE, and PATCH are idempotent. POST is not.",
+      "explanation": "Idempotency is critical for reliable distributed systems. If a network error occurs and a client retries a PUT request, the server ends up in the same state. With POST, a retry might create a duplicate resource. For example, PUT /users/123 with body {name: 'Alice'} always results in user 123 having the name Alice, no matter how many times it is sent.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Glossary/Idempotent",
+      "difficulty": "medium",
+      "tags": ["rest", "idempotent", "http-methods"]
+    },
+    {
+      "id": "d2-fc-003",
+      "objectiveCode": "2.2",
+      "question": "How do webhooks differ from API polling?",
+      "answer": "Webhooks are event-driven: the server sends an HTTP POST to a pre-registered callback URL when an event occurs. Polling requires the client to repeatedly query the server at intervals to check for changes.",
+      "explanation": "Webhooks (also called reverse APIs or HTTP callbacks) are more efficient because data is pushed only when events happen, reducing unnecessary API calls. Polling wastes bandwidth and API rate limits when nothing has changed. However, webhooks require the client to have a publicly accessible endpoint to receive the callback, and the client must handle retries and verify webhook authenticity (e.g., via HMAC signatures).",
+      "sourceUrl": "https://developer.webex.com/docs/api/v1/webhooks",
+      "difficulty": "medium",
+      "tags": ["webhooks", "polling", "event-driven"]
+    },
+    {
+      "id": "d2-fc-004",
+      "objectiveCode": "2.3",
+      "question": "What are three common constraints when consuming APIs?",
+      "answer": "1) Rate limiting: APIs restrict the number of requests per time period. 2) Pagination: Large result sets are returned in pages. 3) Versioning: APIs evolve over time, and consumers must use the correct API version.",
+      "explanation": "Rate limiting returns HTTP 429 (Too Many Requests) when exceeded, often with a Retry-After header. Pagination may use offset/limit parameters or cursor-based navigation. API versioning can be done via URL path (/v1/resource), query parameter (?version=1), or Accept header. Other constraints include payload size limits, required authentication, and allowed HTTP methods per endpoint.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+      "difficulty": "medium",
+      "tags": ["rate-limiting", "pagination", "versioning", "api-constraints"]
+    },
+    {
+      "id": "d2-fc-005",
+      "objectiveCode": "2.4",
+      "question": "What do the HTTP status code ranges 2xx, 3xx, 4xx, and 5xx indicate?",
+      "answer": "2xx: Success (request was received, understood, and accepted). 3xx: Redirection (further action needed to complete the request). 4xx: Client Error (request contains bad syntax or cannot be fulfilled). 5xx: Server Error (server failed to fulfill a valid request).",
+      "explanation": "Common codes: 200 OK, 201 Created, 204 No Content, 301 Moved Permanently, 400 Bad Request, 401 Unauthorized (unauthenticated), 403 Forbidden (insufficient permissions), 404 Not Found, 409 Conflict, 429 Too Many Requests, 500 Internal Server Error, 503 Service Unavailable. Note: 401 means authentication is missing/invalid, while 403 means authenticated but not authorized.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status",
+      "difficulty": "easy",
+      "tags": ["http", "status-codes"]
+    },
+    {
+      "id": "d2-fc-006",
+      "objectiveCode": "2.4",
+      "question": "What is the difference between HTTP 401 Unauthorized and 403 Forbidden?",
+      "answer": "401 Unauthorized means the request lacks valid authentication credentials (the user is not authenticated). 403 Forbidden means the server understood the request but the authenticated user does not have permission to access the resource (not authorized).",
+      "explanation": "Despite the name 'Unauthorized', HTTP 401 is actually about authentication failure. The client should re-authenticate with valid credentials. HTTP 403 indicates the server knows who you are but you do not have the necessary permissions. Re-authenticating will not help with a 403. For example: accessing an admin endpoint with a regular user token returns 403, while sending no token returns 401.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401",
+      "difficulty": "medium",
+      "tags": ["http", "status-codes", "authentication", "authorization"]
+    },
+    {
+      "id": "d2-fc-007",
+      "objectiveCode": "2.5",
+      "question": "An API returns HTTP 409 Conflict when you try to create a resource. What does this mean and how should you troubleshoot?",
+      "answer": "HTTP 409 indicates the request conflicts with the current state of the server, typically because a resource with the same unique identifier already exists. Check if the resource already exists and use PUT to update it, or use a different unique identifier.",
+      "explanation": "409 Conflict is common when trying to POST (create) a resource that already exists, or when there is a version conflict (optimistic locking). Troubleshooting steps: 1) GET the existing resource to confirm it exists, 2) Compare your request with the existing data, 3) Use PUT/PATCH to update if needed, or 4) Delete the existing resource first if replacement is intended.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/409",
+      "difficulty": "medium",
+      "tags": ["http", "status-codes", "troubleshooting", "conflict"]
+    },
+    {
+      "id": "d2-fc-008",
+      "objectiveCode": "2.6",
+      "question": "What are the three main parts of an HTTP response?",
+      "answer": "1) Status Line: Contains the HTTP version, status code, and reason phrase (e.g., 'HTTP/1.1 200 OK'). 2) Headers: Key-value pairs with metadata (Content-Type, Content-Length, Set-Cookie, etc.). 3) Body: The actual response data (JSON, XML, HTML, binary, etc.).",
+      "explanation": "The Content-Type header tells the client what format the body is in (e.g., application/json, application/xml). The Content-Length header indicates the size in bytes. Other important headers include Authorization, Cache-Control, X-RateLimit-Remaining, and Location (used with 201 Created to indicate the URL of the new resource).",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages#http_responses",
+      "difficulty": "easy",
+      "tags": ["http", "response", "headers", "body"]
+    },
+    {
+      "id": "d2-fc-009",
+      "objectiveCode": "2.7",
+      "question": "How does Basic Authentication work in HTTP, and what is its security concern?",
+      "answer": "Basic Auth sends the username and password encoded in Base64 in the Authorization header: 'Authorization: Basic <base64(username:password)>'. The security concern is that Base64 is encoding, not encryption, so credentials are easily decoded if intercepted without HTTPS.",
+      "explanation": "The client concatenates username:password, encodes it with Base64, and sends it with every request. Example: 'Authorization: Basic YWRtaW46cGFzc3dvcmQ=' decodes to 'admin:password'. This must always be used over HTTPS to prevent credential interception. In Python requests: requests.get(url, auth=('user', 'pass')).",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme",
+      "difficulty": "medium",
+      "tags": ["authentication", "basic-auth", "security", "http-headers"]
+    },
+    {
+      "id": "d2-fc-010",
+      "objectiveCode": "2.7",
+      "question": "How do API keys and Bearer tokens differ as authentication mechanisms?",
+      "answer": "API keys are static strings typically sent as a query parameter or custom header (e.g., X-API-Key) to identify the calling application. Bearer tokens are dynamic, often obtained via OAuth or login, and sent in the Authorization header ('Authorization: Bearer <token>') to authenticate a specific user session.",
+      "explanation": "API keys identify the application/project making the request and are often used for rate limiting and usage tracking. Bearer tokens authenticate a specific user and typically expire after a set time. Bearer tokens are more secure because they are short-lived and can be scoped with specific permissions. Cisco platforms like Catalyst Center use token-based auth where you POST credentials to get a temporary token.",
+      "sourceUrl": "https://developer.cisco.com/docs/dna-center/authentication-and-authorization/",
+      "difficulty": "medium",
+      "tags": ["authentication", "api-keys", "bearer-token", "oauth"]
+    },
+    {
+      "id": "d2-fc-011",
+      "objectiveCode": "2.8",
+      "question": "What are the key differences between REST and RPC API styles?",
+      "answer": "REST is resource-oriented (URLs represent resources, HTTP methods define actions). RPC is action-oriented (URLs represent procedures/functions to call). REST uses standard HTTP methods (GET, POST, PUT, DELETE), while RPC typically uses POST for all operations with the action specified in the request body.",
+      "explanation": "REST example: GET /devices/123 retrieves device 123. RPC example: POST /getDevice with body {id: 123}. REST leverages HTTP semantics (methods, status codes, caching), making it more standardized. RPC can be simpler for complex operations that do not map well to CRUD. NETCONF uses RPC-style messaging with XML. gRPC is a modern RPC framework using Protocol Buffers.",
+      "sourceUrl": "https://developer.cisco.com/learning/modules/rest-api-fundamentals/",
+      "difficulty": "medium",
+      "tags": ["rest", "rpc", "api-styles", "comparison"]
+    },
+    {
+      "id": "d2-fc-012",
+      "objectiveCode": "2.8",
+      "question": "What is the difference between synchronous and asynchronous API calls?",
+      "answer": "Synchronous: The client sends a request and blocks (waits) until the server returns a response. Asynchronous: The client sends a request, receives an immediate acknowledgment, and the result is delivered later via a callback, polling, or webhook.",
+      "explanation": "Synchronous is simpler but can cause timeouts for long-running operations. Asynchronous APIs are better for operations that take significant time (e.g., provisioning a VM, running a report). The server typically returns HTTP 202 (Accepted) with a task/job ID, and the client checks status via a separate endpoint or receives a webhook notification when complete.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Introducing",
+      "difficulty": "medium",
+      "tags": ["synchronous", "asynchronous", "api-styles"]
+    },
+    {
+      "id": "d2-fc-013",
+      "objectiveCode": "2.9",
+      "question": "How do you make a GET request with custom headers using Python's requests library?",
+      "answer": "Use requests.get(url, headers={'Authorization': 'Bearer TOKEN', 'Content-Type': 'application/json'}). The response object has .status_code, .json(), .text, and .headers attributes.",
+      "explanation": "The requests library simplifies HTTP in Python. Key methods: requests.get(), requests.post(), requests.put(), requests.delete(), requests.patch(). Common parameters include headers={}, params={} (query string), json={} (JSON body), auth=(user, pass), timeout=30, and verify=True/False (SSL verification). Always check response.status_code or use response.raise_for_status() to handle errors.",
+      "sourceUrl": "https://docs.python-requests.org/en/latest/user/quickstart/",
+      "difficulty": "easy",
+      "tags": ["python", "requests", "http", "get"]
+    },
+    {
+      "id": "d2-fc-014",
+      "objectiveCode": "2.9",
+      "question": "How do you send a POST request with a JSON body using Python's requests library?",
+      "answer": "Use requests.post(url, json={'key': 'value'}, headers={'Authorization': 'Bearer TOKEN'}). Using the json= parameter automatically serializes the dict to JSON and sets the Content-Type header to application/json.",
+      "explanation": "The json= parameter (introduced in requests 2.4.2) is preferred over manually converting with json.dumps() and using data=. Using json= automatically handles serialization and sets the correct Content-Type header. To send form data instead, use data={'field': 'value'}. The response from a POST creating a resource typically returns 201 Created with the new resource in the body.",
+      "sourceUrl": "https://docs.python-requests.org/en/latest/user/quickstart/#more-complicated-post-requests",
+      "difficulty": "easy",
+      "tags": ["python", "requests", "http", "post", "json"]
+    },
+    {
+      "id": "d2-fc-015",
+      "objectiveCode": "2.5",
+      "question": "An API call returns HTTP 500 Internal Server Error. Is this a client-side or server-side issue, and what should you do?",
+      "answer": "500 is a server-side error indicating the server encountered an unexpected condition. The client request may be valid. You should retry after a delay, check server status/logs if accessible, and contact the API provider if the issue persists.",
+      "explanation": "5xx errors are the server's responsibility. 500 is a generic catch-all. 502 Bad Gateway means the server acting as a proxy received an invalid response from the upstream server. 503 Service Unavailable means the server is temporarily overloaded or under maintenance (check Retry-After header). 504 Gateway Timeout means the upstream server did not respond in time. Implement exponential backoff for retries on 5xx errors.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500",
+      "difficulty": "easy",
+      "tags": ["http", "status-codes", "troubleshooting", "server-error"]
+    },
+    {
+      "id": "d2-fc-016",
+      "objectiveCode": "2.6",
+      "question": "What does the Content-Type header indicate, and what are common values for API responses?",
+      "answer": "Content-Type tells the client the media type (MIME type) of the response body. Common values: application/json (JSON data), application/xml (XML data), text/html (web pages), application/octet-stream (binary data).",
+      "explanation": "The Content-Type header uses MIME type format: type/subtype. REST APIs most commonly return application/json. NETCONF uses application/yang-data+xml. The Accept header in the request tells the server what format the client prefers. If the server cannot provide the requested format, it returns 406 Not Acceptable. The charset can also be specified: application/json; charset=utf-8.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type",
+      "difficulty": "easy",
+      "tags": ["http", "headers", "content-type", "mime"]
+    }
+  ]
+}

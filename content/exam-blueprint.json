@@ -1,0 +1,144 @@
+{
+  "examCode": "200-901",
+  "examName": "Automating Networks Using Cisco Platforms v1.1",
+  "duration": 120,
+  "domains": [
+    {
+      "number": 1,
+      "slug": "software-dev",
+      "name": "Software Development and Design",
+      "weight": 15,
+      "objectives": [
+        { "code": "1.1", "title": "Compare data formats (XML, JSON, and YAML)" },
+        { "code": "1.2", "title": "Describe parsing of common data format (XML, JSON, and YAML) to Python data structures" },
+        { "code": "1.3", "title": "Describe the concepts of test-driven development" },
+        { "code": "1.4", "title": "Compare software development methods (agile, lean, and waterfall)" },
+        { "code": "1.5", "title": "Explain the benefits of organizing code into methods / functions, classes, and modules" },
+        { "code": "1.6", "title": "Explain the advantages of common design patterns (MVC and Observer)" },
+        { "code": "1.7", "title": "Explain the advantages of version control" },
+        {
+          "code": "1.8",
+          "title": "Utilize common version control operations with Git",
+          "subobjectives": [
+            "1.8.a Clone",
+            "1.8.b Add/remove",
+            "1.8.c Commit",
+            "1.8.d Push / pull",
+            "1.8.e Branch",
+            "1.8.f Merge and handling conflicts",
+            "1.8.g diff"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "slug": "apis",
+      "name": "Understanding and Using APIs",
+      "weight": 20,
+      "objectives": [
+        { "code": "2.1", "title": "Construct a REST API request to accomplish a task given API documentation" },
+        { "code": "2.2", "title": "Describe common usage patterns related to webhooks" },
+        { "code": "2.3", "title": "Describe the constraints when consuming APIs" },
+        { "code": "2.4", "title": "Explain common HTTP response codes associated with REST APIs" },
+        { "code": "2.5", "title": "Troubleshoot a problem given the HTTP response code, request and API documentation" },
+        { "code": "2.6", "title": "Interpret the parts of an HTTP response (response code, headers, body)" },
+        { "code": "2.7", "title": "Utilize common API authentication mechanisms: basic, custom token, and API keys" },
+        { "code": "2.8", "title": "Compare common API styles (REST, RPC, synchronous, and asynchronous)" },
+        { "code": "2.9", "title": "Construct a Python script that calls a REST API using the requests library" }
+      ]
+    },
+    {
+      "number": 3,
+      "slug": "cisco-platforms",
+      "name": "Cisco Platforms and Development",
+      "weight": 15,
+      "objectives": [
+        { "code": "3.1", "title": "Construct a Python script that uses a Cisco SDK given SDK documentation" },
+        { "code": "3.2", "title": "Describe the capabilities of Cisco network management platforms and APIs (Meraki, Cisco Catalyst Center, ACI, Cisco Catalyst SD-WAN, and NSO)" },
+        { "code": "3.3", "title": "Describe the capabilities of Cisco compute management platforms and APIs (UCS Manager and Intersight)" },
+        { "code": "3.4", "title": "Describe the capabilities of Cisco collaboration platforms and APIs (Webex, Webex devices, Cisco Unified Communications Manager including AXL and UDS interfaces)" },
+        { "code": "3.5", "title": "Describe the capabilities of Cisco security platforms and APIs (XDR, Firepower, Secure Connect, Secure Endpoint, ISE, and Secure Malware Analytics)" },
+        { "code": "3.6", "title": "Describe the device level APIs and dynamic interfaces for IOS XE and NX-OS" },
+        { "code": "3.7", "title": "Describe the appropriate DevNet resource for a given scenario (Sandbox, Code Exchange, support, forums, Learning Labs, and API documentation)" },
+        { "code": "3.8", "title": "Apply concepts of model driven programmability (YANG, RESTCONF, and NETCONF) in a Cisco environment" },
+        {
+          "code": "3.9",
+          "title": "Construct code to perform a specific operation based on a set of requirements and given API reference documentation",
+          "subobjectives": [
+            "3.9.a Obtain a list of network devices by using Meraki, Cisco Catalyst Center, ACI, Cisco Catalyst SD-WAN, or NSO",
+            "3.9.b Manage spaces, participants, and messages in Webex",
+            "3.9.c Obtain a list of clients / hosts seen on a network using Meraki or Cisco Catalyst Center"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "slug": "deployment-security",
+      "name": "Application Deployment and Security",
+      "weight": 15,
+      "objectives": [
+        { "code": "4.1", "title": "Describe the benefits of edge computing" },
+        { "code": "4.2", "title": "Describe the attributes of different application deployment models (private cloud, public cloud, hybrid cloud, and edge)" },
+        {
+          "code": "4.3",
+          "title": "Describe the attributes of these application deployment types",
+          "subobjectives": [
+            "4.3.a Virtual machines",
+            "4.3.b Bare metal",
+            "4.3.c Containers"
+          ]
+        },
+        { "code": "4.4", "title": "Describe components for a CI/CD pipeline in application deployments" },
+        { "code": "4.5", "title": "Construct a Python unit test" },
+        { "code": "4.6", "title": "Interpret contents of a Dockerfile" },
+        { "code": "4.7", "title": "Utilize Docker images in local developer environment" },
+        { "code": "4.8", "title": "Describe application security issues related to secret protection, encryption (storage and transport), and data handling" },
+        { "code": "4.9", "title": "Explain how firewall, DNS, load balancers, and reverse proxy in application deployment" },
+        { "code": "4.10", "title": "Describe top OWASP threats (such as XSS, SQL injections, and CSRF)" },
+        { "code": "4.11", "title": "Utilize Bash commands (file management, directory navigation, and environmental variables)" },
+        { "code": "4.12", "title": "Describe the principles of DevOps practices" }
+      ]
+    },
+    {
+      "number": 5,
+      "slug": "infrastructure-automation",
+      "name": "Infrastructure and Automation",
+      "weight": 20,
+      "objectives": [
+        { "code": "5.1", "title": "Describe the value of model driven programmability for infrastructure automation" },
+        { "code": "5.2", "title": "Compare controller-level to device-level management" },
+        { "code": "5.3", "title": "Describe the use and roles of network simulation and test tools (such as Cisco Modeling Labs and pyATS)" },
+        { "code": "5.4", "title": "Describe the components and benefits of CI/CD pipeline in infrastructure automation" },
+        { "code": "5.5", "title": "Describe the principles of infrastructure as code" },
+        { "code": "5.6", "title": "Describe the capabilities of automation tools such as Ansible, Terraform, and Cisco NSO" },
+        { "code": "5.7", "title": "Identify the workflow being automated by a Python script that uses Cisco APIs including ACI, Meraki, Cisco Catalyst Center, and RESTCONF" },
+        { "code": "5.8", "title": "Interpret the workflow being automated by an Ansible playbook (management packages, user management related to services, basic service configuration, and start/stop)" },
+        { "code": "5.9", "title": "Interpret the workflow being automated by a bash script (such as file management, app install, user management, directory navigation)" },
+        { "code": "5.10", "title": "Interpret the results of a RESTCONF or NETCONF query" },
+        { "code": "5.11", "title": "Interpret basic YANG models" },
+        { "code": "5.12", "title": "Interpret a unified diff" },
+        { "code": "5.13", "title": "Describe the principles and benefits of a code review process" },
+        { "code": "5.14", "title": "Interpret a sequence diagram that includes API calls" }
+      ]
+    },
+    {
+      "number": 6,
+      "slug": "network-fundamentals",
+      "name": "Network Fundamentals",
+      "weight": 15,
+      "objectives": [
+        { "code": "6.1", "title": "Describe the purpose and usage of MAC addresses and VLANs" },
+        { "code": "6.2", "title": "Describe the purpose and usage of IP addresses, routes, subnet mask / prefix, and gateways" },
+        { "code": "6.3", "title": "Describe the function of common networking components (such as switches, routers, firewalls, and load balancers)" },
+        { "code": "6.4", "title": "Interpret a basic network topology diagram with elements such as switches, routers, firewalls, load balancers, and port values" },
+        { "code": "6.5", "title": "Describe the function of management, data, and control planes in a network device" },
+        { "code": "6.6", "title": "Describe the functionality of these IP Services: DHCP, DNS, NAT, SNMP, NTP" },
+        { "code": "6.7", "title": "Recognize common protocol port values (such as, SSH, Telnet, HTTP, HTTPS, and NETCONF)" },
+        { "code": "6.8", "title": "Diagnose application connectivity issues (NAT problem, Transport Port blocked, proxy, and VPN)" },
+        { "code": "6.9", "title": "Explain the impacts of network constraints on applications" }
+      ]
+    }
+  ]
+}

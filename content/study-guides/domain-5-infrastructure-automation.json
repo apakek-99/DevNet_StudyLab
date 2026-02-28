@@ -1,0 +1,317 @@
+{
+  "domain": 5,
+  "slug": "infrastructure-automation",
+  "name": "Infrastructure and Automation",
+  "weight": 20,
+  "overview": "This is a heavily weighted domain that tests your ability to automate network infrastructure using modern tools and practices. You will learn about model-driven programmability, configuration management tools like Ansible and Terraform, CI/CD for infrastructure, and how to interpret automation workflows written in Python, Ansible, and Bash. Understanding YANG models, RESTCONF, NETCONF, and unified diffs is also covered here.",
+  "keyTopics": [
+    {
+      "objectiveCode": "5.1",
+      "title": "Describe the value of model-driven programmability for infrastructure automation",
+      "summary": "Model-driven programmability uses structured data models (YANG) to define network device configuration and operational state, replacing unstructured CLI scraping with predictable, validated data access.",
+      "keyPoints": [
+        "Model-driven programmability uses YANG data models to define the structure and constraints of device configuration and operational data",
+        "Unlike CLI scraping, model-driven approaches provide structured, validated data that is consistent across devices",
+        "YANG models define what can be configured and what operational data can be retrieved, including data types and constraints",
+        "Standardized models (IETF, OpenConfig) enable multi-vendor automation with consistent data structures",
+        "Model-driven programmability supports both configuration management and real-time telemetry streaming"
+      ],
+      "examTips": [
+        "Know that model-driven programmability solves the problem of unstructured CLI output that is difficult to parse reliably",
+        "Understand that YANG models provide a schema that validates configuration before applying it to devices",
+        "Remember that both NETCONF and RESTCONF rely on YANG models for data structure definition"
+      ],
+      "resources": [
+        { "title": "Cisco DevNet - Model Driven Programmability", "url": "https://developer.cisco.com/learning/modules/intro-device-level-interfaces/" },
+        { "title": "RFC 7950 - YANG 1.1", "url": "https://datatracker.ietf.org/doc/html/rfc7950" }
+      ]
+    },
+    {
+      "objectiveCode": "5.2",
+      "title": "Compare controller-level to device-level management",
+      "summary": "Network automation can be performed at the individual device level using protocols like NETCONF and RESTCONF, or at the controller level using platforms like Catalyst Center and Meraki that manage groups of devices.",
+      "keyPoints": [
+        "Device-level management interacts directly with individual network devices using CLI, NETCONF, RESTCONF, or SNMP",
+        "Controller-level management uses a centralized platform (Catalyst Center, Meraki, ACI APIC) to manage multiple devices through a single API",
+        "Controllers abstract device complexity, providing intent-based interfaces that translate high-level policies into device-specific configurations",
+        "Device-level management offers granular control but requires managing each device individually",
+        "Controller-level management provides centralized visibility, policy management, and orchestration across the entire network"
+      ],
+      "examTips": [
+        "Know when each approach is appropriate: device-level for granular changes, controller-level for policy-based automation",
+        "Remember that controllers like Catalyst Center still use device-level protocols (NETCONF, SSH) internally to configure devices",
+        "Understand that Meraki is cloud-managed (controller in cloud) while Catalyst Center is on-premises"
+      ],
+      "resources": [
+        { "title": "Cisco DevNet - Controller vs Device Management", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" },
+        { "title": "Cisco Catalyst Center Overview", "url": "https://developer.cisco.com/docs/dna-center/" }
+      ]
+    },
+    {
+      "objectiveCode": "5.3",
+      "title": "Describe the use and roles of network simulation and test tools (pyATS)",
+      "summary": "Network simulation and testing tools enable automation developers to validate changes before deploying to production. Cisco pyATS is a testing framework purpose-built for network infrastructure.",
+      "keyPoints": [
+        "Cisco pyATS (Python Automated Test System) is a framework for network testing, validation, and operational state verification",
+        "pyATS Genie library provides device parsers that convert CLI output into structured Python dictionaries",
+        "Testbeds define the network topology and device connection information used by pyATS scripts",
+        "pyATS can learn the operational state of devices, take snapshots, and compare state before and after changes",
+        "Cisco Modeling Labs (CML) provides virtual network simulation for testing automation scripts before production deployment"
+      ],
+      "examTips": [
+        "Know that pyATS Genie parsers convert unstructured CLI output into structured data (dictionaries)",
+        "Understand the pyATS workflow: connect to device, learn state, make changes, verify state",
+        "Remember that CML is for simulation (virtual topology) while pyATS is for testing (validation framework)"
+      ],
+      "resources": [
+        { "title": "Cisco pyATS Documentation", "url": "https://developer.cisco.com/docs/pyats/" },
+        { "title": "Cisco Modeling Labs", "url": "https://developer.cisco.com/modeling-labs/" }
+      ]
+    },
+    {
+      "objectiveCode": "5.4",
+      "title": "Describe the components and benefits of CI/CD pipeline in infrastructure automation",
+      "summary": "CI/CD pipelines for infrastructure automation (NetDevOps) apply the same principles as application CI/CD but focus on validating and deploying network configuration changes automatically.",
+      "keyPoints": [
+        "Infrastructure CI/CD pipelines validate network configuration changes through automated testing before deployment",
+        "Pipeline stages for network automation: lint configuration, run unit tests, test in simulation (CML), deploy to staging, deploy to production",
+        "Git serves as the single source of truth for network configurations in a NetDevOps workflow",
+        "Automated testing in the pipeline catches configuration errors, syntax issues, and compliance violations before deployment",
+        "Rollback procedures should be built into the pipeline to revert changes if post-deployment validation fails"
+      ],
+      "examTips": [
+        "Understand how CI/CD applies specifically to network infrastructure, not just application code",
+        "Know that network CI/CD uses tools like pyATS for testing and Ansible or RESTCONF for deployment",
+        "Remember that GitOps principles mean configuration changes are made through Git, not directly on devices"
+      ],
+      "resources": [
+        { "title": "Cisco DevNet - NetDevOps", "url": "https://developer.cisco.com/learning/tracks/netdevops/" },
+        { "title": "Network CI/CD with pyATS", "url": "https://developer.cisco.com/docs/pyats/" }
+      ]
+    },
+    {
+      "objectiveCode": "5.5",
+      "title": "Describe principles of infrastructure as code",
+      "summary": "Infrastructure as Code (IaC) treats infrastructure configuration as software, storing it in version-controlled files that can be reviewed, tested, and deployed through automated pipelines.",
+      "keyPoints": [
+        "IaC stores infrastructure configuration in version-controlled, human-readable files rather than manual configurations",
+        "Declarative IaC specifies the desired end state (Terraform, Ansible) while imperative IaC specifies the exact steps (scripts)",
+        "Idempotency means applying the same configuration multiple times produces the same result without side effects",
+        "IaC enables reproducible environments: dev, staging, and production can be identical",
+        "Version control provides audit trail, rollback capability, and collaborative review for infrastructure changes"
+      ],
+      "examTips": [
+        "Know the difference between declarative (what you want) and imperative (how to get there) approaches",
+        "Idempotency is a key concept: Ansible playbooks should produce the same result whether run once or many times",
+        "Understand that IaC and GitOps work together: Git repo stores configs, CI/CD deploys them"
+      ],
+      "resources": [
+        { "title": "Cisco DevNet - Infrastructure as Code", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" },
+        { "title": "Terraform Documentation", "url": "https://developer.hashicorp.com/terraform/docs" }
+      ]
+    },
+    {
+      "objectiveCode": "5.6",
+      "title": "Describe the capabilities of automation tools such as Ansible, Terraform, and Cisco NSO",
+      "summary": "Automation tools provide frameworks for managing network infrastructure at scale. Each tool has strengths in different areas: Ansible for configuration management, Terraform for provisioning, and NSO for multi-vendor orchestration.",
+      "keyPoints": [
+        "Ansible is agentless, uses SSH/NETCONF to configure devices, and defines automation in YAML playbooks",
+        "Ansible uses an inventory file to define managed devices and playbooks to define the automation tasks",
+        "Terraform manages infrastructure lifecycle (create, update, destroy) using declarative HCL configuration files",
+        "Terraform maintains a state file that tracks the current state of managed infrastructure resources",
+        "Cisco NSO uses YANG models and NETCONF for multi-vendor network service orchestration with transaction-based configuration"
+      ],
+      "examTips": [
+        "Know that Ansible is agentless (no software installed on managed devices) and uses push-based configuration",
+        "Terraform is best for provisioning infrastructure while Ansible is best for configuring it",
+        "NSO provides transactional commits that can be rolled back if any part of a multi-device change fails"
+      ],
+      "resources": [
+        { "title": "Ansible Network Modules", "url": "https://docs.ansible.com/ansible/latest/network/index.html" },
+        { "title": "Terraform Cisco Providers", "url": "https://registry.terraform.io/providers/CiscoDevNet/" }
+      ]
+    },
+    {
+      "objectiveCode": "5.7",
+      "title": "Identify the workflow being automated by a Python script that uses Cisco APIs",
+      "summary": "You must be able to read a Python script that uses Cisco APIs (ACI, Meraki, Catalyst Center, RESTCONF) and identify what network automation workflow it implements.",
+      "keyPoints": [
+        "Look for the API endpoints being called to understand the resources being managed (devices, interfaces, policies)",
+        "HTTP methods reveal the operations: GET = read/monitor, POST = create/provision, PUT/PATCH = update, DELETE = remove",
+        "Authentication code reveals the platform: API key header (Meraki), token request (Catalyst Center), session login (ACI)",
+        "Common workflows: device inventory collection, configuration backup, interface monitoring, policy deployment",
+        "Data processing after API calls (filtering, formatting, writing to files) reveals the purpose of the automation"
+      ],
+      "examTips": [
+        "Read the code systematically: authentication, API calls, data processing, and output/action",
+        "Identify the platform from the base URL or authentication method",
+        "Focus on what the script does with the API response data to determine the workflow purpose"
+      ],
+      "resources": [
+        { "title": "Cisco DevNet Code Exchange", "url": "https://developer.cisco.com/codeexchange/" },
+        { "title": "Cisco DevNet - API Automation Examples", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" }
+      ]
+    },
+    {
+      "objectiveCode": "5.8",
+      "title": "Interpret the workflow being automated by an Ansible playbook",
+      "summary": "Ansible playbooks define automation workflows in YAML format. You must be able to read a playbook and understand what tasks it performs, which devices it targets, and what the expected outcome is.",
+      "keyPoints": [
+        "Playbooks contain plays that target specific hosts or groups from the inventory",
+        "Each play contains an ordered list of tasks, each task using a module (e.g., ios_config, uri, template)",
+        "Variables can be defined in the playbook, inventory, group_vars, or host_vars files",
+        "Handlers are tasks that run only when notified by other tasks (e.g., restart service after config change)",
+        "Common network modules: ios_command (show commands), ios_config (configuration), ios_facts (device facts)"
+      ],
+      "examTips": [
+        "Read the hosts field to identify which devices the playbook targets",
+        "Look at the module names to understand the type of operation (ios_config = configure, ios_command = show)",
+        "Pay attention to when, register, and loop keywords that control task execution flow"
+      ],
+      "resources": [
+        { "title": "Ansible Playbook Documentation", "url": "https://docs.ansible.com/ansible/latest/playbook_guide/" },
+        { "title": "Cisco DevNet - Ansible for Network Automation", "url": "https://developer.cisco.com/learning/modules/sdx-ansible/" }
+      ]
+    },
+    {
+      "objectiveCode": "5.9",
+      "title": "Interpret the workflow being automated by a bash script",
+      "summary": "Bash scripts automate system administration tasks including file management, application installation, user management, and service configuration. You must be able to read a script and understand its purpose.",
+      "keyPoints": [
+        "Bash scripts start with a shebang line (#!/bin/bash) that specifies the interpreter",
+        "Variables are set with NAME=value (no spaces around =) and referenced with $NAME or ${NAME}",
+        "Conditional logic uses if/then/else/fi syntax, and loops use for/while/do/done",
+        "Common operations: file copying (cp), directory creation (mkdir -p), service management (systemctl), package installation (apt/yum)",
+        "Exit codes indicate success (0) or failure (non-zero); $? contains the exit code of the last command"
+      ],
+      "examTips": [
+        "Follow the script line by line to understand the sequence of operations",
+        "Look for echo statements and comments that describe the script's purpose",
+        "Pay attention to conditional checks (if [ -f file ]) that control which paths execute"
+      ],
+      "resources": [
+        { "title": "GNU Bash Manual", "url": "https://www.gnu.org/software/bash/manual/" },
+        { "title": "Bash Scripting Tutorial", "url": "https://linuxconfig.org/bash-scripting-tutorial" }
+      ]
+    },
+    {
+      "objectiveCode": "5.10",
+      "title": "Interpret the results of a RESTCONF or NETCONF query",
+      "summary": "RESTCONF and NETCONF queries return structured data about network device configuration and operational state. You must be able to read JSON or XML responses and extract relevant information.",
+      "keyPoints": [
+        "RESTCONF responses are typically JSON-formatted and follow the YANG model structure with module-name prefixes",
+        "NETCONF responses are XML-formatted and wrapped in <rpc-reply> elements",
+        "The YANG module name appears as a prefix in keys (e.g., ietf-interfaces:interfaces for standard, Cisco-IOS-XE-native:native for native)",
+        "Operational data (show commands) is accessed via different YANG models than configuration data",
+        "NETCONF uses operations like <get>, <get-config>, and <edit-config> that are visible in the XML request/response"
+      ],
+      "examTips": [
+        "Be able to extract specific values from JSON (RESTCONF) and XML (NETCONF) responses",
+        "Know the URL pattern for RESTCONF: /restconf/data/{module}:{container}/{list}={key}",
+        "Remember that NETCONF <get-config> returns configuration while <get> returns both config and operational data"
+      ],
+      "resources": [
+        { "title": "RFC 8040 - RESTCONF Protocol", "url": "https://datatracker.ietf.org/doc/html/rfc8040" },
+        { "title": "Cisco DevNet - RESTCONF and NETCONF Labs", "url": "https://developer.cisco.com/learning/modules/intro-device-level-interfaces/" }
+      ]
+    },
+    {
+      "objectiveCode": "5.11",
+      "title": "Interpret basic YANG models",
+      "summary": "YANG is the data modeling language used to describe the structure of network configuration and operational data. You must be able to read YANG model definitions and understand what data they describe.",
+      "keyPoints": [
+        "YANG models use container, leaf, list, and leaf-list as primary data structure elements",
+        "A container groups related data nodes (like a dictionary); a leaf holds a single value (like a key-value pair)",
+        "A list contains multiple instances identified by key leaves (like a table with rows)",
+        "Each leaf has a type (string, uint32, boolean, enumeration, etc.) that constrains its value",
+        "The module and namespace identify the YANG model, and revision tracks the version"
+      ],
+      "examTips": [
+        "Be able to identify containers, lists, and leaves in a YANG model and understand their relationships",
+        "Know that list entries are identified by key leaves (similar to primary keys in a database table)",
+        "Understand the hierarchy: module contains containers, which contain leaves and lists"
+      ],
+      "resources": [
+        { "title": "YANG Language Introduction", "url": "https://developer.cisco.com/learning/modules/intro-device-level-interfaces/" },
+        { "title": "RFC 7950 - YANG 1.1", "url": "https://datatracker.ietf.org/doc/html/rfc7950" }
+      ]
+    },
+    {
+      "objectiveCode": "5.12",
+      "title": "Interpret a unified diff",
+      "summary": "A unified diff shows the differences between two versions of a file in a standard format used by Git and other version control systems. Being able to read diffs is essential for code review and change management.",
+      "keyPoints": [
+        "Lines starting with --- and +++ identify the original and modified files",
+        "Lines starting with - (minus) indicate removed content from the original file",
+        "Lines starting with + (plus) indicate added content in the modified file",
+        "Lines without a prefix are context lines that are unchanged and help identify the location of changes",
+        "The @@ header shows the line numbers and ranges affected by each change hunk"
+      ],
+      "examTips": [
+        "Be able to read a unified diff and describe what changes were made",
+        "Remember: minus (-) = removed, plus (+) = added, no prefix = unchanged context",
+        "Know that git diff produces unified diff format by default"
+      ],
+      "resources": [
+        { "title": "Git Diff Documentation", "url": "https://git-scm.com/docs/git-diff" },
+        { "title": "Understanding Unified Diffs", "url": "https://www.gnu.org/software/diffutils/manual/html_node/Unified-Format.html" }
+      ]
+    },
+    {
+      "objectiveCode": "5.13",
+      "title": "Describe the principles and benefits of a code review process",
+      "summary": "Code review is a quality assurance practice where team members examine code changes before they are merged into the main branch. This process catches bugs, improves code quality, and shares knowledge across the team.",
+      "keyPoints": [
+        "Code reviews catch bugs, security vulnerabilities, and design issues before they reach production",
+        "Pull requests (or merge requests) are the mechanism for submitting code for review in Git workflows",
+        "Reviewers check for correctness, readability, maintainability, and adherence to coding standards",
+        "Code reviews facilitate knowledge sharing and mentoring within development teams",
+        "Automated checks (linting, testing, static analysis) complement human code review"
+      ],
+      "examTips": [
+        "Know that code reviews are a best practice in both application development and network automation",
+        "Understand the relationship between pull requests, code review, and CI/CD pipelines",
+        "Remember that code review is about improving quality, not finding blame"
+      ],
+      "resources": [
+        { "title": "GitHub Pull Request Documentation", "url": "https://docs.github.com/en/pull-requests" },
+        { "title": "Google Code Review Best Practices", "url": "https://google.github.io/eng-practices/review/" }
+      ]
+    },
+    {
+      "objectiveCode": "5.14",
+      "title": "Interpret a sequence diagram that includes API calls",
+      "summary": "Sequence diagrams show the order of interactions between components in a system, including API calls, responses, and data flow. They are commonly used to document automation workflows and troubleshoot issues.",
+      "keyPoints": [
+        "Sequence diagrams show interactions between actors/components arranged along a timeline from top to bottom",
+        "Arrows represent messages or API calls: solid arrows for requests, dashed arrows for responses",
+        "Each vertical line (lifeline) represents a participant in the interaction (client, API, server, database)",
+        "Synchronous calls wait for a response before proceeding; asynchronous calls continue without waiting",
+        "Sequence diagrams help visualize the flow of multi-step API automation workflows"
+      ],
+      "examTips": [
+        "Read sequence diagrams top to bottom to understand the order of operations",
+        "Identify the initiator (leftmost participant) and the direction of each API call",
+        "Pay attention to return values (dashed arrows) that indicate what data flows back to the caller"
+      ],
+      "resources": [
+        { "title": "UML Sequence Diagrams", "url": "https://www.uml-diagrams.org/sequence-diagrams.html" },
+        { "title": "Cisco DevNet - API Design Documentation", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" }
+      ]
+    }
+  ],
+  "practiceScenarios": [
+    "A GET request to https://router1:443/restconf/data/ietf-interfaces:interfaces returns this JSON:\n\n{\"ietf-interfaces:interfaces\": {\"interface\": [{\"name\": \"GigabitEthernet1\", \"type\": \"iana-if-type:ethernetCsmacd\", \"enabled\": true, \"ietf-ip:ipv4\": {\"address\": [{\"ip\": \"10.0.0.1\", \"netmask\": \"255.255.255.0\"}]}}, {\"name\": \"Loopback0\", \"type\": \"iana-if-type:softwareLoopback\", \"enabled\": true, \"ietf-ip:ipv4\": {\"address\": [{\"ip\": \"192.168.1.1\", \"netmask\": \"255.255.255.255\"}]}}, {\"name\": \"GigabitEthernet2\", \"type\": \"iana-if-type:ethernetCsmacd\", \"enabled\": false}]}}\n\nExtract each interface name, its IP address (if any), and whether it is enabled or disabled.",
+    "Consider this Ansible playbook:\n\n---\n- name: Configure NTP on core routers\n  hosts: core_routers\n  gather_facts: false\n  tasks:\n    - name: Set primary NTP server\n      cisco.ios.ios_config:\n        lines:\n          - ntp server 10.100.0.1 prefer\n          - ntp server 10.100.0.2\n        save_when: changed\n    - name: Verify NTP associations\n      cisco.ios.ios_command:\n        commands:\n          - show ntp associations\n      register: ntp_output\n    - name: Display NTP status\n      debug:\n        var: ntp_output.stdout_lines\n\nDescribe the workflow: which devices are targeted, what configuration is applied, and what verification is performed.",
+    "Compare how you would deploy the same VLAN configuration to 50 switches using Ansible versus direct RESTCONF calls. Discuss the trade-offs of each approach.",
+    "Consider this unified diff of a router configuration change:\n\n--- running-config-before.txt\n+++ running-config-after.txt\n@@ -12,8 +12,9 @@\n interface GigabitEthernet1\n  ip address 10.0.0.1 255.255.255.0\n  no shutdown\n-interface GigabitEthernet2\n- shutdown\n+interface GigabitEthernet2\n+ ip address 172.16.0.1 255.255.255.252\n+ no shutdown\n+ip route 192.168.50.0 255.255.255.0 172.16.0.2\n\nExplain what was removed, what was added, and the likely purpose of this change."
+  ],
+  "commonMistakes": [
+    "Confusing YANG data models (schema definition) with the actual data instances (configuration or operational state)",
+    "Not understanding that Ansible is agentless and uses push-based configuration, while Puppet and Chef use agents",
+    "Mixing up RESTCONF (REST-based, supports JSON) and NETCONF (RPC-based, XML only) capabilities",
+    "Reading unified diffs incorrectly: minus lines are removed from the original, plus lines are added to the new version",
+    "Confusing declarative automation (specify end state) with imperative scripting (specify exact steps)",
+    "Thinking Terraform and Ansible do the same thing: Terraform provisions infrastructure, Ansible configures it"
+  ]
+}

@@ -1,0 +1,279 @@
+{
+  "domain": 4,
+  "slug": "deployment-security",
+  "name": "Application Deployment and Security",
+  "weight": 15,
+  "overview": "This domain covers the practical skills needed to deploy, containerize, and secure network automation applications. You will learn about cloud deployment models, containerization with Docker, CI/CD pipelines, unit testing, application security fundamentals, and DevOps practices. These skills bridge the gap between writing automation scripts and deploying them reliably in production environments.",
+  "keyTopics": [
+    {
+      "objectiveCode": "4.1",
+      "title": "Describe the benefits of edge computing",
+      "summary": "Edge computing processes data closer to where it is generated rather than sending everything to centralized cloud data centers. This reduces latency and bandwidth usage for time-sensitive network applications.",
+      "keyPoints": [
+        "Edge computing reduces latency by processing data at or near the source instead of in a distant cloud data center",
+        "Reduced bandwidth consumption because only processed results or summaries are sent to the cloud, not raw data",
+        "Improved reliability for applications that need to function even when cloud connectivity is disrupted",
+        "Edge computing is ideal for IoT devices, real-time analytics, and latency-sensitive applications like video surveillance",
+        "Cisco IOx and Cisco Edge Intelligence are platforms for deploying applications at the network edge"
+      ],
+      "examTips": [
+        "Focus on the three main benefits: reduced latency, bandwidth savings, and improved reliability",
+        "Know real-world use cases: IoT data processing, video analytics, local caching, and branch office applications",
+        "Understand that edge computing complements cloud computing rather than replacing it"
+      ],
+      "resources": [
+        { "title": "Cisco Edge Computing Overview", "url": "https://developer.cisco.com/docs/iox/" },
+        { "title": "Cisco DevNet - IOx Documentation", "url": "https://developer.cisco.com/docs/iox/" }
+      ]
+    },
+    {
+      "objectiveCode": "4.2",
+      "title": "Identify attributes of different application deployment models",
+      "summary": "Applications can be deployed across different cloud models depending on requirements for control, security, scalability, and cost. Understanding the attributes of each model helps you choose the right deployment strategy.",
+      "keyPoints": [
+        "Private cloud: Dedicated infrastructure for a single organization, offering maximum control and security but higher cost",
+        "Public cloud: Shared infrastructure managed by providers like AWS, Azure, or GCP with pay-as-you-go pricing and elastic scalability",
+        "Hybrid cloud: Combines private and public cloud, allowing workloads to move between environments based on requirements",
+        "Edge deployment: Computing resources located at or near the data source for low-latency processing",
+        "Multi-cloud uses services from multiple public cloud providers to avoid vendor lock-in and leverage best-of-breed services"
+      ],
+      "examTips": [
+        "Know the trade-offs: private cloud = more control, public cloud = more scalability, hybrid = flexibility",
+        "Regulated industries (healthcare, finance) often require private cloud for sensitive data compliance",
+        "Edge computing is used when latency or bandwidth constraints make cloud processing impractical"
+      ],
+      "resources": [
+        { "title": "Cisco Cloud Solutions", "url": "https://www.cisco.com/c/en/us/solutions/cloud.html" },
+        { "title": "NIST Cloud Computing Definition", "url": "https://csrc.nist.gov/publications/detail/sp/800-145/final" }
+      ]
+    },
+    {
+      "objectiveCode": "4.3",
+      "title": "Identify the attributes of application deployment types (VMs, bare metal, containers)",
+      "summary": "Applications can run on bare metal servers, virtual machines, or containers. Each deployment type offers different trade-offs in terms of isolation, resource efficiency, portability, and startup time.",
+      "keyPoints": [
+        "Bare metal: Application runs directly on physical hardware with maximum performance but no resource sharing or isolation",
+        "Virtual machines: Full OS virtualization with a hypervisor, providing strong isolation but heavier resource overhead",
+        "Containers: Lightweight, process-level isolation sharing the host OS kernel, with fast startup times and minimal overhead",
+        "Containers are more portable than VMs because they package the application and its dependencies into a single image",
+        "Docker is the most popular container runtime, while Kubernetes orchestrates containers at scale"
+      ],
+      "examTips": [
+        "Know the key difference: VMs virtualize hardware (each has its own OS), containers virtualize the OS (share the host kernel)",
+        "Containers start in seconds while VMs take minutes to boot",
+        "VMs provide stronger isolation (separate kernels) while containers are more resource-efficient"
+      ],
+      "resources": [
+        { "title": "Docker Documentation", "url": "https://docs.docker.com/" },
+        { "title": "Cisco DevNet - Containers Learning Lab", "url": "https://developer.cisco.com/learning/modules/dev-setup/" }
+      ]
+    },
+    {
+      "objectiveCode": "4.4",
+      "title": "Describe components for a CI/CD pipeline in application deployments",
+      "summary": "CI/CD (Continuous Integration/Continuous Deployment) automates the process of building, testing, and deploying applications. A well-designed pipeline ensures code quality and enables rapid, reliable releases.",
+      "keyPoints": [
+        "Continuous Integration (CI): Developers merge code frequently, triggering automated builds and tests to catch issues early",
+        "Continuous Delivery (CD): Code is automatically prepared for release to production after passing all tests and quality checks",
+        "Continuous Deployment: Every change that passes automated tests is automatically deployed to production without manual intervention",
+        "Common CI/CD tools: Jenkins, GitHub Actions, GitLab CI, CircleCI, and Drone",
+        "Pipeline stages typically include: source (commit), build, test (unit, integration), deploy (staging, production)"
+      ],
+      "examTips": [
+        "Know the difference between Continuous Delivery (manual approval to deploy) and Continuous Deployment (fully automated)",
+        "Understand that CI/CD requires version control (Git) as the trigger for pipeline execution",
+        "Be familiar with common pipeline stages and their order: build, test, deploy"
+      ],
+      "resources": [
+        { "title": "Cisco DevNet - CI/CD Pipeline", "url": "https://developer.cisco.com/learning/modules/dev-setup/" },
+        { "title": "GitHub Actions Documentation", "url": "https://docs.github.com/en/actions" }
+      ]
+    },
+    {
+      "objectiveCode": "4.5",
+      "title": "Construct a Python unit test",
+      "summary": "Unit tests verify that individual functions and methods work correctly in isolation. Python provides the built-in unittest module and the popular pytest framework for writing and running tests.",
+      "keyPoints": [
+        "Unit tests verify individual functions or methods in isolation from external dependencies",
+        "Python unittest requires test classes that inherit from unittest.TestCase with methods prefixed with test_",
+        "Common assertions: assertEqual, assertTrue, assertFalse, assertRaises, assertIn, assertIsNone",
+        "pytest allows simpler test functions without classes, using plain assert statements",
+        "Mocking (unittest.mock) replaces external dependencies with controlled objects for isolated testing",
+        "Test fixtures (setUp/tearDown in unittest, fixtures in pytest) prepare and clean up test environments"
+      ],
+      "examTips": [
+        "Be able to read and write basic unittest test cases with proper assertions",
+        "Know the naming convention: test files start with test_, test methods start with test_",
+        "Understand when to use mocking: when testing code that depends on external APIs or databases"
+      ],
+      "resources": [
+        { "title": "Python unittest Documentation", "url": "https://docs.python.org/3/library/unittest.html" },
+        { "title": "pytest Documentation", "url": "https://docs.pytest.org/" }
+      ]
+    },
+    {
+      "objectiveCode": "4.6",
+      "title": "Interpret contents of a Dockerfile",
+      "summary": "A Dockerfile contains instructions for building a Docker container image. Each instruction creates a layer in the image, defining the base OS, dependencies, application code, and runtime configuration.",
+      "keyPoints": [
+        "FROM specifies the base image (e.g., FROM python:3.11-slim) and must be the first instruction",
+        "WORKDIR sets the working directory inside the container for subsequent instructions",
+        "COPY and ADD transfer files from the host to the container image (COPY is preferred for simple file copying)",
+        "RUN executes commands during the build process (e.g., RUN pip install -r requirements.txt)",
+        "EXPOSE documents which ports the container listens on (does not actually publish ports)",
+        "CMD specifies the default command to run when the container starts",
+        "ENV sets environment variables, and ARG defines build-time variables"
+      ],
+      "examTips": [
+        "Know the difference between RUN (build-time) and CMD (runtime) instructions",
+        "Remember that EXPOSE is documentation only; use -p flag with docker run to actually publish ports",
+        "Understand layer caching: place frequently changing instructions (COPY app code) after stable ones (pip install)"
+      ],
+      "resources": [
+        { "title": "Dockerfile Reference", "url": "https://docs.docker.com/engine/reference/builder/" },
+        { "title": "Docker Best Practices", "url": "https://docs.docker.com/develop/develop-images/dockerfile_best-practices/" }
+      ]
+    },
+    {
+      "objectiveCode": "4.7",
+      "title": "Utilize Docker images in local developer environment",
+      "summary": "Docker enables developers to create reproducible development environments using container images. Understanding essential Docker commands for building, running, and managing containers is a critical DevNet skill.",
+      "keyPoints": [
+        "docker build -t myapp:v1 . builds an image from a Dockerfile in the current directory with a tag",
+        "docker run -d -p 8080:80 myapp:v1 runs a container in detached mode, mapping host port 8080 to container port 80",
+        "docker ps lists running containers, docker ps -a lists all containers including stopped ones",
+        "docker images lists all locally stored images with their tags and sizes",
+        "docker-compose up starts multi-container applications defined in a docker-compose.yml file",
+        "docker pull downloads images from Docker Hub or other container registries"
+      ],
+      "examTips": [
+        "Know the -d (detached) and -p (port mapping) flags for docker run",
+        "Understand the difference between an image (template) and a container (running instance)",
+        "Remember that docker-compose.yml defines multi-container applications with networking and volumes"
+      ],
+      "resources": [
+        { "title": "Docker CLI Reference", "url": "https://docs.docker.com/engine/reference/commandline/cli/" },
+        { "title": "Docker Compose Documentation", "url": "https://docs.docker.com/compose/" }
+      ]
+    },
+    {
+      "objectiveCode": "4.8",
+      "title": "Describe application security issues related to secret protection, encryption, and data handling",
+      "summary": "Securing applications requires protecting sensitive data at rest and in transit, managing secrets properly, and implementing secure data handling practices throughout the development lifecycle.",
+      "keyPoints": [
+        "Never store secrets (API keys, passwords, tokens) in source code or version control repositories",
+        "Use environment variables, vault services (HashiCorp Vault), or secret management tools for storing credentials",
+        "Encryption at rest protects stored data using algorithms like AES-256",
+        "Encryption in transit uses TLS/SSL (HTTPS) to protect data during network transmission",
+        "Input validation prevents injection attacks by sanitizing user-provided data before processing",
+        "The principle of least privilege ensures applications only have the minimum permissions necessary"
+      ],
+      "examTips": [
+        "Know the difference between encryption at rest (stored data) and encryption in transit (network data)",
+        "Remember that HTTPS uses TLS to encrypt HTTP traffic between client and server",
+        "Understand why .gitignore should include .env files and credential files"
+      ],
+      "resources": [
+        { "title": "OWASP Security Guidelines", "url": "https://owasp.org/www-project-developer-guide/" },
+        { "title": "HashiCorp Vault Documentation", "url": "https://www.vaultproject.io/docs" }
+      ]
+    },
+    {
+      "objectiveCode": "4.9",
+      "title": "Explain how firewall, DNS, load balancers, and reverse proxy in application deployment",
+      "summary": "Production application deployments rely on several infrastructure components to ensure security, availability, and performance. Understanding the role of each component in the deployment architecture is essential.",
+      "keyPoints": [
+        "Firewalls filter network traffic based on rules to protect applications from unauthorized access and attacks",
+        "DNS translates domain names to IP addresses, enabling users to reach applications by name rather than IP",
+        "Load balancers distribute incoming traffic across multiple application instances for scalability and high availability",
+        "Reverse proxies sit in front of application servers, handling SSL termination, caching, and request routing",
+        "Common load balancing algorithms include round-robin, least connections, and IP hash"
+      ],
+      "examTips": [
+        "Know the difference between a forward proxy (client-side) and a reverse proxy (server-side)",
+        "Understand that load balancers enable horizontal scaling by distributing traffic across multiple servers",
+        "DNS is often the first point of failure in application connectivity issues"
+      ],
+      "resources": [
+        { "title": "Cisco DevNet - Application Architecture", "url": "https://developer.cisco.com/learning/modules/devnet-associate/" },
+        { "title": "NGINX Reverse Proxy Guide", "url": "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/" }
+      ]
+    },
+    {
+      "objectiveCode": "4.10",
+      "title": "Describe top OWASP threats (XSS, SQL injections, and CSRF)",
+      "summary": "The OWASP Top 10 identifies the most critical web application security risks. Understanding these threats is essential for building secure automation tools and web interfaces.",
+      "keyPoints": [
+        "SQL Injection: Attacker inserts malicious SQL code into input fields to manipulate database queries",
+        "Cross-Site Scripting (XSS): Attacker injects malicious JavaScript into web pages viewed by other users",
+        "Cross-Site Request Forgery (CSRF): Attacker tricks authenticated users into performing unintended actions",
+        "Prevention: Use parameterized queries (SQL injection), input sanitization and output encoding (XSS), and CSRF tokens",
+        "The OWASP Top 10 is updated periodically and includes additional threats like broken authentication and security misconfiguration"
+      ],
+      "examTips": [
+        "Know the attack vector and prevention method for each: SQL injection (parameterized queries), XSS (output encoding), CSRF (anti-CSRF tokens)",
+        "Understand that SQL injection targets the database, XSS targets the browser/user, and CSRF targets authenticated sessions",
+        "Input validation alone is not sufficient; defense-in-depth with multiple layers of protection is required"
+      ],
+      "resources": [
+        { "title": "OWASP Top 10", "url": "https://owasp.org/www-project-top-ten/" },
+        { "title": "OWASP Cheat Sheet Series", "url": "https://cheatsheetseries.owasp.org/" }
+      ]
+    },
+    {
+      "objectiveCode": "4.11",
+      "title": "Utilize Bash commands (file management, directory navigation, and environment variables)",
+      "summary": "Bash scripting is fundamental for DevOps tasks, automation scripts, and CI/CD pipelines. Mastering essential Bash commands for file operations, navigation, and environment management is a core DevNet skill.",
+      "keyPoints": [
+        "Navigation: cd (change directory), pwd (print working directory), ls (list files), ls -la (list all with details)",
+        "File management: cp (copy), mv (move/rename), rm (remove), mkdir (create directory), touch (create empty file)",
+        "Environment variables: export VAR=value sets a variable, echo $VAR reads it, env lists all variables",
+        "Piping (|) sends output of one command as input to another; redirection (>, >>) writes output to files",
+        "chmod changes file permissions, chown changes file ownership, grep searches file contents"
+      ],
+      "examTips": [
+        "Know the most common commands: cd, ls, cp, mv, rm, mkdir, cat, grep, chmod, export",
+        "Understand environment variables and how they are used to pass configuration to applications",
+        "Remember that export makes a variable available to child processes"
+      ],
+      "resources": [
+        { "title": "GNU Bash Manual", "url": "https://www.gnu.org/software/bash/manual/" },
+        { "title": "Linux Command Line Basics", "url": "https://developer.cisco.com/learning/modules/dev-setup/" }
+      ]
+    },
+    {
+      "objectiveCode": "4.12",
+      "title": "Describe the principles of DevOps practices",
+      "summary": "DevOps is a cultural and technical approach that unifies software development (Dev) and IT operations (Ops) to deliver applications faster, more reliably, and with continuous improvement.",
+      "keyPoints": [
+        "DevOps emphasizes collaboration between development and operations teams to break down silos",
+        "Infrastructure as Code (IaC) manages infrastructure through version-controlled configuration files rather than manual processes",
+        "Continuous monitoring provides real-time feedback on application performance and infrastructure health",
+        "Automation of build, test, and deployment processes reduces manual errors and accelerates delivery",
+        "The DevOps lifecycle includes: Plan, Code, Build, Test, Release, Deploy, Operate, and Monitor"
+      ],
+      "examTips": [
+        "DevOps is a culture and set of practices, not a specific tool or technology",
+        "Know the relationship between DevOps, CI/CD, and Infrastructure as Code",
+        "Understand that DevOps applies to network automation (NetDevOps) as well as traditional application development"
+      ],
+      "resources": [
+        { "title": "Cisco DevNet - DevOps for Network Engineers", "url": "https://developer.cisco.com/learning/tracks/devops/" },
+        { "title": "The Phoenix Project (Book)", "url": "https://itrevolution.com/the-phoenix-project/" }
+      ]
+    }
+  ],
+  "practiceScenarios": [
+    "You are deploying a network monitoring application. Compare deploying it on a VM versus in a Docker container, considering startup time, resource usage, and portability.",
+    "Write a Dockerfile for a Python Flask application that serves a network device inventory API. Include installing dependencies from requirements.txt and exposing port 5000.",
+    "Design a CI/CD pipeline for a network automation repository that runs unit tests, builds a Docker image, and deploys to a staging environment on every push to the main branch.",
+    "Your web-based network dashboard has a form that queries devices by name. Explain how an attacker could exploit SQL injection and how you would prevent it."
+  ],
+  "commonMistakes": [
+    "Confusing Docker images (read-only templates) with Docker containers (running instances of images)",
+    "Using EXPOSE in a Dockerfile and expecting ports to be accessible without the -p flag in docker run",
+    "Storing API keys and passwords directly in Dockerfiles or source code instead of using environment variables or secrets",
+    "Confusing Continuous Delivery (requires manual approval to deploy) with Continuous Deployment (fully automated)",
+    "Not understanding that containers share the host OS kernel while VMs have their own kernel, affecting isolation level"
+  ]
+}

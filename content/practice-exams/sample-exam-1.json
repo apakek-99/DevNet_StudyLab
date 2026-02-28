@@ -1,0 +1,860 @@
+{
+  "examId": "sample-exam-1",
+  "title": "DevNet Associate Practice Exam 1",
+  "description": "40-question practice exam covering all 6 domains of the Cisco DevNet Associate (200-901) exam, weighted by exam blueprint percentages.",
+  "totalQuestions": 40,
+  "timeLimit": 60,
+  "questions": [
+    {
+      "id": "se1-q01",
+      "objectiveCode": "1.1",
+      "type": "multiple_choice",
+      "question": "Which data format uses indentation with spaces (not tabs) to represent hierarchy and does NOT use curly braces or angle brackets?",
+      "options": [
+        "A) JSON",
+        "B) XML",
+        "C) YAML",
+        "D) CSV"
+      ],
+      "correctAnswer": "C",
+      "explanation": "YAML uses whitespace indentation (spaces only, no tabs) to represent hierarchy. JSON uses curly braces {} and brackets []. XML uses angle brackets < >. CSV is a flat format with no hierarchy support.",
+      "sourceUrl": "https://yaml.org/spec/1.2.2/",
+      "difficulty": "easy",
+      "tags": [
+        "data-formats",
+        "yaml"
+      ]
+    },
+    {
+      "id": "se1-q02",
+      "objectiveCode": "1.2",
+      "type": "multiple_choice",
+      "question": "What does the following Python code return?\n\nimport json\ndata = json.loads('{\"name\": \"R1\", \"ports\": [22, 443, 830]}')\nprint(type(data['ports']))",
+      "options": [
+        "A) <class 'tuple'>",
+        "B) <class 'str'>",
+        "C) <class 'list'>",
+        "D) <class 'dict'>"
+      ],
+      "correctAnswer": "C",
+      "explanation": "json.loads() parses a JSON string into Python data structures. JSON arrays are converted to Python lists. The 'ports' key contains a JSON array [22, 443, 830], which becomes a Python list. JSON objects become dicts, JSON strings become str, JSON numbers become int/float, JSON null becomes None, and JSON booleans become bool.",
+      "sourceUrl": "https://docs.python.org/3/library/json.html#json.loads",
+      "difficulty": "easy",
+      "tags": [
+        "python",
+        "json",
+        "parsing"
+      ]
+    },
+    {
+      "id": "se1-q03",
+      "objectiveCode": "1.3",
+      "type": "multiple_choice",
+      "question": "In Test-Driven Development (TDD), what is the correct order of the development cycle?",
+      "options": [
+        "A) Write code, write test, refactor",
+        "B) Write test, write code, refactor",
+        "C) Refactor, write test, write code",
+        "D) Write code, refactor, write test"
+      ],
+      "correctAnswer": "B",
+      "explanation": "TDD follows the Red-Green-Refactor cycle: 1) Red - Write a failing test first, 2) Green - Write the minimum code to make the test pass, 3) Refactor - Improve the code while keeping tests passing. The test is always written before the implementation code.",
+      "sourceUrl": "https://www.agilealliance.org/glossary/tdd/",
+      "difficulty": "easy",
+      "tags": [
+        "tdd",
+        "testing"
+      ]
+    },
+    {
+      "id": "se1-q04",
+      "objectiveCode": "1.8",
+      "type": "multiple_choice",
+      "question": "A developer needs to create an isolated workspace to develop a new feature without affecting the main codebase. Which Git command should they use?",
+      "options": [
+        "A) git clone",
+        "B) git stash",
+        "C) git branch feature-x && git checkout feature-x",
+        "D) git merge feature-x"
+      ],
+      "correctAnswer": "C",
+      "explanation": "git branch creates a new branch, and git checkout switches to it (or combined: git checkout -b feature-x). Branches provide isolated workspaces. git clone copies an entire repository. git stash temporarily saves uncommitted changes. git merge combines branches. The branch isolates the developer's changes until they are ready to merge.",
+      "sourceUrl": "https://git-scm.com/docs/git-branch",
+      "difficulty": "easy",
+      "tags": [
+        "git",
+        "branching"
+      ]
+    },
+    {
+      "id": "se1-q05",
+      "objectiveCode": "1.6",
+      "type": "multiple_choice",
+      "question": "In the MVC design pattern, which component is responsible for handling user input and updating the data model?",
+      "options": [
+        "A) Model",
+        "B) View",
+        "C) Controller",
+        "D) Observer"
+      ],
+      "correctAnswer": "C",
+      "explanation": "The Controller receives user input (e.g., button clicks, form submissions), processes it, updates the Model with new data, and selects the appropriate View to render. The Model manages data and business logic. The View renders the UI. The Observer is a separate design pattern, not part of MVC.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Glossary/MVC",
+      "difficulty": "medium",
+      "tags": [
+        "mvc",
+        "design-patterns"
+      ]
+    },
+    {
+      "id": "se1-q06",
+      "objectiveCode": "2.1",
+      "type": "multiple_choice",
+      "question": "Which HTTP method should be used to update an existing resource completely, replacing all of its fields?",
+      "options": [
+        "A) POST",
+        "B) PUT",
+        "C) PATCH",
+        "D) GET"
+      ],
+      "correctAnswer": "B",
+      "explanation": "PUT replaces the entire resource with the new representation sent in the request body. PATCH is for partial updates (modifying only specific fields). POST is for creating new resources. GET is for retrieving resources. PUT is idempotent; calling it multiple times with the same data produces the same result.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PUT",
+      "difficulty": "easy",
+      "tags": [
+        "rest",
+        "http-methods"
+      ]
+    },
+    {
+      "id": "se1-q07",
+      "objectiveCode": "2.4",
+      "type": "multiple_choice",
+      "question": "An API returns HTTP status code 201. What does this indicate?",
+      "options": [
+        "A) The request was successful and the resource was retrieved",
+        "B) The request was successful and a new resource was created",
+        "C) The request was accepted for processing but not yet complete",
+        "D) The request was successful with no content to return"
+      ],
+      "correctAnswer": "B",
+      "explanation": "201 Created indicates that the request was successful and a new resource was created. It is typically returned in response to a POST request. 200 OK is for successful retrieval. 202 Accepted means the request was accepted but processing is not complete (asynchronous). 204 No Content means success with no response body (common for DELETE).",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201",
+      "difficulty": "easy",
+      "tags": [
+        "http",
+        "status-codes"
+      ]
+    },
+    {
+      "id": "se1-q08",
+      "objectiveCode": "2.7",
+      "type": "multiple_choice",
+      "question": "Which authentication mechanism sends credentials encoded (but not encrypted) in Base64 with every request?",
+      "options": [
+        "A) OAuth 2.0 Bearer Token",
+        "B) API Key in header",
+        "C) HTTP Basic Authentication",
+        "D) JWT Token"
+      ],
+      "correctAnswer": "C",
+      "explanation": "HTTP Basic Authentication encodes username:password in Base64 and sends it in the Authorization header with every request (Authorization: Basic <base64string>). Base64 is encoding, not encryption, so it is easily decoded. This is why Basic Auth must always be used over HTTPS. Bearer tokens, API keys, and JWT tokens are different mechanisms.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme",
+      "difficulty": "medium",
+      "tags": [
+        "authentication",
+        "basic-auth"
+      ]
+    },
+    {
+      "id": "se1-q09",
+      "objectiveCode": "2.9",
+      "type": "multiple_choice",
+      "question": "What is the correct way to send a JSON body in a POST request using Python's requests library?",
+      "options": [
+        "A) requests.post(url, body={'key': 'value'})",
+        "B) requests.post(url, json={'key': 'value'})",
+        "C) requests.post(url, data={'key': 'value'})",
+        "D) requests.post(url, payload={'key': 'value'})"
+      ],
+      "correctAnswer": "B",
+      "explanation": "The json= parameter automatically serializes the Python dict to a JSON string and sets the Content-Type header to application/json. data= sends form-encoded data (not JSON). There is no body= or payload= parameter in the requests library. Using data=json.dumps(dict) with a manual Content-Type header also works but is less convenient.",
+      "sourceUrl": "https://docs.python-requests.org/en/latest/user/quickstart/#more-complicated-post-requests",
+      "difficulty": "easy",
+      "tags": [
+        "python",
+        "requests",
+        "json"
+      ]
+    },
+    {
+      "id": "se1-q10",
+      "objectiveCode": "2.2",
+      "type": "multiple_choice",
+      "question": "A developer wants to receive real-time notifications when a new message is posted in a Webex room. What approach should they use?",
+      "options": [
+        "A) Poll the messages API every 5 seconds",
+        "B) Create a webhook subscription for the messages resource",
+        "C) Open a persistent TCP socket to the Webex server",
+        "D) Use SNMP traps to monitor the room"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Webhooks are the correct approach for real-time event-driven notifications. When a new message is posted, Webex sends an HTTP POST to the registered webhook URL. Polling wastes API calls and introduces delay. Persistent TCP sockets are not part of the Webex API model. SNMP is for network device monitoring, not collaboration platforms.",
+      "sourceUrl": "https://developer.webex.com/docs/api/v1/webhooks",
+      "difficulty": "medium",
+      "tags": [
+        "webhooks",
+        "webex",
+        "event-driven"
+      ]
+    },
+    {
+      "id": "se1-q11",
+      "objectiveCode": "2.5",
+      "type": "multiple_choice",
+      "question": "An API call to GET /api/v1/devices returns HTTP 429. What should the application do?",
+      "options": [
+        "A) Retry the request immediately",
+        "B) Fix the authentication credentials and retry",
+        "C) Wait for the time specified in the Retry-After header before retrying",
+        "D) Change the HTTP method to POST"
+      ],
+      "correctAnswer": "C",
+      "explanation": "HTTP 429 Too Many Requests means the client has exceeded the API rate limit. The response often includes a Retry-After header indicating how many seconds to wait. The application should implement backoff and wait before retrying. Retrying immediately would hit the rate limit again. 429 is not an authentication error (that would be 401).",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
+      "difficulty": "medium",
+      "tags": [
+        "http",
+        "rate-limiting",
+        "troubleshooting"
+      ]
+    },
+    {
+      "id": "se1-q12",
+      "objectiveCode": "3.2",
+      "type": "multiple_choice",
+      "question": "Which Cisco platform provides cloud-managed networking and uses the X-Cisco-Meraki-API-Key header for API authentication?",
+      "options": [
+        "A) Cisco ACI",
+        "B) Cisco Catalyst Center",
+        "C) Cisco Meraki",
+        "D) Cisco NSO"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Cisco Meraki is the cloud-managed networking platform that uses an API key in the X-Cisco-Meraki-API-Key header. ACI uses username/password to get a session cookie. Catalyst Center uses a token obtained via Basic Auth. NSO supports RESTCONF with various auth methods. Meraki's API base URL is https://api.meraki.com/api/v1.",
+      "sourceUrl": "https://developer.cisco.com/meraki/api-v1/authorization/",
+      "difficulty": "easy",
+      "tags": [
+        "meraki",
+        "authentication",
+        "cisco-platforms"
+      ]
+    },
+    {
+      "id": "se1-q13",
+      "objectiveCode": "3.8",
+      "type": "multiple_choice",
+      "question": "What port does NETCONF use by default and what transport protocol does it run over?",
+      "options": [
+        "A) TCP port 443 over HTTPS",
+        "B) TCP port 830 over SSH",
+        "C) UDP port 161 over SNMP",
+        "D) TCP port 80 over HTTP"
+      ],
+      "correctAnswer": "B",
+      "explanation": "NETCONF uses TCP port 830 and runs over SSH as its transport protocol (as defined in RFC 6242). The data encoding is XML. RESTCONF uses TCP 443 (HTTPS). SNMP uses UDP 161. NETCONF provides features like candidate configuration datastores, commit/rollback, locking, and validation that are not available with CLI-based management.",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc6241",
+      "difficulty": "medium",
+      "tags": [
+        "netconf",
+        "ports",
+        "transport"
+      ]
+    },
+    {
+      "id": "se1-q14",
+      "objectiveCode": "3.6",
+      "type": "multiple_choice",
+      "question": "Which data encoding formats does RESTCONF support on IOS XE devices?",
+      "options": [
+        "A) JSON only",
+        "B) XML only",
+        "C) Both JSON and XML",
+        "D) YAML and JSON"
+      ],
+      "correctAnswer": "C",
+      "explanation": "RESTCONF supports both JSON (Accept: application/yang-data+json) and XML (Accept: application/yang-data+xml) encoding. NETCONF supports only XML. The client specifies the desired format using the Accept header. JSON is typically more convenient for developers, while XML maintains compatibility with existing NETCONF-based tooling. YAML is not a supported RESTCONF encoding.",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc8040#section-5",
+      "difficulty": "medium",
+      "tags": [
+        "restconf",
+        "encoding",
+        "json",
+        "xml"
+      ]
+    },
+    {
+      "id": "se1-q15",
+      "objectiveCode": "3.7",
+      "type": "multiple_choice",
+      "question": "A developer wants to test their Meraki API script against a real Meraki environment without purchasing hardware. Which DevNet resource should they use?",
+      "options": [
+        "A) DevNet Code Exchange",
+        "B) DevNet Learning Labs",
+        "C) DevNet Sandbox",
+        "D) DevNet Support Forums"
+      ],
+      "correctAnswer": "C",
+      "explanation": "DevNet Sandbox provides free, pre-configured lab environments with real Cisco platforms. The Meraki Always-On Sandbox provides a read-only Dashboard for API testing. Code Exchange is for sharing community projects. Learning Labs are guided tutorials. Forums provide peer support. Sandboxes can be Always-On (shared) or Reservable (dedicated, time-limited).",
+      "sourceUrl": "https://developer.cisco.com/site/sandbox/",
+      "difficulty": "easy",
+      "tags": [
+        "devnet",
+        "sandbox",
+        "meraki"
+      ]
+    },
+    {
+      "id": "se1-q16",
+      "objectiveCode": "3.9",
+      "type": "multiple_choice",
+      "question": "Which Catalyst Center API endpoint returns a list of all discovered network devices?",
+      "options": [
+        "A) GET /dna/intent/api/v1/network-device",
+        "B) POST /dna/intent/api/v1/network-device",
+        "C) GET /dna/intent/api/v1/site-health",
+        "D) GET /dna/intent/api/v1/topology"
+      ],
+      "correctAnswer": "A",
+      "explanation": "GET /dna/intent/api/v1/network-device returns the list of all discovered devices in Catalyst Center, including hostname, management IP, platform, software version, and role. POST would be used to add a device. site-health returns health metrics. topology returns network topology data. The 'Intent API' prefix indicates high-level business operations.",
+      "sourceUrl": "https://developer.cisco.com/docs/dna-center/getting-started/",
+      "difficulty": "medium",
+      "tags": [
+        "catalyst-center",
+        "api",
+        "devices"
+      ]
+    },
+    {
+      "id": "se1-q17",
+      "objectiveCode": "4.3",
+      "type": "multiple_choice",
+      "question": "Which deployment type shares the host operating system kernel, starts in seconds, and is most commonly used for microservices?",
+      "options": [
+        "A) Virtual machines",
+        "B) Bare metal",
+        "C) Containers",
+        "D) Serverless functions"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Containers share the host OS kernel, making them lightweight and fast to start (seconds vs. minutes for VMs). They are ideal for microservices due to their small footprint, portability, and rapid scaling. VMs include a full guest OS and take minutes to boot. Bare metal has no virtualization overhead but no isolation. Docker is the most common container runtime.",
+      "sourceUrl": "https://docs.docker.com/get-started/overview/",
+      "difficulty": "easy",
+      "tags": [
+        "containers",
+        "docker",
+        "deployment"
+      ]
+    },
+    {
+      "id": "se1-q18",
+      "objectiveCode": "4.6",
+      "type": "multiple_choice",
+      "question": "What does the following Dockerfile instruction do?\n\nRUN pip install --no-cache-dir -r requirements.txt",
+      "options": [
+        "A) Installs Python packages when the container starts",
+        "B) Installs Python packages during the image build process",
+        "C) Copies the requirements.txt file from the host",
+        "D) Sets the default command for the container"
+      ],
+      "correctAnswer": "B",
+      "explanation": "RUN executes commands during the docker build process, creating a new image layer. This instruction installs Python packages specified in requirements.txt at build time. --no-cache-dir prevents pip from caching downloads, keeping the image smaller. CMD would set the default startup command. COPY would copy files. The packages are baked into the image, so containers start with them already installed.",
+      "sourceUrl": "https://docs.docker.com/reference/dockerfile/#run",
+      "difficulty": "medium",
+      "tags": [
+        "docker",
+        "dockerfile",
+        "build"
+      ]
+    },
+    {
+      "id": "se1-q19",
+      "objectiveCode": "4.10",
+      "type": "multiple_choice",
+      "question": "A web application constructs SQL queries by concatenating user input directly into the query string. Which OWASP threat is this application vulnerable to?",
+      "options": [
+        "A) Cross-Site Scripting (XSS)",
+        "B) SQL Injection",
+        "C) Cross-Site Request Forgery (CSRF)",
+        "D) Insecure Deserialization"
+      ],
+      "correctAnswer": "B",
+      "explanation": "SQL Injection occurs when untrusted user input is inserted directly into SQL queries. An attacker can manipulate the query to access, modify, or delete data. Prevention: use parameterized queries (prepared statements) instead of string concatenation. XSS involves injecting JavaScript into web pages. CSRF tricks users into making unwanted requests. Insecure deserialization exploits object deserialization.",
+      "sourceUrl": "https://owasp.org/www-community/attacks/SQL_Injection",
+      "difficulty": "easy",
+      "tags": [
+        "sql-injection",
+        "owasp",
+        "security"
+      ]
+    },
+    {
+      "id": "se1-q20",
+      "objectiveCode": "4.5",
+      "type": "multiple_choice",
+      "question": "Which Python unittest assertion should be used to verify that a function raises a ValueError when given invalid input?",
+      "options": [
+        "A) self.assertEqual(func(bad_input), ValueError)",
+        "B) self.assertRaises(ValueError, func, bad_input)",
+        "C) self.assertTrue(func(bad_input) == ValueError)",
+        "D) self.assertError(ValueError, func, bad_input)"
+      ],
+      "correctAnswer": "B",
+      "explanation": "self.assertRaises(ExceptionType, callable, *args) verifies that calling the function with the given arguments raises the specified exception. It can also be used as a context manager: with self.assertRaises(ValueError): func(bad_input). assertError does not exist in unittest. assertEqual and assertTrue do not handle exception testing properly.",
+      "sourceUrl": "https://docs.python.org/3/library/unittest.html#unittest.TestCase.assertRaises",
+      "difficulty": "medium",
+      "tags": [
+        "python",
+        "unittest",
+        "testing"
+      ]
+    },
+    {
+      "id": "se1-q21",
+      "objectiveCode": "4.12",
+      "type": "multiple_choice",
+      "question": "Which DevOps principle is best described as 'defining infrastructure in version-controlled configuration files rather than manually configuring servers'?",
+      "options": [
+        "A) Continuous Integration",
+        "B) Infrastructure as Code",
+        "C) Microservices Architecture",
+        "D) Shift Left Testing"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Infrastructure as Code (IaC) treats infrastructure configuration as software: defined in files, stored in version control, reviewed through pull requests, and applied through automation tools (Terraform, Ansible, CloudFormation). CI is about automatically building and testing code. Microservices is an architecture pattern. Shift Left means testing earlier in development.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/computing/what-is-iac.html",
+      "difficulty": "easy",
+      "tags": [
+        "devops",
+        "iac",
+        "infrastructure"
+      ]
+    },
+    {
+      "id": "se1-q22",
+      "objectiveCode": "5.6",
+      "type": "multiple_choice",
+      "question": "Which automation tool is agentless, uses YAML-based playbooks, and communicates with network devices via SSH or NETCONF?",
+      "options": [
+        "A) Terraform",
+        "B) Puppet",
+        "C) Ansible",
+        "D) Chef"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Ansible is agentless (no software needs to be installed on managed devices), uses YAML playbooks for defining automation tasks, and communicates via SSH (for Linux/network devices) or NETCONF. Terraform uses HCL (HashiCorp Configuration Language) and is focused on infrastructure provisioning. Puppet and Chef require agents installed on managed nodes and use their own DSLs.",
+      "sourceUrl": "https://docs.ansible.com/ansible/latest/network/index.html",
+      "difficulty": "easy",
+      "tags": [
+        "ansible",
+        "automation",
+        "agentless"
+      ]
+    },
+    {
+      "id": "se1-q23",
+      "objectiveCode": "5.11",
+      "type": "multiple_choice",
+      "question": "In a YANG model, which keyword defines a collection of entries identified by one or more key fields, similar to rows in a database table?",
+      "options": [
+        "A) container",
+        "B) leaf",
+        "C) list",
+        "D) leaf-list"
+      ],
+      "correctAnswer": "C",
+      "explanation": "A YANG 'list' defines a sequence of entries, each identified by one or more key leaves. For example, 'list interface { key name; }' creates a collection of interfaces where each entry is uniquely identified by its name. A container is a grouping node. A leaf holds a single value. A leaf-list holds multiple scalar values without keys.",
+      "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc7950#section-7.8",
+      "difficulty": "medium",
+      "tags": [
+        "yang",
+        "data-model",
+        "list"
+      ]
+    },
+    {
+      "id": "se1-q24",
+      "objectiveCode": "5.12",
+      "type": "multiple_choice",
+      "question": "In a unified diff output, what does a line prefixed with '+' indicate?",
+      "options": [
+        "A) The line was removed from the file",
+        "B) The line was added to the file",
+        "C) The line is unchanged context",
+        "D) The line contains a conflict marker"
+      ],
+      "correctAnswer": "B",
+      "explanation": "In unified diff format: '+' indicates a line was added, '-' indicates a line was removed, and a space ' ' indicates an unchanged context line. The @@ markers show the line number ranges. Lines with '---' and '+++' at the top indicate the old and new file names respectively. This format is used by git diff, pull requests, and patch files.",
+      "sourceUrl": "https://www.gnu.org/software/diffutils/manual/html_node/Unified-Format.html",
+      "difficulty": "easy",
+      "tags": [
+        "diff",
+        "unified-diff",
+        "code-review"
+      ]
+    },
+    {
+      "id": "se1-q25",
+      "objectiveCode": "5.8",
+      "type": "multiple_choice",
+      "question": "What does the following Ansible task automate?\n\n- name: Ensure nginx is running\n  ansible.builtin.service:\n    name: nginx\n    state: started\n    enabled: yes",
+      "options": [
+        "A) Installing the nginx package",
+        "B) Starting nginx and enabling it to start on boot",
+        "C) Stopping and removing nginx",
+        "D) Restarting nginx to apply configuration changes"
+      ],
+      "correctAnswer": "B",
+      "explanation": "The service module with state=started ensures nginx is running (starts it if stopped). enabled=yes ensures it starts automatically on boot (creates systemd/init symlinks). This task is idempotent: if nginx is already running and enabled, no action is taken. To install nginx, you would use the apt or yum module. state=restarted would restart the service. state=stopped would stop it.",
+      "sourceUrl": "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/service_module.html",
+      "difficulty": "medium",
+      "tags": [
+        "ansible",
+        "service",
+        "workflow"
+      ]
+    },
+    {
+      "id": "se1-q26",
+      "objectiveCode": "5.1",
+      "type": "multiple_choice",
+      "question": "What is the primary advantage of model-driven programmability over traditional CLI-based management?",
+      "options": [
+        "A) CLI commands are faster to execute",
+        "B) Structured data models provide consistent, machine-readable interfaces with built-in validation",
+        "C) CLI is more secure than NETCONF",
+        "D) Model-driven approaches do not require authentication"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Model-driven programmability uses structured YANG data models that provide a well-defined contract for what data is available, enforce validation before applying changes, and return machine-readable structured data (JSON/XML) instead of unstructured CLI text that requires screen scraping. It supports transactions (commit/rollback) and is consistent across vendors using standard models (IETF, OpenConfig).",
+      "sourceUrl": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/prog/configuration/1717/b_1717_programmability_cg/m_1717_prog_yang_netconf.html",
+      "difficulty": "medium",
+      "tags": [
+        "model-driven",
+        "yang",
+        "netconf"
+      ]
+    },
+    {
+      "id": "se1-q27",
+      "objectiveCode": "6.1",
+      "type": "multiple_choice",
+      "question": "What is the primary purpose of a VLAN?",
+      "options": [
+        "A) To encrypt network traffic between switches",
+        "B) To segment a physical network into separate broadcast domains",
+        "C) To translate private IP addresses to public addresses",
+        "D) To balance traffic across multiple servers"
+      ],
+      "correctAnswer": "B",
+      "explanation": "VLANs (Virtual Local Area Networks) logically divide a physical network into separate broadcast domains. Devices in different VLANs cannot communicate without a Layer 3 device (router). This reduces broadcast traffic, improves security through isolation, and simplifies network management. Encryption is provided by protocols like MACsec. NAT translates addresses. Load balancers distribute traffic.",
+      "sourceUrl": "https://www.cisco.com/c/en/us/tech/lan-switching/virtual-lans-vlan-trunking-protocol-vlans-vtp/index.html",
+      "difficulty": "easy",
+      "tags": [
+        "vlan",
+        "broadcast-domain",
+        "layer2"
+      ]
+    },
+    {
+      "id": "se1-q28",
+      "objectiveCode": "6.5",
+      "type": "multiple_choice",
+      "question": "Which network device plane is responsible for running routing protocols like OSPF and BGP to build forwarding tables?",
+      "options": [
+        "A) Data plane",
+        "B) Management plane",
+        "C) Control plane",
+        "D) Forwarding plane"
+      ],
+      "correctAnswer": "C",
+      "explanation": "The control plane runs routing protocols (OSPF, BGP, EIGRP), spanning tree (STP), and other protocols that build the forwarding tables. The data plane (also called forwarding plane) forwards actual user traffic based on those tables. The management plane handles device administration (SSH, SNMP, RESTCONF). SDN separates and centralizes the control plane in a controller.",
+      "sourceUrl": "https://www.cisco.com/c/en/us/solutions/software-defined-networking/overview.html",
+      "difficulty": "medium",
+      "tags": [
+        "control-plane",
+        "routing",
+        "network-planes"
+      ]
+    },
+    {
+      "id": "se1-q29",
+      "objectiveCode": "6.7",
+      "type": "multiple_select",
+      "question": "Which TWO of the following are correct port assignments? (Choose 2)",
+      "options": [
+        "A) SSH uses TCP port 22",
+        "B) HTTPS uses TCP port 8080",
+        "C) DNS uses UDP port 53",
+        "D) Telnet uses TCP port 830"
+      ],
+      "correctAnswer": [
+        "A",
+        "C"
+      ],
+      "explanation": "SSH uses TCP port 22, and DNS uses UDP port 53 (and TCP 53 for zone transfers). HTTPS uses TCP port 443, not 8080 (8080 is commonly used for HTTP proxies or alternative web servers). Telnet uses TCP port 23, not 830 (830 is NETCONF).",
+      "sourceUrl": "https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml",
+      "difficulty": "medium",
+      "tags": [
+        "ports",
+        "ssh",
+        "dns"
+      ]
+    },
+    {
+      "id": "se1-q30",
+      "objectiveCode": "6.6",
+      "type": "drag_and_drop",
+      "question": "Match each IP service with its correct description by placing them in order:\n1. DHCP\n2. DNS\n3. NAT\n4. NTP",
+      "options": [
+        "A) Translates domain names to IP addresses",
+        "B) Automatically assigns IP addresses to hosts",
+        "C) Synchronizes clocks across network devices",
+        "D) Translates private IP addresses to public addresses"
+      ],
+      "correctAnswer": [
+        "B",
+        "A",
+        "D",
+        "C"
+      ],
+      "explanation": "DHCP (Dynamic Host Configuration Protocol) automatically assigns IP addresses. DNS (Domain Name System) resolves domain names to IP addresses. NAT (Network Address Translation) converts private IPs to public IPs for internet access. NTP (Network Time Protocol) ensures all devices have synchronized time, which is critical for logging, authentication, and security.",
+      "sourceUrl": "https://www.cloudflare.com/learning/network-layer/what-is-a-protocol/",
+      "difficulty": "easy",
+      "tags": [
+        "dhcp",
+        "dns",
+        "nat",
+        "ntp",
+        "ip-services"
+      ]
+    },
+    {
+      "id": "se1-q31",
+      "objectiveCode": "1.5",
+      "type": "multiple_choice",
+      "question": "A Python developer has written a 500-line script where the same block of code for validating IP addresses appears in 8 different places. Which benefit is gained by extracting that block into a reusable function?",
+      "options": [
+        "A) The script will execute faster because functions use less memory",
+        "B) The logic is defined once and reused, so a bug fix in the function applies everywhere it is called",
+        "C) Functions automatically add error handling to the code",
+        "D) Functions convert the script into an object-oriented program"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Organizing repeated logic into a function follows the DRY (Don't Repeat Yourself) principle. When a bug is found, you fix it in one place and every call site benefits. Functions also improve readability by giving a descriptive name to a block of logic, make testing easier since each function can be unit-tested independently, and promote code reuse across modules. Functions do not inherently add error handling or convert procedural code to OOP.",
+      "sourceUrl": "https://docs.python.org/3/tutorial/controlflow.html#defining-functions",
+      "difficulty": "medium",
+      "tags": [
+        "python",
+        "functions",
+        "code-organization",
+        "dry-principle"
+      ]
+    },
+    {
+      "id": "se1-q32",
+      "objectiveCode": "3.3",
+      "type": "multiple_choice",
+      "question": "Which statement correctly describes the difference between Cisco UCS Manager and Cisco Intersight?",
+      "options": [
+        "A) UCS Manager is cloud-based while Intersight is on-premises only",
+        "B) Intersight is a cloud-based platform that can manage UCS and HyperFlex across multiple domains, while UCS Manager manages a single UCS domain on-premises",
+        "C) UCS Manager uses REST APIs while Intersight only supports CLI management",
+        "D) Intersight replaces UCS Manager and cannot operate alongside it"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Cisco UCS Manager provides on-premises management for a single UCS domain (fabric interconnects, chassis, blades). Cisco Intersight is a cloud-based (SaaS) platform that provides centralized management across multiple UCS domains, HyperFlex clusters, and third-party infrastructure. Intersight can work alongside UCS Manager through Intersight Managed Mode (IMM) or claim UCS domains via Device Connector. Both platforms expose REST APIs for automation.",
+      "sourceUrl": "https://developer.cisco.com/docs/intersight/",
+      "difficulty": "medium",
+      "tags": [
+        "ucs-manager",
+        "intersight",
+        "compute",
+        "cisco-platforms"
+      ]
+    },
+    {
+      "id": "se1-q33",
+      "objectiveCode": "4.9",
+      "type": "multiple_choice",
+      "question": "A web application is deployed behind a device that terminates client HTTPS connections, inspects the traffic, and then forwards requests to one of several backend servers based on the URL path. Which combination of network functions is this device performing?",
+      "options": [
+        "A) Firewall and DNS server",
+        "B) Reverse proxy and load balancer",
+        "C) Forward proxy and NAT gateway",
+        "D) DNS resolver and firewall"
+      ],
+      "correctAnswer": "B",
+      "explanation": "A reverse proxy sits in front of backend servers, terminates client connections (including SSL/TLS), and forwards requests on behalf of the servers. When it also distributes requests across multiple backend servers based on rules (such as URL path, round-robin, or least connections), it acts as a load balancer. Nginx and HAProxy commonly serve both roles. A forward proxy acts on behalf of clients. A firewall filters traffic based on security rules. DNS resolves domain names to IP addresses.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Proxy_servers_and_tunneling",
+      "difficulty": "medium",
+      "tags": [
+        "reverse-proxy",
+        "load-balancer",
+        "application-deployment",
+        "https"
+      ]
+    },
+    {
+      "id": "se1-q34",
+      "objectiveCode": "5.4",
+      "type": "multiple_choice",
+      "question": "How does a CI/CD pipeline benefit infrastructure automation compared to manually applying configuration changes?",
+      "options": [
+        "A) CI/CD pipelines eliminate the need for version control",
+        "B) CI/CD pipelines automatically test infrastructure changes, enforce approval gates, and provide consistent, repeatable deployments with full audit trails",
+        "C) CI/CD pipelines only work with public cloud infrastructure",
+        "D) CI/CD pipelines replace the need for tools like Ansible and Terraform"
+      ],
+      "correctAnswer": "B",
+      "explanation": "In infrastructure automation, CI/CD pipelines provide several key benefits: automated linting and syntax validation of configuration files (e.g., Terraform plan, Ansible --check), integration tests that verify changes in a staging environment before production, approval gates that require review before applying changes, consistent and repeatable execution that eliminates human error, and a full audit trail of who changed what and when. CI/CD pipelines work alongside tools like Ansible, Terraform, and version control systems, not as replacements for them.",
+      "sourceUrl": "https://developer.cisco.com/docs/network-automation-delivery-model/cicd/",
+      "difficulty": "medium",
+      "tags": [
+        "cicd",
+        "infrastructure-automation",
+        "devops",
+        "pipeline"
+      ]
+    },
+    {
+      "id": "se1-q35",
+      "objectiveCode": "6.8",
+      "type": "multiple_choice",
+      "question": "A developer's application on host 10.1.1.50 cannot reach a REST API server at 203.0.113.10:443. The developer can ping 203.0.113.10 successfully, but 'curl https://203.0.113.10' times out. What is the most likely cause?",
+      "options": [
+        "A) The DNS server is not resolving the API server's hostname",
+        "B) A firewall is blocking TCP port 443 between the client and the server",
+        "C) The default gateway on the developer's host is misconfigured",
+        "D) The NAT translation table on the router is full"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Since ping (ICMP) succeeds, basic IP connectivity and routing are working, which rules out default gateway misconfiguration and NAT translation issues. The problem is specific to TCP port 443 (HTTPS). A firewall between the client and server is likely blocking TCP 443 while allowing ICMP. DNS is not the issue because the developer is using an IP address directly, not a hostname. Common troubleshooting steps include: checking firewall rules, using telnet or nc to test port reachability, and reviewing ACLs on intermediate network devices.",
+      "sourceUrl": "https://www.cloudflare.com/learning/network-layer/what-is-a-computer-port/",
+      "difficulty": "medium",
+      "tags": [
+        "troubleshooting",
+        "firewall",
+        "connectivity",
+        "transport-port"
+      ]
+    },
+    {
+      "id": "se1-q36",
+      "objectiveCode": "1.6",
+      "type": "multiple_choice",
+      "question": "In the Observer design pattern, when the subject's state changes, what happens to its registered observers?",
+      "options": [
+        "A) Observers must poll the subject periodically to detect changes",
+        "B) All registered observers are automatically notified of the state change",
+        "C) Only the first registered observer receives the notification",
+        "D) The subject is responsible for modifying each observer's internal state"
+      ],
+      "correctAnswer": "B",
+      "explanation": "In the Observer pattern, the subject maintains a list of observers and automatically notifies all of them when its state changes (publish-subscribe model). Observers do not need to poll. All observers are notified, not just the first one. The subject notifies observers of the change, but each observer decides independently how to react—the subject does not directly modify observer state.",
+      "sourceUrl": "https://refactoring.guru/design-patterns/observer",
+      "difficulty": "medium",
+      "tags": [
+        "observer-pattern",
+        "design-patterns",
+        "publish-subscribe"
+      ]
+    },
+    {
+      "id": "se1-q37",
+      "objectiveCode": "2.6",
+      "type": "multiple_choice",
+      "question": "Which HTTP request header tells the server what data format the client is willing to accept in the response?",
+      "options": [
+        "A) Content-Type",
+        "B) Accept",
+        "C) Authorization",
+        "D) Host"
+      ],
+      "correctAnswer": "B",
+      "explanation": "The Accept header tells the server which media types the client can process (e.g., Accept: application/json). Content-Type specifies the format of the request body being sent. Authorization carries authentication credentials. Host identifies the target server. In content negotiation, the server uses the Accept header to determine which response format to return.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept",
+      "difficulty": "easy",
+      "tags": [
+        "http",
+        "headers",
+        "content-negotiation"
+      ]
+    },
+    {
+      "id": "se1-q38",
+      "objectiveCode": "3.1",
+      "type": "multiple_choice",
+      "question": "A developer wants to list all organizations accessible via the Meraki Dashboard API. Which curl command is correct?",
+      "options": [
+        "A) curl -H \"X-Cisco-Meraki-API-Key: YOUR_KEY\" https://api.meraki.com/api/v1/organizations",
+        "B) curl -H \"Authorization: Basic YOUR_KEY\" https://api.meraki.com/api/v1/organizations",
+        "C) curl -H \"X-Cisco-Meraki-API-Key: YOUR_KEY\" https://dashboard.meraki.com/organizations",
+        "D) curl https://api.meraki.com/api/v1/organizations?apikey=YOUR_KEY"
+      ],
+      "correctAnswer": "A",
+      "explanation": "The Meraki Dashboard API authenticates using an API key in the X-Cisco-Meraki-API-Key header, and the base URL is https://api.meraki.com/api/v1. Option B uses HTTP Basic Auth, which is not the Meraki authentication method. Option C targets dashboard.meraki.com (the web UI), not the API endpoint. Option D passes the key as a query parameter, but Meraki requires it as a header.",
+      "sourceUrl": "https://developer.cisco.com/meraki/api-v1/authorization/",
+      "difficulty": "medium",
+      "tags": [
+        "meraki",
+        "api",
+        "curl",
+        "authentication"
+      ]
+    },
+    {
+      "id": "se1-q39",
+      "objectiveCode": "6.2",
+      "type": "multiple_choice",
+      "question": "A network administrator assigns the IP address 10.0.50.1/16 to a router interface. Which of the following IP addresses is on the same subnet?",
+      "options": [
+        "A) 10.1.50.1",
+        "B) 10.0.255.254",
+        "C) 172.16.50.1",
+        "D) 192.168.50.1"
+      ],
+      "correctAnswer": "B",
+      "explanation": "With a /16 prefix length (subnet mask 255.255.0.0), the network portion is the first two octets. The network is 10.0.0.0/16, covering all addresses from 10.0.0.0 to 10.0.255.255. Only 10.0.255.254 falls within this range. 10.1.50.1 has a different second octet (10.1.x.x network). 172.16.50.1 and 192.168.50.1 are entirely different private address ranges.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/networking/what-is-subnet.html",
+      "difficulty": "medium",
+      "tags": [
+        "ip-addressing",
+        "subnetting",
+        "network-mask"
+      ]
+    },
+    {
+      "id": "se1-q40",
+      "objectiveCode": "6.3",
+      "type": "multiple_choice",
+      "question": "Which network infrastructure component provides wireless LAN connectivity and bridges wireless clients to the wired network?",
+      "options": [
+        "A) Router",
+        "B) Layer 2 Switch",
+        "C) Wireless Access Point (WAP)",
+        "D) Firewall"
+      ],
+      "correctAnswer": "C",
+      "explanation": "A Wireless Access Point bridges wireless clients to the wired LAN infrastructure, converting 802.11 (Wi-Fi) frames to Ethernet frames. Enterprise APs are often managed by a Wireless LAN Controller (WLC) for centralized configuration and monitoring. Routers forward traffic between networks at Layer 3. Switches forward Ethernet frames within a wired network. Firewalls filter traffic based on security policies.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/networking/what-is-wireless-access-point.html",
+      "difficulty": "easy",
+      "tags": [
+        "wireless",
+        "access-point",
+        "network-components",
+        "wifi"
+      ]
+    }
+  ]
+}

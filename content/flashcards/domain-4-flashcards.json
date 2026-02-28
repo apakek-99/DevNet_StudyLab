@@ -1,0 +1,246 @@
+{
+  "domain": 4,
+  "domainName": "Application Deployment and Security",
+  "flashcards": [
+    {
+      "id": "d4-fc-001",
+      "objectiveCode": "4.1",
+      "question": "What is edge computing and what are its primary benefits?",
+      "answer": "Edge computing processes data closer to the source (at the network edge) rather than sending all data to a centralized cloud or data center. Benefits include reduced latency, decreased bandwidth usage, improved reliability for time-sensitive applications, and better data privacy.",
+      "explanation": "Edge computing is important for IoT, autonomous vehicles, video surveillance, and industrial automation where millisecond response times matter. Cisco IOx is an edge computing platform that runs applications on Cisco network devices. The trade-off is reduced centralized visibility and more distributed management complexity. Edge computing complements cloud computing rather than replacing it.",
+      "sourceUrl": "https://developer.cisco.com/docs/iox/",
+      "difficulty": "easy",
+      "tags": [
+        "edge-computing",
+        "iot",
+        "latency",
+        "deployment"
+      ]
+    },
+    {
+      "id": "d4-fc-002",
+      "objectiveCode": "4.2",
+      "question": "What are the key differences between private cloud, public cloud, hybrid cloud, and edge deployment models?",
+      "answer": "Private cloud: Dedicated infrastructure for a single organization (on-premises or hosted). Public cloud: Shared infrastructure provided by a third party (AWS, Azure, GCP). Hybrid cloud: Combination of private and public clouds with data/apps portability. Edge: Processing at or near the data source, outside the traditional data center.",
+      "explanation": "Private cloud offers maximum control and security but higher cost. Public cloud offers scalability and pay-per-use pricing but less control. Hybrid cloud provides flexibility to place workloads where they make the most sense (sensitive data on private, scalable workloads on public). Edge deployment reduces latency but adds management complexity. Most enterprises use a hybrid approach.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/computing/what-is-hybrid-cloud.html",
+      "difficulty": "easy",
+      "tags": [
+        "cloud",
+        "deployment-models",
+        "hybrid",
+        "edge"
+      ]
+    },
+    {
+      "id": "d4-fc-003",
+      "objectiveCode": "4.3",
+      "question": "How do virtual machines, containers, and bare metal differ as deployment types?",
+      "answer": "Bare metal: Application runs directly on physical hardware with no virtualization layer. VM: Application runs on a guest OS inside a hypervisor that virtualizes the hardware. Container: Application runs in an isolated user space sharing the host OS kernel, using a container runtime like Docker.",
+      "explanation": "Bare metal offers maximum performance but no isolation between workloads. VMs provide strong isolation through separate OS instances but consume more resources (each VM needs its own OS). Containers are lightweight (share the host kernel), start in seconds, and use less memory/disk, but provide weaker isolation than VMs. Containers are ideal for microservices; VMs are better for running different OS types or when strong isolation is required.",
+      "sourceUrl": "https://docs.docker.com/get-started/overview/",
+      "difficulty": "medium",
+      "tags": [
+        "vm",
+        "container",
+        "bare-metal",
+        "virtualization"
+      ]
+    },
+    {
+      "id": "d4-fc-004",
+      "objectiveCode": "4.4",
+      "question": "What are the key components of a CI/CD pipeline?",
+      "answer": "1) Source control (Git repository). 2) Build stage (compile code, install dependencies). 3) Test stage (unit tests, integration tests, linting). 4) Deploy stage (push to staging/production). Additional: artifact repository, configuration management, and monitoring.",
+      "explanation": "CI (Continuous Integration) automatically builds and tests code on every commit/merge. CD can mean Continuous Delivery (automated pipeline up to staging, manual production deploy) or Continuous Deployment (fully automated deploy to production). Common CI/CD tools: Jenkins, GitHub Actions, GitLab CI, CircleCI, Travis CI. Each stage acts as a quality gate that must pass before proceeding.",
+      "sourceUrl": "https://www.cisco.com/c/en/us/solutions/data-center/data-center-networking/what-is-ci-cd.html",
+      "difficulty": "medium",
+      "tags": [
+        "cicd",
+        "pipeline",
+        "automation",
+        "devops"
+      ]
+    },
+    {
+      "id": "d4-fc-005",
+      "objectiveCode": "4.5",
+      "question": "How do you write a basic Python unit test using the unittest module?",
+      "answer": "Import unittest, create a class that inherits from unittest.TestCase, define test methods starting with 'test_', and use assertion methods like self.assertEqual(), self.assertTrue(), self.assertRaises(). Run with unittest.main() or the pytest command.",
+      "explanation": "Example: import unittest; class TestCalc(unittest.TestCase): def test_add(self): self.assertEqual(add(2, 3), 5). Key assertions: assertEqual(a, b), assertNotEqual, assertTrue(x), assertFalse(x), assertIsNone(x), assertIn(a, b), assertRaises(Exception, func, args). setUp() runs before each test method, tearDown() runs after. The pytest framework is a popular alternative that uses simple assert statements and auto-discovers test files.",
+      "sourceUrl": "https://docs.python.org/3/library/unittest.html",
+      "difficulty": "medium",
+      "tags": [
+        "python",
+        "unittest",
+        "testing",
+        "tdd"
+      ]
+    },
+    {
+      "id": "d4-fc-006",
+      "objectiveCode": "4.6",
+      "question": "What do the Dockerfile instructions FROM, COPY, RUN, EXPOSE, and CMD do?",
+      "answer": "FROM: Sets the base image (e.g., FROM python:3.11-slim). COPY: Copies files from host to container filesystem. RUN: Executes a command during image build (e.g., install packages). EXPOSE: Documents which port the container listens on. CMD: Specifies the default command to run when the container starts.",
+      "explanation": "A Dockerfile is read top-to-bottom, each instruction creates a layer. FROM must be the first instruction. RUN executes during build time (e.g., RUN pip install -r requirements.txt). CMD runs at container start time (e.g., CMD [\"python\", \"app.py\"]). ENTRYPOINT is similar to CMD but harder to override. WORKDIR sets the working directory. ENV sets environment variables. ARG defines build-time variables. Use .dockerignore to exclude files from the build context.",
+      "sourceUrl": "https://docs.docker.com/reference/dockerfile/",
+      "difficulty": "medium",
+      "tags": [
+        "docker",
+        "dockerfile",
+        "containers",
+        "build"
+      ]
+    },
+    {
+      "id": "d4-fc-007",
+      "objectiveCode": "4.7",
+      "question": "What are three common Docker commands for working with images and containers locally?",
+      "answer": "docker build -t myapp:1.0 . (build an image from a Dockerfile). docker run -d -p 8080:80 myapp:1.0 (run a container in detached mode, mapping port 8080 to container port 80). docker ps (list running containers).",
+      "explanation": "Other essential commands: docker images (list local images), docker pull <image> (download from registry), docker stop <container> (stop a running container), docker rm <container> (remove a stopped container), docker rmi <image> (remove an image), docker logs <container> (view container logs), docker exec -it <container> bash (open a shell in a running container). Use docker-compose for multi-container applications.",
+      "sourceUrl": "https://docs.docker.com/reference/cli/docker/",
+      "difficulty": "medium",
+      "tags": [
+        "docker",
+        "containers",
+        "commands",
+        "local-dev"
+      ]
+    },
+    {
+      "id": "d4-fc-008",
+      "objectiveCode": "4.8",
+      "question": "What are best practices for secret protection in application development?",
+      "answer": "1) Never hardcode secrets in source code or commit them to version control. 2) Use environment variables or a secrets manager (HashiCorp Vault, AWS Secrets Manager). 3) Use .gitignore to exclude files containing secrets. 4) Rotate secrets regularly. 5) Use least-privilege access for service accounts.",
+      "explanation": "Common secrets include API keys, database passwords, encryption keys, and certificates. If a secret is accidentally committed to Git, it remains in the history even after deletion. You must rotate the compromised secret immediately. Tools like git-secrets or pre-commit hooks can prevent accidental commits. In production, use vault-style solutions that provide dynamic, short-lived credentials rather than static secrets.",
+      "sourceUrl": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html",
+      "difficulty": "medium",
+      "tags": [
+        "security",
+        "secrets",
+        "vault",
+        "best-practices"
+      ]
+    },
+    {
+      "id": "d4-fc-009",
+      "objectiveCode": "4.8",
+      "question": "What is the difference between encryption at rest and encryption in transit?",
+      "answer": "Encryption at rest protects stored data (on disk, in databases) using algorithms like AES-256. Encryption in transit protects data moving between systems (over the network) using protocols like TLS/SSL (HTTPS).",
+      "explanation": "Encryption at rest prevents unauthorized access if storage media is stolen or improperly decommissioned. Encryption in transit prevents eavesdropping and man-in-the-middle attacks. TLS (Transport Layer Security) is the standard for encryption in transit, used by HTTPS, SFTP, and secure email. Both types should be used together for defense in depth. Key management (storing and rotating encryption keys) is often the hardest part of implementing encryption.",
+      "sourceUrl": "https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html",
+      "difficulty": "easy",
+      "tags": [
+        "encryption",
+        "tls",
+        "security",
+        "data-protection"
+      ]
+    },
+    {
+      "id": "d4-fc-010",
+      "objectiveCode": "4.9",
+      "question": "What role does a reverse proxy play in application deployment?",
+      "answer": "A reverse proxy sits in front of backend servers and forwards client requests to them. It provides: load balancing across multiple servers, SSL/TLS termination, caching, compression, and security (hiding backend server details from clients).",
+      "explanation": "Popular reverse proxies include Nginx, HAProxy, and Apache. Unlike a forward proxy (which acts on behalf of clients), a reverse proxy acts on behalf of servers. It can route requests based on URL path (e.g., /api goes to backend servers, /static goes to CDN). A load balancer distributes traffic across multiple identical servers using algorithms like round-robin, least connections, or IP hash.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Proxy_servers_and_tunneling",
+      "difficulty": "medium",
+      "tags": [
+        "reverse-proxy",
+        "load-balancer",
+        "nginx",
+        "deployment"
+      ]
+    },
+    {
+      "id": "d4-fc-011",
+      "objectiveCode": "4.10",
+      "question": "What is Cross-Site Scripting (XSS) and how is it prevented?",
+      "answer": "XSS is an injection attack where malicious scripts are injected into trusted web pages. The attacker's script executes in the victim's browser, stealing cookies, session tokens, or sensitive data. Prevention: validate/sanitize all user input, encode output, use Content-Security-Policy headers, and set HttpOnly flag on cookies.",
+      "explanation": "Types of XSS: Stored (persistent, script saved in database), Reflected (script in URL parameter echoed in response), DOM-based (client-side JavaScript vulnerability). XSS is consistently in the OWASP Top 10 threats. Input validation alone is insufficient; output encoding is essential. Framework features like React's JSX auto-escaping or Django's template auto-escaping help prevent XSS by default.",
+      "sourceUrl": "https://owasp.org/www-community/attacks/xss/",
+      "difficulty": "medium",
+      "tags": [
+        "xss",
+        "owasp",
+        "security",
+        "web-security"
+      ]
+    },
+    {
+      "id": "d4-fc-012",
+      "objectiveCode": "4.10",
+      "question": "What is SQL Injection and how is it prevented?",
+      "answer": "SQL Injection occurs when untrusted user input is inserted into SQL queries without proper sanitization, allowing attackers to execute arbitrary SQL commands. Prevention: use parameterized queries (prepared statements), never concatenate user input into SQL strings, use an ORM, and apply least-privilege database permissions.",
+      "explanation": "Example vulnerable code: query = f\"SELECT * FROM users WHERE name = '{user_input}'\". If user_input is \"' OR '1'='1\", it returns all users. Safe code uses parameterized queries: cursor.execute(\"SELECT * FROM users WHERE name = %s\", (user_input,)). SQL injection can lead to data theft, data modification, authentication bypass, or even server compromise. It has been the #1 OWASP vulnerability for many years.",
+      "sourceUrl": "https://owasp.org/www-community/attacks/SQL_Injection",
+      "difficulty": "medium",
+      "tags": [
+        "sql-injection",
+        "owasp",
+        "security",
+        "database"
+      ]
+    },
+    {
+      "id": "d4-fc-013",
+      "objectiveCode": "4.10",
+      "question": "What is CSRF (Cross-Site Request Forgery)?",
+      "answer": "CSRF tricks an authenticated user's browser into sending unwanted requests to a web application where they are logged in. The attacker exploits the fact that the browser automatically includes cookies (including session cookies) with requests to the target site.",
+      "explanation": "Example: A user is logged into their bank. They visit a malicious site with a hidden form that submits a transfer request to the bank. The browser sends the bank's session cookie, making the request appear legitimate. Prevention: use anti-CSRF tokens (unique per-session tokens in forms), SameSite cookie attribute, requiring re-authentication for sensitive operations, and checking the Origin/Referer headers.",
+      "sourceUrl": "https://owasp.org/www-community/attacks/csrf",
+      "difficulty": "medium",
+      "tags": [
+        "csrf",
+        "owasp",
+        "security",
+        "web-security"
+      ]
+    },
+    {
+      "id": "d4-fc-014",
+      "objectiveCode": "4.11",
+      "question": "What are essential Bash commands for file management and directory navigation?",
+      "answer": "Navigation: cd (change directory), pwd (print working directory), ls (list contents). File management: cp (copy), mv (move/rename), rm (remove), mkdir (create directory), touch (create empty file), cat (display file), chmod (change permissions). Environment: export VAR=value, echo $VAR, env (list all variables).",
+      "explanation": "Key concepts: ~ is the home directory, . is current directory, .. is parent directory. Piping (|) sends output of one command as input to another. Redirection: > writes to file (overwrite), >> appends, < reads from file. Important environment variables: PATH (executable search paths), HOME (home directory), USER (current user). Use 'which' or 'type' to find where a command is located.",
+      "sourceUrl": "https://www.gnu.org/software/bash/manual/bash.html",
+      "difficulty": "easy",
+      "tags": [
+        "bash",
+        "cli",
+        "linux",
+        "file-management"
+      ]
+    },
+    {
+      "id": "d4-fc-015",
+      "objectiveCode": "4.12",
+      "question": "What are the core principles of DevOps?",
+      "answer": "DevOps principles include: 1) Culture of collaboration between Dev and Ops teams. 2) Automation of build, test, and deploy processes (CI/CD). 3) Continuous monitoring and feedback. 4) Infrastructure as Code (IaC). 5) Shared responsibility and accountability. Often summarized by the acronym CALMS: Culture, Automation, Lean, Measurement, Sharing.",
+      "explanation": "DevOps breaks down the traditional silos between software development and IT operations. Key practices include continuous integration, continuous delivery, microservices architecture, infrastructure as code, monitoring and logging, and communication/collaboration. The goal is shorter development cycles, increased deployment frequency, and more dependable releases. Tools span the entire pipeline: Git, Jenkins, Docker, Kubernetes, Terraform, Ansible, Prometheus, Grafana.",
+      "sourceUrl": "https://www.cisco.com/site/us/en/learn/topics/computing/what-is-devops.html",
+      "difficulty": "easy",
+      "tags": [
+        "devops",
+        "calms",
+        "automation",
+        "culture"
+      ]
+    },
+    {
+      "id": "d4-fc-016",
+      "objectiveCode": "4.9",
+      "question": "How do DNS and firewalls function in application deployment?",
+      "answer": "DNS (Domain Name System) translates human-readable domain names to IP addresses, enabling users to reach applications by name. Firewalls filter network traffic based on rules (source/destination IP, port, protocol), controlling which traffic can reach application servers and which is blocked.",
+      "explanation": "DNS is critical for service discovery and load balancing (DNS round-robin). DNS records include A (IPv4), AAAA (IPv6), CNAME (alias), MX (mail), and TXT (verification). Firewalls can be network-based (perimeter) or host-based (on the server). Web Application Firewalls (WAF) specifically inspect HTTP traffic for attacks like XSS and SQL injection. Security zones (DMZ) place public-facing servers in a segregated network between external and internal firewalls.",
+      "sourceUrl": "https://developer.mozilla.org/en-US/docs/Glossary/DNS",
+      "difficulty": "medium",
+      "tags": [
+        "dns",
+        "firewall",
+        "networking",
+        "security"
+      ]
+    }
+  ]
+}

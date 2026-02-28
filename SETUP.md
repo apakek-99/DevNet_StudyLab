@@ -1,0 +1,191 @@
+# DevNet StudyLab -- Setup Guide
+
+Complete setup instructions from a fresh clone to a running development environment.
+
+## Prerequisites
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| Node.js | 20+ | JavaScript runtime |
+| npm | 10+ | Package management |
+| Docker | 24+ | PostgreSQL and lab services |
+| Docker Compose | 2.20+ | Multi-container orchestration |
+| Git | 2.40+ | Version control |
+
+Optional:
+- **Python 3.11+** -- Only needed if developing the lab engine locally (instead of via Docker)
+
+## Step 1: Clone and Install Dependencies
+
+```bash
+git clone <repo-url> devnet-studylab
+cd devnet-studylab
+
+# Install root dependencies
+npm install
+
+# Install web app dependencies
+cd apps/web
+npm install
+cd ../..
+```
+
+## Step 2: Start PostgreSQL
+
+The database runs in Docker. Start it with:
+
+```bash
+docker compose -f docker/docker-compose.yml up -d postgres
+```
+
+Verify it's healthy:
+
+```bash
+docker compose -f docker/docker-compose.yml ps
+# Should show studylab-db as "healthy"
+```
+
+Default connection: `postgresql://studylab:studylab_dev_2024@localhost:5432/studylab`
+
+## Step 3: Configure Environment Variables
+
+Create the environment file:
+
+```bash
+cp apps/web/.env.example apps/web/.env.local
+```
+
+Edit `apps/web/.env.local` with your values:
+
+```env
+# Required -- PostgreSQL connection string
+DATABASE_URL=postgresql://studylab:studylab_dev_2024@localhost:5432/studylab
+
+# Required -- Auth.js session encryption key
+# Generate with: openssl rand -base64 32
+AUTH_SECRET=your-generated-secret-here
+
+# Optional -- Enables the AI Tutor feature
+TUTOR_ANTHROPIC_KEY=sk-ant-...
+```
+
+See [docs/ENVIRONMENT_VARIABLES.md](./docs/ENVIRONMENT_VARIABLES.md) for the full variable reference.
+
+## Step 4: Run Database Migrations and Seed
+
+```bash
+cd apps/web
+
+# Generate migration files from the Drizzle schema
+npm run db:generate
+
+# Apply migrations to PostgreSQL
+npm run db:migrate
+
+# Seed content data (domains, objectives, flashcards, exams, labs)
+# Also creates the default dev user: student@devnet.lab / devnet123
+npm run db:seed
+```
+
+## Step 5: Start the Development Server
+
+```bash
+cd apps/web
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+Log in with:
+- **Email:** `student@devnet.lab`
+- **Password:** `devnet123`
+
+## Step 6: Start Lab Services (Optional)
+
+The hands-on labs require the lab engine and mock APIs. Start all Docker services:
+
+```bash
+docker compose -f docker/docker-compose.yml up -d
+```
+
+This starts:
+
+| Service | Port | Purpose |
+|---------|------|---------|
+| PostgreSQL | 5432 | Database |
+| Lab Engine | 8100 | Code execution sandbox |
+| Mock Meraki | 8201 | Meraki Dashboard API simulator |
+| Mock Catalyst | 8202 | Catalyst Center API simulator |
+| Mock Webex | 8203 | Webex Teams API simulator |
+| Gitea | 3001 | Git server for Git labs |
+
+## Running Without Docker
+
+The app works without Docker or PostgreSQL. When `DATABASE_URL` is unset:
+
+- All content loads from JSON files in `content/`
+- Flashcard progress uses localStorage only
+- Exam/lab/study progress is not persisted between sessions
+- Authentication is bypassed (no login required)
+
+This mode is used for E2E testing and quick development.
+
+## Running Tests
+
+```bash
+cd apps/web
+
+# Unit tests (Vitest)
+npm test
+
+# E2E tests (Playwright -- starts its own dev server)
+npm run test:e2e
+
+# Content validation (checks JSON content files)
+npm run test:content
+
+# All unit + content tests
+npm run test:all
+```
+
+## Drizzle Studio
+
+Browse the database visually:
+
+```bash
+cd apps/web
+npm run db:studio
+```
+
+Opens a web UI at [https://local.drizzle.studio](https://local.drizzle.studio).
+
+## Troubleshooting
+
+### Port 5432 already in use
+
+Another PostgreSQL instance is running. Either stop it or change the port in `docker-compose.yml`:
+
+```yaml
+ports:
+  - "5433:5432"  # Use port 5433 instead
+```
+
+Then update `DATABASE_URL` in `.env.local` to use port 5433.
+
+### Migration errors
+
+If migrations fail, reset the database:
+
+```bash
+docker compose -f docker/docker-compose.yml down -v
+docker compose -f docker/docker-compose.yml up -d postgres
+cd apps/web && npm run db:generate && npm run db:migrate && npm run db:seed
+```
+
+### E2E tests fail with login redirect
+
+Make sure `reuseExistingServer` is `false` in `playwright.config.ts` and no other dev server is running on port 3000. Playwright needs to start its own server with `SKIP_AUTH=true`.
+
+### AI Tutor shows "API key not configured"
+
+Set `TUTOR_ANTHROPIC_KEY` in `apps/web/.env.local`. The tutor page still loads without it; you just cannot send messages. (This variable is intentionally named `TUTOR_ANTHROPIC_KEY` rather than `ANTHROPIC_API_KEY` to avoid conflicts with the Claude Code CLI environment.)

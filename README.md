@@ -5,7 +5,7 @@ A full-stack study platform for the **Cisco DevNet Associate (200-901)** certifi
 ## Features
 
 - **Study Hub** -- Track progress across all 6 exam domains with 61 objectives and completion checkboxes
-- **Flashcards** -- SM-2 spaced repetition algorithm with 97 cards across all domains, synced to the database when authenticated
+- **Flashcards** -- SM-2 spaced repetition algorithm with 199 cards across all domains, synced to the database when authenticated
 - **Practice Exams** -- 2 full 40-question practice exams and focused domain quizzes with scoring and attempt history
 - **Study Guides** -- In-depth study guides for all 6 exam domains with objective-level progress tracking
 - **Hands-on Labs** -- 7 labs (Python, REST API, Git, Docker, Bash, Ansible, NETCONF) with a CodeMirror editor featuring syntax highlighting, bracket matching, and autocompletion
@@ -29,6 +29,8 @@ A full-stack study platform for the **Cisco DevNet Associate (200-901)** certifi
 
 ## Quick Start
 
+> **macOS**: Install Docker Desktop first (`brew install --cask docker`) and make sure it's running before step 2.
+
 ```bash
 # 1. Clone and install
 git clone https://github.com/E-Conners-Lab/DevNet_StudyLab.git devnet-studylab
@@ -36,12 +38,14 @@ cd devnet-studylab
 npm install
 cd apps/web && npm install && cd ../..
 
-# 2. Start PostgreSQL
+# 2. Start PostgreSQL (Docker Desktop must be running)
 docker compose -f docker/docker-compose.yml up -d postgres
 
 # 3. Configure environment
 cp apps/web/.env.example apps/web/.env.local
-# Edit .env.local with your values (see docs/ENVIRONMENT_VARIABLES.md)
+# Edit .env.local: generate AUTH_SECRET and optionally uncomment
+# TUTOR_ANTHROPIC_KEY with your API key to enable the AI Tutor
+# (see docs/ENVIRONMENT_VARIABLES.md for details)
 
 # 4. Run migrations and seed data
 cd apps/web

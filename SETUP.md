@@ -12,6 +12,14 @@ Complete setup instructions from a fresh clone to a running development environm
 | Docker Compose | 2.20+ | Multi-container orchestration |
 | Git | 2.40+ | Version control |
 
+**macOS users**: The easiest way to install Docker is via [Docker Desktop](https://www.docker.com/products/docker-desktop/), which includes both Docker and Docker Compose:
+
+```bash
+brew install --cask docker
+```
+
+After installing, **open the Docker Desktop app** and wait for it to finish starting (the whale icon in the menu bar should stop animating). Docker commands will not work until the Docker Desktop daemon is running.
+
 Optional:
 - **Python 3.11+** -- Only needed if developing the lab engine locally (instead of via Docker)
 
@@ -32,7 +40,7 @@ cd ../..
 
 ## Step 2: Start PostgreSQL
 
-The database runs in Docker. Start it with:
+The database runs in Docker. Make sure Docker Desktop is running first (macOS: open the Docker Desktop app), then start PostgreSQL:
 
 ```bash
 docker compose -f docker/docker-compose.yml up -d postgres
@@ -66,8 +74,12 @@ DATABASE_URL=postgresql://studylab:studylab_dev_2024@localhost:5432/studylab
 AUTH_SECRET=your-generated-secret-here
 
 # Optional -- Enables the AI Tutor feature
+# To enable the AI Tutor, remove the leading "#" from the line below
+# and replace with your Anthropic API key (get one at https://console.anthropic.com/)
 TUTOR_ANTHROPIC_KEY=sk-ant-...
 ```
+
+> **Tip:** In the `.env.example` file, `TUTOR_ANTHROPIC_KEY` is commented out with a `#` at the start of the line. To enable it, delete the `#` and the space after it, then paste your actual API key after the `=` sign.
 
 See [docs/ENVIRONMENT_VARIABLES.md](./docs/ENVIRONMENT_VARIABLES.md) for the full variable reference.
 

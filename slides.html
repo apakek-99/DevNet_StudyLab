@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevNet StudyLab — Project Showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --zinc-950: #09090b;
+    --zinc-900: #18181b;
+    --zinc-800: #27272a;
+    --zinc-700: #3f3f46;
+    --zinc-600: #52525b;
+    --zinc-500: #71717a;
+    --zinc-400: #a1a1aa;
+    --zinc-300: #d4d4d8;
+    --zinc-200: #e4e4e7;
+    --zinc-100: #f4f4f5;
+    --emerald-500: #10b981;
+    --emerald-400: #34d399;
+    --emerald-300: #6ee7b7;
+    --emerald-600: #059669;
+    --emerald-900: #064e3b;
+    --amber-400: #fbbf24;
+    --amber-500: #f59e0b;
+    --red-400: #f87171;
+    --blue-400: #60a5fa;
+    --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', 'Fira Code', monospace;
+  }
+
+  body {
+    font-family: var(--font-display);
+    background: var(--zinc-950);
+    color: var(--zinc-100);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  /* ── Slide container ── */
+  .slides-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 80px;
+    opacity: 0;
+    transform: translateX(60px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    pointer-events: none;
+  }
+
+  .slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  .slide.exit-left {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+
+  /* ── Background effects ── */
+  .bg-grid {
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(16,185,129,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(16,185,129,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .bg-glow {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .bg-glow-1 {
+    background: var(--emerald-500);
+    top: -200px;
+    right: -100px;
+  }
+
+  .bg-glow-2 {
+    background: var(--emerald-600);
+    bottom: -300px;
+    left: -200px;
+    opacity: 0.07;
+  }
+
+  /* ── Navigation ── */
+  .nav {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 100;
+  }
+
+  .nav-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--zinc-700);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .nav-dot.active {
+    background: var(--emerald-500);
+    box-shadow: 0 0 12px rgba(16,185,129,0.4);
+    transform: scale(1.3);
+  }
+
+  .nav-arrow {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--zinc-800);
+    border: 1px solid var(--zinc-700);
+    color: var(--zinc-300);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: all 0.2s ease;
+  }
+
+  .nav-arrow:hover {
+    background: var(--zinc-700);
+    border-color: var(--emerald-500);
+    color: var(--emerald-400);
+  }
+
+  /* ── Watermark ── */
+  .watermark {
+    position: fixed;
+    bottom: 32px;
+    right: 40px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--zinc-600);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .watermark svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+  }
+
+  /* ── Slide 1: Hero ── */
+  .hero-top-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--emerald-400);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.5s ease 0.2s forwards;
+  }
+
+  .hero-title {
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1.05;
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeUp 0.5s ease 0.35s forwards;
+  }
+
+  .hero-title .accent {
+    background: linear-gradient(135deg, var(--emerald-400), var(--emerald-300));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-subtitle {
+    font-size: 18px;
+    color: var(--zinc-400);
+    max-width: 560px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.5s ease 0.5s forwards;
+  }
+
+  .stats-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: fadeUp 0.5s ease 0.65s forwards;
+  }
+
+  .stat-card {
+    background: var(--zinc-900);
+    border: 1px solid var(--zinc-800);
+    border-radius: 12px;
+    padding: 18px 24px;
+    min-width: 140px;
+    transition: border-color 0.2s;
+  }
+
+  .stat-card:hover {
+    border-color: var(--zinc-700);
+  }
+
+  .stat-number {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--emerald-400);
+    font-family: var(--font-mono);
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--zinc-500);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .tech-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.5s ease 0.8s forwards;
+  }
+
+  .tech-badge {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    background: var(--zinc-900);
+    border: 1px solid var(--zinc-800);
+    color: var(--zinc-400);
+  }
+
+  /* ── Dashboard mockup (right side of slide 1) ── */
+  .dashboard-mockup {
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 420px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.6s forwards;
+  }
+
+  .mock-window {
+    background: var(--zinc-900);
+    border: 1px solid var(--zinc-800);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.4);
+  }
+
+  .mock-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 16px;
+    background: var(--zinc-800);
+    border-bottom: 1px solid var(--zinc-700);
+  }
+
+  .mock-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .mock-dot.red { background: #ef4444; }
+  .mock-dot.yellow { background: #eab308; }
+  .mock-dot.green { background: #22c55e; }
+
+  .mock-titlebar-text {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--zinc-500);
+    margin-left: 8px;
+  }
+
+  .mock-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .mock-progress-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: var(--zinc-950);
+    border: 1px solid var(--zinc-800);
+    border-radius: 8px;
+  }
+
+  .mock-progress-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .mock-progress-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .mock-progress-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--zinc-200);
+    margin-bottom: 5px;
+  }
+
+  .mock-progress-bar-bg {
+    width: 100%;
+    height: 4px;
+    background: var(--zinc-800);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .mock-progress-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: var(--emerald-500);
+    transition: width 1s ease;
+  }
+
+  .mock-progress-pct {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--zinc-500);
+    flex-shrink: 0;
+    width: 32px;
+    text-align: right;
+  }
+
+  /* ── Slide 2: Labs ── */
+  .slide2-header {
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: fadeUp 0.5s ease 0.2s forwards;
+  }
+
+  .slide2-header h2 {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 6px;
+  }
+
+  .slide2-header p {
+    color: var(--zinc-400);
+    font-size: 16px;
+  }
+
+  .slide2-header .highlight {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--emerald-400);
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.2);
+    padding: 4px 10px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .slide2-content {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+  }
+
+  .labs-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 0.5s ease 0.4s forwards;
+  }
+
+  .lab-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    background: var(--zinc-900);
+    border: 1px solid var(--zinc-800);
+    border-radius: 10px;
+    transition: all 0.2s ease;
+  }
+
+  .lab-item:hover {
+    border-color: var(--zinc-700);
+    transform: translateX(4px);
+  }
+
+  .lab-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  .lab-info {
+    flex: 1;
+  }
+
+  .lab-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--zinc-200);
+  }
+
+  .lab-topic {
+    font-size: 11px;
+    color: var(--zinc-500);
+    margin-top: 2px;
+  }
+
+  .lab-badges {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .badge-difficulty {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  .badge-beginner {
+    background: rgba(96,165,250,0.1);
+    color: var(--blue-400);
+    border: 1px solid rgba(96,165,250,0.2);
+  }
+
+  .badge-intermediate {
+    background: rgba(251,191,36,0.1);
+    color: var(--amber-400);
+    border: 1px solid rgba(251,191,36,0.2);
+  }
+
+  .badge-advanced {
+    background: rgba(248,113,113,0.1);
+    color: var(--red-400);
+    border: 1px solid rgba(248,113,113,0.2);
+  }
+
+  .badge-runnable {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(16,185,129,0.1);
+    color: var(--emerald-400);
+    border: 1px solid rgba(16,185,129,0.2);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .badge-runnable::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--emerald-400);
+    box-shadow: 0 0 6px var(--emerald-400);
+  }
+
+  /* ── Lab interface mockup ── */
+  .lab-mockup {
+    width: 400px;
+    flex-shrink: 0;
+    opacity: 0;
+    animation: fadeUp 0.5s ease 0.55s forwards;
+  }
+
+  .lab-mock-window {
+    background: var(--zinc-900);
+    border: 1px solid var(--zinc-800);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.4);
+  }
+
+  .lab-mock-titlebar {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    background: var(--zinc-800);
+    border-bottom: 1px solid var(--zinc-700);
+    gap: 6px;
+  }
+
+  .lab-mock-titlebar .mock-dot { width: 8px; height: 8px; }
+
+  .lab-mock-tab {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-left: 12px;
+  }
+
+  .lab-mock-tab.active-tab {
+    background: var(--zinc-900);
+    color: var(--zinc-200);
+  }
+
+  .lab-mock-tab.inactive-tab {
+    color: var(--zinc-500);
+  }
+
+  .lab-mock-body {
+    display: flex;
+    height: 240px;
+  }
+
+  .lab-mock-panel {
+    flex: 1;
+    padding: 12px;
+    overflow: hidden;
+    border-right: 1px solid var(--zinc-800);
+  }
+
+  .lab-mock-panel:last-child {
+    border-right: none;
+  }
+
+  .lab-mock-panel-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--zinc-600);
+    margin-bottom: 10px;
+  }
+
+  .lab-mock-instructions {
+    font-size: 10px;
+    color: var(--zinc-500);
+    line-height: 1.7;
+  }
+
+  .lab-mock-instructions .heading {
+    color: var(--zinc-300);
+    font-weight: 600;
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+
+  .lab-mock-code {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    line-height: 1.7;
+    color: var(--zinc-400);
+  }
+
+  .lab-mock-code .kw { color: #c586c0; }
+  .lab-mock-code .fn { color: #dcdcaa; }
+  .lab-mock-code .str { color: #ce9178; }
+  .lab-mock-code .cm { color: #6a9955; }
+  .lab-mock-code .var { color: #9cdcfe; }
+
+  .lab-mock-output {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    line-height: 1.7;
+  }
+
+  .lab-mock-output .success { color: var(--emerald-400); }
+  .lab-mock-output .info { color: var(--zinc-400); }
+
+  .lab-mock-statusbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 14px;
+    background: var(--emerald-600);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: white;
+  }
+
+  /* ── Animations ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Responsive for smaller screens ── */
+  @media (max-width: 1100px) {
+    .slide { padding: 40px; }
+    .dashboard-mockup { display: none; }
+    .lab-mockup { display: none; }
+    .slide2-content { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow bg-glow-1"></div>
+<div class="bg-glow bg-glow-2"></div>
+
+<div class="slides-wrapper">
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SLIDE 1: Hero Overview                    -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="slide active" id="slide-1">
+    <div class="hero-top-label">Personal Project // 2025</div>
+
+    <h1 class="hero-title">
+      DevNet<br><span class="accent">StudyLab</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      A full-stack study platform for the Cisco DevNet Associate (200-901) certification exam — built from the official exam topics.
+    </p>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-number">7</div>
+        <div class="stat-label">Interactive Labs</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">6</div>
+        <div class="stat-label">Exam Domains</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">80</div>
+        <div class="stat-label">Practice Questions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Study Tools</div>
+      </div>
+    </div>
+
+    <div class="tech-badges">
+      <span class="tech-badge">Next.js 16</span>
+      <span class="tech-badge">React 19</span>
+      <span class="tech-badge">TypeScript</span>
+      <span class="tech-badge">TailwindCSS v4</span>
+      <span class="tech-badge">Python 3</span>
+      <span class="tech-badge">shadcn/ui</span>
+      <span class="tech-badge">SQLite</span>
+    </div>
+
+    <!-- Dashboard mockup -->
+    <div class="dashboard-mockup">
+      <div class="mock-window">
+        <div class="mock-titlebar">
+          <div class="mock-dot red"></div>
+          <div class="mock-dot yellow"></div>
+          <div class="mock-dot green"></div>
+          <span class="mock-titlebar-text">localhost:3000/dashboard</span>
+        </div>
+        <div class="mock-body">
+          <div class="mock-progress-card">
+            <div class="mock-progress-icon" style="background:rgba(96,165,250,0.1);color:var(--blue-400);">📐</div>
+            <div class="mock-progress-info">
+              <div class="mock-progress-name">Software Development & Design</div>
+              <div class="mock-progress-bar-bg"><div class="mock-progress-bar-fill" style="width:85%"></div></div>
+            </div>
+            <div class="mock-progress-pct">85%</div>
+          </div>
+          <div class="mock-progress-card">
+            <div class="mock-progress-icon" style="background:rgba(16,185,129,0.1);color:var(--emerald-400);">🌐</div>
+            <div class="mock-progress-info">
+              <div class="mock-progress-name">Understanding & Using APIs</div>
+              <div class="mock-progress-bar-bg"><div class="mock-progress-bar-fill" style="width:72%"></div></div>
+            </div>
+            <div class="mock-progress-pct">72%</div>
+          </div>
+          <div class="mock-progress-card">
+            <div class="mock-progress-icon" style="background:rgba(251,191,36,0.1);color:var(--amber-400);">🖥️</div>
+            <div class="mock-progress-info">
+              <div class="mock-progress-name">Cisco Platforms & Development</div>
+              <div class="mock-progress-bar-bg"><div class="mock-progress-bar-fill" style="width:60%"></div></div>
+            </div>
+            <div class="mock-progress-pct">60%</div>
+          </div>
+          <div class="mock-progress-card">
+            <div class="mock-progress-icon" style="background:rgba(248,113,113,0.1);color:var(--red-400);">🔒</div>
+            <div class="mock-progress-info">
+              <div class="mock-progress-name">Application Deployment & Security</div>
+              <div class="mock-progress-bar-bg"><div class="mock-progress-bar-fill" style="width:45%"></div></div>
+            </div>
+            <div class="mock-progress-pct">45%</div>
+          </div>
+          <div class="mock-progress-card">
+            <div class="mock-progress-icon" style="background:rgba(168,85,247,0.1);color:#a855f7;">⚙️</div>
+            <div class="mock-progress-info">
+              <div class="mock-progress-name">Infrastructure & Automation</div>
+              <div class="mock-progress-bar-bg"><div class="mock-progress-bar-fill" style="width:38%"></div></div>
+            </div>
+            <div class="mock-progress-pct">38%</div>
+          </div>
+          <div class="mock-progress-card">
+            <div class="mock-progress-icon" style="background:rgba(244,114,182,0.1);color:#f472b6;">📡</div>
+            <div class="mock-progress-info">
+              <div class="mock-progress-name">Network Fundamentals</div>
+              <div class="mock-progress-bar-bg"><div class="mock-progress-bar-fill" style="width:55%"></div></div>
+            </div>
+            <div class="mock-progress-pct">55%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- SLIDE 2: Interactive Labs                 -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="slide" id="slide-2">
+    <div class="slide2-header">
+      <h2>Interactive Labs</h2>
+      <p>All 7 labs execute real Python code in the browser — no Docker or external setup required.</p>
+      <div class="highlight">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Code runs live via Python subprocess — instant feedback
+      </div>
+    </div>
+
+    <div class="slide2-content">
+      <div class="labs-list">
+        <div class="lab-item">
+          <div class="lab-icon" style="background:rgba(96,165,250,0.1);color:var(--blue-400);">🐍</div>
+          <div class="lab-info">
+            <div class="lab-name">Python Data Parsing</div>
+            <div class="lab-topic">JSON, XML & YAML parsing for network automation</div>
+          </div>
+          <div class="lab-badges">
+            <span class="badge-difficulty badge-beginner">Beginner</span>
+            <span class="badge-runnable">Live</span>
+          </div>
+        </div>
+
+        <div class="lab-item">
+          <div class="lab-icon" style="background:rgba(16,185,129,0.1);color:var(--emerald-400);">🌐</div>
+          <div class="lab-info">
+            <div class="lab-name">REST API Client</div>
+            <div class="lab-topic">GET, POST, PUT, DELETE with Python requests</div>
+          </div>
+          <div class="lab-badges">
+            <span class="badge-difficulty badge-intermediate">Intermediate</span>
+            <span class="badge-runnable">Live</span>
+          </div>
+        </div>
+
+        <div class="lab-item">
+          <div class="lab-icon" style="background:rgba(248,113,113,0.1);color:var(--red-400);">📡</div>
+          <div class="lab-info">
+            <div class="lab-name">NETCONF / RESTCONF</div>
+            <div class="lab-topic">YANG models and device configuration</div>
+          </div>
+          <div class="lab-badges">
+            <span class="badge-difficulty badge-advanced">Advanced</span>
+            <span class="badge-runnable">Live</span>
+          </div>
+        </div>
+
+        <div class="lab-item">
+          <div class="lab-icon" style="background:rgba(251,191,36,0.1);color:var(--amber-400);">📦</div>
+          <div class="lab-info">
+            <div class="lab-name">Docker Containers</div>
+            <div class="lab-topic">Dockerfiles, images, container lifecycle</div>
+          </div>
+          <div class="lab-badges">
+            <span class="badge-difficulty badge-intermediate">Intermediate</span>
+            <span class="badge-runnable">Live</span>
+          </div>
+        </div>
+
+        <div class="lab-item">
+          <div class="lab-icon" style="background:rgba(168,85,247,0.1);color:#a855f7;">🔀</div>
+          <div class="lab-info">
+            <div class="lab-name">Git Version Control</div>
+            <div class="lab-topic">Branching, merging, conflict resolution</div>
+          </div>
+          <div class="lab-badges">
+            <span class="badge-difficulty badge-beginner">Beginner</span>
+            <span class="badge-runnable">Live</span>
+          </div>
+        </div>
+
+        <div class="lab-item">
+          <div class="lab-icon" style="background:rgba(244,114,182,0.1);color:#f472b6;">💻</div>
+          <div class="lab-info">
+            <div class="lab-name">Bash Scripting</div>
+            <div class="lab-topic">Health checks, log parsing, config backups</div>
+          </div>
+          <div class="lab-badges">
+            <span class="badge-difficulty badge-beginner">Beginner</span>
+            <span class="badge-runnable">Live</span>
+          </div>
+        </div>
+
+        <div class="lab-item">
+          <div class="lab-icon" style="background:rgba(248,113,113,0.1);color:var(--red-400);">🤖</div>
+          <div class="lab-info">
+            <div class="lab-name">Ansible Playbooks</div>
+            <div class="lab-topic">Inventory, Jinja2 templates, Cisco IOS modules</div>
+          </div>
+          <div class="lab-badges">
+            <span class="badge-difficulty badge-advanced">Advanced</span>
+            <span class="badge-runnable">Live</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lab interface mockup -->
+      <div class="lab-mockup">
+        <div class="lab-mock-window">
+          <div class="lab-mock-titlebar">
+            <div class="mock-dot red"></div>
+            <div class="mock-dot yellow"></div>
+            <div class="mock-dot green"></div>
+            <span class="lab-mock-tab active-tab">docker-basics</span>
+            <span class="lab-mock-tab inactive-tab">output</span>
+          </div>
+          <div class="lab-mock-body">
+            <div class="lab-mock-panel" style="flex:0.85;">
+              <div class="lab-mock-panel-label">Instructions</div>
+              <div class="lab-mock-instructions">
+                <div class="heading">Task 1: Parse a Dockerfile</div>
+                Parse each instruction and<br>
+                identify its purpose:<br><br>
+                <span style="color:var(--zinc-600)">• FROM — base image</span><br>
+                <span style="color:var(--zinc-600)">• WORKDIR — working dir</span><br>
+                <span style="color:var(--zinc-600)">• COPY — add files</span><br>
+                <span style="color:var(--zinc-600)">• EXPOSE — document port</span><br>
+                <span style="color:var(--zinc-600)">• CMD — default command</span>
+              </div>
+            </div>
+            <div class="lab-mock-panel" style="flex:1.15;">
+              <div class="lab-mock-panel-label">Code Editor</div>
+              <div class="lab-mock-code">
+                <span class="cm"># Parse Dockerfile</span><br>
+                <span class="kw">for</span> <span class="var">line</span> <span class="kw">in</span> <span class="var">dockerfile</span>:<br>
+                &nbsp;&nbsp;<span class="var">parts</span> = <span class="var">line</span>.<span class="fn">split</span>()<br>
+                &nbsp;&nbsp;<span class="fn">print</span>(<span class="str">f"</span>{<span class="var">parts</span>[0]}<span class="str">"</span>)<br>
+                <br>
+                <span class="cm"># Build command</span><br>
+                <span class="var">cmd</span> = <span class="fn">build_cmd</span>(<br>
+                &nbsp;&nbsp;<span class="var">tag</span>=<span class="str">"netcheck:v1"</span><br>
+                )
+              </div>
+            </div>
+            <div class="lab-mock-panel" style="flex:0.85;">
+              <div class="lab-mock-panel-label">Output</div>
+              <div class="lab-mock-output">
+                <span class="success">=== Task 1 ===</span><br>
+                <span class="info">FROM python:3.11</span><br>
+                <span class="info">WORKDIR /app</span><br>
+                <span class="info">COPY app.py .</span><br>
+                <span class="info">EXPOSE 5000</span><br><br>
+                <span class="success">=== Task 2 ===</span><br>
+                <span class="info">docker build</span><br>
+                <span class="info">&nbsp;&nbsp;-t netcheck:v1 .</span>
+              </div>
+            </div>
+          </div>
+          <div class="lab-mock-statusbar">
+            <span>✓ Executed in 0.12s</span>
+            <span>Python 3.12</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button class="nav-arrow" onclick="goSlide(-1)">←</button>
+  <button class="nav-dot active" onclick="goToSlide(0)"></button>
+  <button class="nav-dot" onclick="goToSlide(1)"></button>
+  <button class="nav-arrow" onclick="goSlide(1)">→</button>
+</div>
+
+<!-- Watermark -->
+<div class="watermark">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+  Built with Claude Code
+</div>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.nav-dot');
+
+  function goToSlide(index) {
+    if (index < 0 || index >= slides.length || index === currentSlide) return;
+
+    const direction = index > currentSlide ? 1 : -1;
+
+    // Exit current slide
+    slides[currentSlide].classList.remove('active');
+    slides[currentSlide].classList.add(direction > 0 ? 'exit-left' : '');
+    slides[currentSlide].style.transform = direction > 0 ? 'translateX(-60px)' : 'translateX(60px)';
+    slides[currentSlide].style.opacity = '0';
+    dots[currentSlide].classList.remove('active');
+
+    // Enter new slide
+    currentSlide = index;
+    slides[currentSlide].style.transform = direction > 0 ? 'translateX(60px)' : 'translateX(-60px)';
+
+    requestAnimationFrame(() => {
+      slides[currentSlide].classList.add('active');
+      slides[currentSlide].classList.remove('exit-left');
+      dots[currentSlide].classList.add('active');
+
+      // Re-trigger animations on the new slide
+      const animated = slides[currentSlide].querySelectorAll('[style*="animation"]');
+      slides[currentSlide].querySelectorAll('.hero-top-label, .hero-title, .hero-subtitle, .stats-row, .tech-badges, .dashboard-mockup, .slide2-header, .labs-list, .lab-mockup').forEach(el => {
+        el.style.animation = 'none';
+        el.offsetHeight; // force reflow
+        el.style.animation = '';
+      });
+    });
+  }
+
+  function goSlide(delta) {
+    goToSlide(currentSlide + delta);
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') goSlide(1);
+    if (e.key === 'ArrowLeft') goSlide(-1);
+  });
+</script>
+
+</body>
+</html>

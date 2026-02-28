@@ -137,6 +137,7 @@ export default function PracticePage() {
   const router = useRouter();
   const [domainFilter, setDomainFilter] = useState("all");
   const [selectedDomain, setSelectedDomain] = useState("");
+  const [selectedExam, setSelectedExam] = useState("sample-exam-1");
   const [pastAttempts, setPastAttempts] = useState<PastAttempt[]>(defaultAttempts);
 
   // Fetch real attempts from API (replaces defaults if DB has data)
@@ -247,13 +248,28 @@ export default function PracticePage() {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 text-xs text-zinc-500 mb-4">
-                  <Clock className="h-3 w-3" />
-                  <span>60 minutes</span>
-                </div>
+                <Select value={selectedExam} onValueChange={setSelectedExam}>
+                  <SelectTrigger className="w-full mb-4 bg-zinc-900 border-zinc-700 text-zinc-300 text-xs">
+                    <SelectValue placeholder="Select an exam" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-zinc-900 border-zinc-700">
+                    <SelectItem
+                      value="sample-exam-1"
+                      className="text-zinc-300 text-xs focus:bg-zinc-800 focus:text-zinc-100"
+                    >
+                      Practice Exam 1 — 40 questions
+                    </SelectItem>
+                    <SelectItem
+                      value="sample-exam-2"
+                      className="text-zinc-300 text-xs focus:bg-zinc-800 focus:text-zinc-100"
+                    >
+                      Practice Exam 2 — 40 questions
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
                 <Button
                   className="w-full bg-emerald-600 hover:bg-emerald-500 text-white"
-                  onClick={() => router.push("/dashboard/practice/exam?examId=sample-exam-1")}
+                  onClick={() => router.push(`/dashboard/practice/exam?examId=${selectedExam}`)}
                 >
                   <Play className="h-4 w-4 mr-2" />
                   Start Full Exam

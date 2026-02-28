@@ -34,8 +34,8 @@ Encryption key for Auth.js JWT sessions. Used to sign and verify session tokens.
 
 | Property | Value |
 |----------|-------|
-| Required | Yes (for authentication) |
-| Default | `devnet-studylab-dev-secret-change-in-production` (dev fallback) |
+| Required | Yes |
+| Default | None (throws error if unset) |
 | Format | Base64 string, 32+ bytes |
 
 **Generate a secure value:**
@@ -44,7 +44,7 @@ Encryption key for Auth.js JWT sessions. Used to sign and verify session tokens.
 openssl rand -base64 32
 ```
 
-The dev fallback is set automatically when `AUTH_SECRET` is unset, so authentication works without explicit configuration in development. Always set a unique value in production.
+The application will throw an error on startup if `AUTH_SECRET` is not set. This ensures a secure secret is always explicitly configured.
 
 ---
 
@@ -93,6 +93,20 @@ webServer: {
 
 ---
 
+### `LAB_ENGINE_URL`
+
+URL of the Docker-based lab engine service. Used to proxy code execution requests to the FastAPI lab engine instead of running Python locally.
+
+| Property | Value |
+|----------|-------|
+| Required | No |
+| Default | None |
+| Format | `http://HOST:PORT` (e.g., `http://localhost:8100`) |
+
+When unset, labs that support local execution (Python, API, NETCONF) will run code via a local `python3` subprocess. Labs requiring Docker (Bash, Docker, Ansible) will display a message that the lab engine is required.
+
+---
+
 ### `POSTGRES_PASSWORD`
 
 PostgreSQL password used by Docker Compose. This is a Docker-level variable, not a Next.js variable.
@@ -130,7 +144,8 @@ AUTH_SECRET=your-generated-base64-secret-here
 | Variable | Required | Default | Used By |
 |----------|----------|---------|---------|
 | `DATABASE_URL` | For DB features | None | `lib/db/index.ts`, `middleware.ts`, `lib/auth-helpers.ts` |
-| `AUTH_SECRET` | For auth | Dev fallback | `lib/auth.ts` (Auth.js) |
+| `AUTH_SECRET` | Yes | None | `lib/auth.ts` (Auth.js) |
 | `TUTOR_ANTHROPIC_KEY` | For AI Tutor | None | `api/chat/route.ts` |
 | `SKIP_AUTH` | For testing | Not set | `middleware.ts`, `lib/auth-helpers.ts` |
+| `LAB_ENGINE_URL` | No | None | `api/labs/[slug]/run/route.ts` |
 | `POSTGRES_PASSWORD` | For Docker | `studylab_dev_2024` | `docker/docker-compose.yml` |

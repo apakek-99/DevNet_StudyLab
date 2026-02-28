@@ -28,7 +28,7 @@ DevNet StudyLab content is organized around three primary content types that rei
 | **Practice Questions** | Exam-style assessment with multiple question types | 5-10 per objective (~400 total) | `practice_questions` table |
 | **Labs** | Hands-on coding exercises with auto-grading | 1-2 per objective (~60 total) | `labs` table + exercise files |
 
-All content is mapped to the 57 exam objectives across 6 domains, ensuring complete coverage of the 200-901 exam blueprint.
+All content is mapped to the 61 exam objectives across 6 domains, ensuring complete coverage of the 200-901 exam blueprint.
 
 ---
 
@@ -40,7 +40,7 @@ Content is derived from authoritative sources only. No proprietary exam question
 
 | Source | Type | Usage |
 |--------|------|-------|
-| **Cisco DevNet Associate Exam Blueprint (200-901 v1.0)** | Official | Defines all 57 objectives and domain weights |
+| **Cisco DevNet Associate Exam Blueprint (200-901 v1.1)** | Official | Defines all 61 objectives and domain weights |
 | **Cisco DevNet Documentation** | Official | API references, platform guides, SDK docs |
 | **Cisco Learning Network** | Official | Study materials and community resources |
 | **RFC Documents** | Standard | HTTP (RFC 7230-7235), REST constraints, JSON (RFC 8259) |
@@ -298,7 +298,7 @@ Questions are designed to target specific cognitive levels from Bloom's Taxonomy
 
 ### Objective-Level Coverage
 
-Each of the 57 objectives should have:
+Each of the 61 objectives should have:
 
 | Content Type | Minimum | Target | Maximum |
 |-------------|---------|--------|---------|
@@ -310,14 +310,14 @@ Each of the 57 objectives should have:
 
 | Domain | Objectives | Flashcards | Questions | Labs |
 |--------|-----------|------------|-----------|------|
-| 1. Software Dev | 8 | 6 (sample) | -- | 2 (python-data-parsing, git-basics) |
-| 2. APIs | 9 | 6 (sample) | -- | 1 (rest-api-client) |
-| 3. Cisco Platforms | 7 | 6 (sample) | -- | 1 (netconf-basics) |
-| 4. Deployment | 8 | 6 (sample) | -- | 1 (docker-basics) |
-| 5. Infrastructure | 10 | 6 (sample) | -- | 2 (ansible-network, bash-scripting) |
-| 6. Networking | 9 | 6 (sample) | -- | 0 |
+| 1. Software Dev | 8 | 17 | -- | 2 (python-data-parsing, git-basics) |
+| 2. APIs | 9 | 16 | -- | 1 (rest-api-client) |
+| 3. Cisco Platforms | 9 | 16 | -- | 1 (netconf-basics) |
+| 4. Deployment | 12 | 16 | -- | 1 (docker-basics) |
+| 5. Infrastructure | 14 | 16 | -- | 2 (ansible-network, bash-scripting) |
+| 6. Networking | 9 | 16 | -- | 0 |
 
-**Note:** The sample flashcards represent the initial content seed. Full content population is part of the content development roadmap.
+**Note:** The 97 flashcards represent the initial content seed. Full content population to meet per-objective targets is part of the content development roadmap.
 
 ---
 

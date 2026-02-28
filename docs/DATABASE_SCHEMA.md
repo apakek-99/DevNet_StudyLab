@@ -24,7 +24,7 @@
 
 ## Overview
 
-The database contains **15 tables** and **5 custom enums** organized into five categories:
+The database contains **16 tables** and **5 custom enums** organized into five categories:
 
 | Category | Tables | Purpose |
 |----------|--------|---------|
@@ -540,13 +540,13 @@ The project uses **Drizzle Kit** for schema migrations:
 
 ```bash
 # Generate migration SQL from schema changes
-npx drizzle-kit generate
+npm run db:generate    # drizzle-kit generate
 
-# Push schema directly to database (development)
-npx drizzle-kit push
+# Apply migrations to the database
+npm run db:migrate     # drizzle-kit migrate
 
 # View current database state
-npx drizzle-kit studio
+npm run db:studio      # drizzle-kit studio
 ```
 
 ### Database Initialization
@@ -562,8 +562,8 @@ GRANT ALL PRIVILEGES ON DATABASE studylab TO studylab;
 ### Migration Guidelines
 
 1. **Schema changes** are made in `apps/web/src/lib/db/schema.ts`
-2. **Development:** Use `drizzle-kit push` for rapid iteration
-3. **Production:** Use `drizzle-kit generate` to create versioned SQL migration files
+2. **Development:** Use `npm run db:generate` then `npm run db:migrate` to apply schema changes
+3. **Production:** Same flow -- `db:generate` creates versioned SQL migration files, `db:migrate` applies them
 4. **Destructive changes** (column drops, type changes) require a multi-step migration with data backfill
 5. **Enum changes** in PostgreSQL require `ALTER TYPE` statements -- Drizzle Kit handles this automatically
 6. **New tables** should follow the established patterns: UUID primary keys for user-facing entities, serial IDs for internal/junction tables

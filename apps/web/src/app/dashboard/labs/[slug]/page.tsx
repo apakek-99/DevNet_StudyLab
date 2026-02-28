@@ -25,6 +25,9 @@ import {
   Copy,
   Check,
 } from "lucide-react";
+import CodeMirror from "@uiw/react-codemirror";
+import { python } from "@codemirror/lang-python";
+import { oneDark } from "@codemirror/theme-one-dark";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -143,20 +146,6 @@ function renderMarkdown(text: string): string {
 }
 
 // ---------------------------------------------------------------------------
-// Line Numbers Component
-// ---------------------------------------------------------------------------
-
-function LineNumbers({ count }: { count: number }) {
-  return (
-    <div className="select-none text-right pr-3 py-4 text-xs font-mono text-zinc-600 leading-[1.625rem]">
-      {Array.from({ length: count }, (_, i) => (
-        <div key={i + 1}>{i + 1}</div>
-      ))}
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
 // Lab Execution Page
 // ---------------------------------------------------------------------------
 
@@ -179,7 +168,6 @@ export default function LabExecutionPage() {
   const [executionTime, setExecutionTime] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
 
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const originalCode = useRef("");
 
   // ---- Fetch lab data ----
@@ -278,32 +266,6 @@ export default function LabExecutionPage() {
     }
   }, [lab, hintsRevealed]);
 
-  // ---- Handle tab key in textarea ----
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-      if (e.key === "Tab") {
-        e.preventDefault();
-        const textarea = textareaRef.current;
-        if (!textarea) return;
-
-        const start = textarea.selectionStart;
-        const end = textarea.selectionEnd;
-        const spaces = "    ";
-
-        setCode(
-          (prev) => prev.substring(0, start) + spaces + prev.substring(end)
-        );
-
-        // Restore cursor position after state update
-        requestAnimationFrame(() => {
-          textarea.selectionStart = textarea.selectionEnd =
-            start + spaces.length;
-        });
-      }
-    },
-    []
-  );
-
   // ---- Copy code to clipboard ----
   const handleCopy = useCallback(async () => {
     try {
@@ -314,9 +276,6 @@ export default function LabExecutionPage() {
       // Silently handle
     }
   }, [code]);
-
-  // ---- Compute line count ----
-  const lineCount = code.split("\n").length;
 
   // ---- Loading state ----
   if (loading) {
@@ -559,22 +518,26 @@ export default function LabExecutionPage() {
               </div>
             </div>
 
-            {/* Editor body with line numbers */}
-            <div className="flex-1 flex min-h-0 overflow-hidden">
-              <div className="shrink-0 bg-zinc-950 border-r border-zinc-800 overflow-hidden">
-                <LineNumbers count={lineCount} />
-              </div>
-              <div className="flex-1 min-w-0 overflow-auto">
-                <textarea
-                  ref={textareaRef}
-                  value={code}
-                  onChange={(e) => setCode(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  spellCheck={false}
-                  className="w-full h-full bg-zinc-950 text-zinc-200 text-sm font-mono p-4 resize-none outline-none leading-[1.625rem] placeholder:text-zinc-700"
-                  placeholder="Write your code here..."
-                />
-              </div>
+            {/* CodeMirror Editor */}
+            <div className="flex-1 min-h-0 overflow-auto">
+              <CodeMirror
+                value={code}
+                onChange={(value) => setCode(value)}
+                extensions={[python()]}
+                theme={oneDark}
+                placeholder="Write your code here..."
+                basicSetup={{
+                  lineNumbers: true,
+                  highlightActiveLineGutter: true,
+                  highlightActiveLine: true,
+                  foldGutter: false,
+                  indentOnInput: true,
+                  bracketMatching: true,
+                  autocompletion: true,
+                  tabSize: 4,
+                }}
+                className="h-full [&_.cm-editor]:h-full [&_.cm-editor]:outline-none [&_.cm-scroller]:overflow-auto"
+              />
             </div>
           </div>
 

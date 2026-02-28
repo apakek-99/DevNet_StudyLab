@@ -97,7 +97,16 @@ List all flashcards, optionally filtered by domain.
       "difficulty": "easy",
       "tags": ["rest", "api"]
     }
-  ]
+  ],
+  "total": 97,
+  "byDomain": {
+    "software-dev": 17,
+    "apis": 16,
+    "cisco-platforms": 16,
+    "deployment-security": 16,
+    "infrastructure-automation": 16,
+    "network-fundamentals": 16
+  }
 }
 ```
 
@@ -150,13 +159,23 @@ Save flashcard review result. Persists to both localStorage (client-side) and th
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `flashcardId` | `string` | Yes | Flashcard identifier |
-| `quality` | `number` | Yes | SM-2 rating (1=Again, 2=Hard, 3=Good, 4=Easy) |
+| `quality` | `number` | Yes | SM-2 rating (0-5 scale: 0=blackout, 1=wrong, 2=wrong-but-close, 3=correct-with-difficulty, 4=correct, 5=perfect). The UI uses 1-4 buttons labeled Again, Hard, Good, Easy. |
 | `currentProgress` | `object \| null` | Yes | Current SM-2 state or null for new cards |
 
 **Response:** `200 OK`
 
 ```json
-{ "ok": true }
+{
+  "progress": {
+    "flashcardId": "fc-001",
+    "repetitions": 2,
+    "ease": 2.6,
+    "interval": 6,
+    "nextReview": "2026-03-05T00:00:00.000Z",
+    "lastReview": "2026-02-27T10:00:00.000Z",
+    "quality": 3
+  }
+}
 ```
 
 ---
@@ -361,6 +380,35 @@ Execute submitted code for a lab and grade the result.
 
 ---
 
+### GET /api/labs/{slug}/solution
+
+Get the solution code and expected output for a lab.
+
+**Authentication:** None
+
+**Path Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `slug` | `string` | Lab slug (e.g., `python-data-parsing`) |
+
+**Response:** `200 OK`
+
+```json
+{
+  "solutionCode": "import json\n...",
+  "expectedOutput": "Expected output text..."
+}
+```
+
+**Error Responses:**
+
+| Status | Body | Condition |
+|--------|------|-----------|
+| 404 | `{"error": "Lab \"...\" not found"}` | Invalid lab slug |
+
+---
+
 ### GET /api/labs/attempts
 
 Retrieve lab completion statuses for the authenticated user.
@@ -411,7 +459,7 @@ Retrieve completed study objectives for the authenticated user.
 
 ```json
 {
-  "completedObjectives": ["1.1", "1.2", "2.1"]
+  "completed": ["1.1", "1.2", "2.1"]
 }
 ```
 

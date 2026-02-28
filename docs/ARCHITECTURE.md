@@ -56,7 +56,7 @@ The platform is organized around the six exam domains:
                                   | HTTPS (port 3000)
                                   |
                    +--------------+---------------+
-                   |      Next.js 15 App Server   |
+                   |      Next.js 16 App Server   |
                    |  +---------+  +-----------+  |
                    |  |   App   |  |  API      |  |
                    |  | Router  |  |  Routes   |  |
@@ -131,14 +131,19 @@ app/
     page.tsx              # Dashboard home -- progress overview
     study/
       page.tsx            # Study Hub -- objectives by domain
+      [slug]/page.tsx     # Domain study guide
     labs/
       page.tsx            # Hands-on lab catalog
+      [slug]/page.tsx     # Lab execution environment
     practice/
       page.tsx            # Practice exams and past attempts
+      exam/page.tsx       # Exam-taking interface
     flashcards/
       page.tsx            # Spaced repetition flashcard system
     tutor/
       page.tsx            # AI Tutor chat interface
+    settings/
+      page.tsx            # User settings and preferences
   api/
     chat/
       route.ts            # POST /api/chat -- streaming AI responses
@@ -246,7 +251,7 @@ All mock APIs provide realistic response schemas with pre-populated data so stud
 
 ## Database Schema Overview
 
-The PostgreSQL database contains **15 tables** organized into five categories:
+The PostgreSQL database contains **16 tables** organized into five categories:
 
 ### Auth Tables (4 tables)
 - `users` -- User accounts
@@ -260,10 +265,11 @@ The PostgreSQL database contains **15 tables** organized into five categories:
 - `flashcards` -- Flashcard content (question, answer, explanation)
 - `practice_questions` -- Practice exam questions (multiple types)
 
-### Progress Tables (3 tables)
+### Progress Tables (4 tables)
 - `flashcard_progress` -- SM-2 spaced repetition state per user per card
 - `study_progress` -- Per-objective completion tracking
-- `practice_attempts` / `practice_answers` -- Exam attempt history
+- `practice_attempts` -- Exam attempt records
+- `practice_answers` -- Individual answers within attempts
 
 ### Lab Tables (2 tables)
 - `labs` -- Lab definitions (instructions, starter code, validation)

